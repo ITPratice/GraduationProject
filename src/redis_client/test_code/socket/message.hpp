@@ -10,27 +10,7 @@
 #include <cctype>
 #include "header.hpp"
 
-enum ResultCodes {
-    OK = 0,
-    HDR_MISSING,
-    HDR_MESSAGETYPE_INVALID,
-    HDR_FROMPORT_INVALID,
-    HDR_TOPORT_INVALID,
-    HDR_DATASIZE_INVALID,
-    HDR_COMMAND_INVALID,
-    DAT_INVALID,
-
-    TUNNEL_START_ERR,
-    FORWARDER_CONNECTTO_SLAVEDAEMON_ERR,
-    FORWARDER_CONNECTTO_KDESKDAEMON_ERR,
-    SLAVEDAEMON_FORWARDER_SOCKET_ERR,
-    KDESK_SUBMITJOB_ERR,
-    SLAVEDAEMON_SUBMITJOB_ERR,
-    SLAVEDAEMON_STAGEIN_ERR
-};
-
 #define CMD_SEPERATOR_CHAR '#'
-//const char CMD_SEPERATOR_CHAR = '#';
 
 class Message {
 private:
@@ -45,7 +25,6 @@ public:
     char* GetData() const;
     void SetData(char*buf);
     void ToBytes(char **bytes, unsigned int &msg_size) const;
-    ResultCodes FromBytes(char const * bytes, unsigned int read_size);
     void AddArgv(const std::string &cmd_arg);
     void AddArgv(int cmd_arg);
     void AddArgv(const char* cmd_arg, int cmd_arg_size);

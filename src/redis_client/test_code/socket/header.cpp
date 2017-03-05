@@ -5,7 +5,6 @@ Header::Header(){
     m_to_port = 0;
     m_data_size = 0;
     m_command = CMD_TEST;
-    //m_argc = 0;
 }
 
 Header::Header(MessageTypes type, unsigned int from_port, unsigned int to_port, unsigned int data_size, Commands command){
@@ -14,7 +13,6 @@ Header::Header(MessageTypes type, unsigned int from_port, unsigned int to_port, 
     m_to_port = to_port;
     m_data_size = data_size;
     m_command = command;
-    //m_argc = 0;
 }
 
 Header::~Header()
@@ -69,16 +67,7 @@ Commands Header::GetCommand() const {
     return m_command;
 }
 
-//unsigned int Header::GetCommandArgc() const{
-//  return m_argc;
-//}
-
-//void Header::SetCommandArgc(const unsigned int argc) {
-//  m_argc = argc;
-//}
-
 void Header::GetBytes(const Header& hdr, char ** bytes, unsigned int* size){
-    //std::cout << "Header::GetBytes \n";
     *size = sizeof(int) + sizeof(unsigned int) + sizeof(unsigned int) + sizeof(unsigned int) + sizeof(int);
     *bytes = new char[*size];
     unsigned int offset = 0;
@@ -87,7 +76,4 @@ void Header::GetBytes(const Header& hdr, char ** bytes, unsigned int* size){
     memcpy(*bytes + offset, &hdr.m_to_port, sizeof(unsigned int));offset += sizeof(unsigned int);
     memcpy(*bytes + offset, &hdr.m_data_size, sizeof(unsigned int));offset += sizeof(unsigned int);
     memcpy(*bytes + offset, &hdr.m_command, sizeof(int));
-    //std::cout << "done: size = " << *size << ", offset = " << offset << std::endl;
-    //size = sizeof(Header);
-    //  /return bytes;
 }

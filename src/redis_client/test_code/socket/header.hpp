@@ -23,7 +23,6 @@ private:
     unsigned int m_to_port;
     unsigned int m_data_size;
     Commands m_command;
-    //unsigned int m_argc;
 public:
     Header();
     Header(MessageTypes type, unsigned int from_port, unsigned int to_port, unsigned int data_size, Commands command);
@@ -44,18 +43,11 @@ public:
     void SetCommand(const Commands command);
     Commands GetCommand() const;
 
-    //char** GetCommandArgs();
-
-    //void SetArgc(const unsigned int argc) ;
-    //unsigned int GetArgc() const;
-
 
     unsigned int GetCommandArgc() const;
     void SetCommandArgc(const unsigned int argc) ;
 
-    //static char * ToBytes(const Header& hdr);
     static void GetBytes(const Header& hdr, char ** bytes, unsigned int* size);
-    //static Header* FromBytes(const char* bytes, Header& hdr);
 };
 
 #endif

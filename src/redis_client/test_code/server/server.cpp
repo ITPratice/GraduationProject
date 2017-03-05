@@ -11,6 +11,11 @@
 
 int server_port = 0;
 
+struct FakeData {
+    std::string lat_point;
+    std::string lon_point;
+};
+
 void *ConnectionHandler(void *thrd_args);
 bool ProcessMessage(Message& msg, Socket& socket);
 

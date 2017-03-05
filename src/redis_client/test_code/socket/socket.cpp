@@ -18,7 +18,6 @@ bool Socket::create() {
     m_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (!is_valid())
         return false;
-    // TIME_WAIT - argh
     int on = 1;
     if (setsockopt(m_sock, SOL_SOCKET, SO_REUSEADDR, (const char *)&on, sizeof(on)) == -1)
         return false;
@@ -65,48 +64,37 @@ bool Socket::send ( const std::string s ) const {
     int status = send((char*)&size, sizeof(unsigned int));
 
     status = send(s.c_str(), s.size());
-    //std::cout << status << std::endl;
     return status == (int)s.size();
 }
 
 int Socket::send (const char* bytes, const unsigned int& size) const {
-    //std::cout << "Socket::Send bsize=" << size << ",last byte=" << bytes[size - 1] << std::endl;
     unsigned int out_bytes = 0;
 
     while (out_bytes < size) {
-        // std::cout << "before write to socket: <<  " << size - out_bytes << "\n";
         int n = ::write(m_sock, bytes + out_bytes, size - out_bytes);
         if (n < 0){
-            //printf("[ERROR] Unable to send reponse.\n");
             std::cout << "[ERROR] Unable to send reponse.\n";
             close(m_sock);
             return -1;
         } else
-            if (n == 0) { // connection closed!
-                //printf("[ERROR] Connection has been unexpectedly closed by remote side!\n");
+            if (n == 0) {
                 std::cout <<"[ERROR] Connection has been unexpectedly closed by remote side!\n";
                 close(m_sock);
                 return -2;
             } else {
                 out_bytes += n;
-                //printf("Socket sent (%d bytes).\n", n);
-                //std::cout << "Socket sent (" << n << " bytes).\n";
             }
     }
     return out_bytes;
 }
 
 bool Socket::send (const Message& msg ) const {
-    //std::cout << "Socket::Send message\n";
-    // Send header
     char* hdr; unsigned int hdr_size;
 
     const Header * header = msg.GetHeader();
     Header::GetBytes(*header, &hdr, &hdr_size);
-    //std::cout << "header size = " << hdr_size << std::endl;
 
     if(send(hdr, hdr_size) != (int)hdr_size){
-        //printf("send header fail\n");
         std::cout << "[ERR]Socket::Send send message header fail\n";
         delete[] hdr;
         return false;
@@ -114,7 +102,6 @@ bool Socket::send (const Message& msg ) const {
     delete[] hdr;
 
     // Send data
-    //std::cout << "begin send message data\n";
     const char *data = msg.GetData();
     unsigned int data_size = msg.GetHeader()->GetDataSize();
     if(data != NULL && data_size > 0){
@@ -123,12 +110,8 @@ bool Socket::send (const Message& msg ) const {
             std::cout << "[ERR]Socket::Send message data fail.\n";
             return false;
         } else {
-            //printf("send message data success.");
-            //std::cout << "send message data success.";
         }
     } else {
-        //printf("Message data is emtpy\n");
-        //std::cout << "Message data is emtpy\n";
     }
     return true;
 }
@@ -143,7 +126,6 @@ int Socket::recv(std::string &s) const {
 
     if(sot > 0){
         status = recv (buf, sot);
-        //std::cout << status << std::endl;
         if ( status > 0 ) {
             s = buf;
         }
@@ -156,20 +138,16 @@ int Socket::recv (char* buffer, unsigned int size) const {
     while(in_bytes < size){
         int n = ::read(m_sock, buffer + in_bytes, size - in_bytes);
         if (n < 0){
-            //printf("[ERROR] Unable to recv.\n");
             std::cout << "[ERROR] Unable to recv.\n" ;
             close(m_sock);
             return -1;
         } else
-            if (n == 0) { // connection closed!
-                //printf("[ERROR] Connection has been unexpectedly closed by remote side!\n");
+            if (n == 0) {
                 std::cout << "[ERROR] Connection has been unexpectedly closed by remote side!\n";
                 close(m_sock);
                 return -2;
             } else {
                 in_bytes += n;
-                //printf("Socket receieve (%d bytes).\n", n);
-                //std::cout << "Socket receieve ("<< n << " bytes).\n";
             }
     }
     return in_bytes;
@@ -213,13 +191,11 @@ int Socket::recv(Message& msg) const {
         }
     }
 
-    //std::cout <<"create message from byte.\n";
     std::cout << "type=" << msg_type << ",from port=" << from_port << ",to port=" << to_port << ",data size="<< data_size << ",command = " << command << std::endl;
     Header hdr((MessageTypes)msg_type, from_port, to_port, data_size,(Commands)command);
     msg.SetHeader(hdr);
     msg.SetData(buf);
 
-    //std::cout << "rev message success\n";
     return data_size + hdr_size;
 }
 

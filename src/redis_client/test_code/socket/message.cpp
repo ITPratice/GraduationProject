@@ -9,7 +9,6 @@ Message::Message(Header hdr, char* data){
 }
 
 Message::~Message(){
-    //  std::cout << "Message::~Message()\n";
     if(m_data != NULL && m_header.GetDataSize() > 0){
         delete[] m_data;
     }
@@ -51,7 +50,6 @@ int Message::SetArgs(char *args, char **argv)
 }
 
 char ** Message::ParsedArgs(char *args, int *argc) {
-    //  std::cout << "Message::ParsedArg\n";
     char **argv = NULL;
     int    argn = 0;
 
@@ -66,7 +64,6 @@ char ** Message::ParsedArgs(char *args, int *argc) {
     if (args && !argv) free(args);
 
     *argc = argn;
-    //   std::cout << "argc = " << *argc << std::endl;
     return argv;
 }
 
@@ -81,25 +78,20 @@ void Message::FreeParsedArgs(char **argv) {
 }
 
 void Message::ToBytes(char **bytes, unsigned int &msg_size) const {
-    //std::cout <<"Message::ToBytes" << std::endl;
     Header c_hdr(m_header);
     msg_size = 0;
     char* hdr = reinterpret_cast<char*>(&c_hdr);
     msg_size = sizeof(Header) + (unsigned int)c_hdr.GetDataSize();
-    //std::cout << "msg size = " << msg_size << std::endl;
     *bytes = new char[msg_size];
 
     memcpy(*bytes, hdr, sizeof(Header));
     if(m_data != NULL && c_hdr.GetDataSize() > 0){
         memcpy(*bytes + sizeof(Header), m_data, c_hdr.GetDataSize());
-        //std::cout << "copy mdata success\n";
     } else {
-        //std::cout << "data size is empty.\n";
     }
 }
 
 void Message::AddArgv(const char* cmd_arg, int cmd_arg_size){
-    //std::cout << " Message::AddArgv \n";
     if(cmd_arg_size <= 0)
         return;
     unsigned int cur_ds = m_header.GetDataSize();
