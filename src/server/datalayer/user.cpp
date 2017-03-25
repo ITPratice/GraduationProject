@@ -6,15 +6,17 @@ User::User() {
     email = "";
     address = "";
     phone_number = "";
+    number_plate = "";
     password = "";
     type = USER_GROUP;
 }
 
-User::User(std::string _id, std::string _email, std::string _address, std::string _phone, std::string _password, BYTE _type) {
+User::User(std::string _id, std::string _email, std::string _address, std::string _phone, std::string _numberPlate, std::string _password, BYTE _type) {
     id = _id;
     email = _email;
     address = _address;
     phone_number = _phone;
+    number_plate = _numberPlate;
     password = _password;
     type = _type;
 }
@@ -24,6 +26,7 @@ User::User(std::string _id, std::string _email, std::string _password) {
     email = _email;
     address = "";
     phone_number = "";
+    number_plate = "";
     password = _password;
     type = USER_GROUP;
 }
@@ -60,6 +63,14 @@ void User::setPhoneNumber(std::string phone_str) {
 
 std::string User::getPhoneNumber() const {
     return phone_number;
+}
+
+void User::setNumberPlate(std::string _numberPlate) {
+    number_plate = _numberPlate;
+}
+
+std::string User::getNumberPlate() const {
+    return number_plate;
 }
 
 void User::setPassword(std::string pass_str) {

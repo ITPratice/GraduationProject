@@ -13,7 +13,7 @@ enum {
 class User {
 public:
     User();
-    User(std::string _id, std::string _email, std::string _address, std::string _phone, std::string _password, unsigned char _type);
+    User(std::string _id, std::string _email, std::string _address, std::string _phone, std::string _numberPlate, std::string _password, unsigned char _type);
     User(std::string _id, std::string _email, std::string _password);
     ~User();
 private:
@@ -21,6 +21,7 @@ private:
     std::string email;
     std::string address;
     std::string phone_number;
+    std::string number_plate;
     std::string password;
     unsigned char type;
 public:
@@ -35,6 +36,9 @@ public:
 
     void setPhoneNumber(std::string phone_str);
     std::string getPhoneNumber() const;
+
+    void setNumberPlate(std::string _numberPlate);
+    std::string getNumberPlate() const;
 
     void setPassword(std::string pass_str);
     std::string getPassword() const;
