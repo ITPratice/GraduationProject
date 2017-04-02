@@ -4,7 +4,11 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.UnknownHostException;
 
 /**
  * Created by dongc on 4/2/2017.
@@ -15,10 +19,12 @@ public class SocketHelper {
     private static final int SERVER_PORT = 3000;
 
     private Socket mSocket;
+    private SocketAddress mSocketAddress;
     private static SocketHelper sInstance;
 
     private SocketHelper() {
-
+        mSocket = new Socket();
+        mSocketAddress = new InetSocketAddress(IP_ADDRESS, SERVER_PORT);
     }
 
     public static SocketHelper getInstance() {
@@ -37,6 +43,19 @@ public class SocketHelper {
             PrintWriter out = new PrintWriter(
                     new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())), true);
             out.println(data);
+        } else {
+            connect();
+
         }
     }
+
+    public void readData() {
+
+    }
+
+    public void connect() throws IOException {
+        mSocket.connect(mSocketAddress);
+    }
+
+
 }

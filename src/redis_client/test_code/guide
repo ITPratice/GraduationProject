@@ -1,6 +1,0 @@
-// ./client localhost 3000
-gcc client.cpp ../socket/message.cpp ../socket/header.cpp ../socket/socket.cpp -lredox_static -lev -lhiredis -pthread -I../include -L../build -lstdc++ -o client
-
-// ./server 3000
-gcc server.cpp ../socket/message.cpp ../socket/header.cpp ../socket/socket.cpp -lredox_static -lev -lhiredis -pthread -I../include -L../build -lstdc++ -o server
-
