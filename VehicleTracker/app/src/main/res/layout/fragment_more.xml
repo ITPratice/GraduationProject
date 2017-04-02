@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@color/more_actions_background_color">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:padding="15dp"
+                android:text="Dong"
+                android:textColor="@color/default_text_light_color"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_edit" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/more_fragment_item_height"
+            android:background="@drawable/default_raised_button"
+            android:drawablePadding="@dimen/common_size_15"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/common_size_10"
+            android:paddingLeft="@dimen/common_size_15"
+            android:paddingRight="@dimen/common_size_15"
+            android:paddingTop="@dimen/common_size_10" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_light_size"
+            android:layout_marginLeft="54dp"
+            android:layout_marginStart="54dp"
+            android:background="@color/default_stroke_line_light_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/more_fragment_item_height"
+            android:background="@drawable/default_raised_button"
+            android:drawablePadding="@dimen/common_size_15"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/common_size_10"
+            android:paddingLeft="@dimen/common_size_15"
+            android:paddingRight="@dimen/common_size_15"
+            android:paddingTop="@dimen/common_size_10" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_light_size"
+            android:layout_marginLeft="54dp"
+            android:layout_marginStart="54dp"
+            android:background="@color/default_stroke_line_light_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/more_fragment_item_height"
+            android:background="@drawable/default_raised_button"
+            android:drawablePadding="@dimen/common_size_15"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/common_size_10"
+            android:paddingLeft="@dimen/common_size_15"
+            android:paddingRight="@dimen/common_size_15"
+            android:paddingTop="@dimen/common_size_10" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_light_size"
+            android:layout_marginLeft="54dp"
+            android:layout_marginStart="54dp"
+            android:background="@color/default_stroke_line_light_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/more_fragment_item_height"
+            android:background="@drawable/default_raised_button"
+            android:drawablePadding="@dimen/common_size_15"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/common_size_10"
+            android:paddingLeft="@dimen/common_size_15"
+            android:paddingRight="@dimen/common_size_15"
+            android:paddingTop="@dimen/common_size_10" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_line_bold_size"
+        android:background="@color/default_stroke_line_dark_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_line_light_size"
+        android:layout_marginTop="@dimen/common_size_20"
+        android:background="@color/default_stroke_line_light_color" />
+
+    <TextView
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/more_fragment_item_height"
+        android:background="@drawable/default_raised_button"
+        android:drawableLeft="@drawable/ic_logout"
+        android:drawablePadding="@dimen/common_size_15"
+        android:drawableStart="@drawable/ic_logout"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/common_size_10"
+        android:paddingLeft="@dimen/common_size_15"
+        android:paddingRight="@dimen/common_size_15"
+        android:paddingTop="@dimen/common_size_10"
+        android:text="@string/logout"
+        android:textColor="@color/logout_color"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_line_normal_size"
+        android:background="@color/default_stroke_line_light_color" />
+</LinearLayout>

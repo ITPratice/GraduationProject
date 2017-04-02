@@ -1,7 +1,6 @@
 #ifndef MESSAGE_HPP
 #define MESSAGE_HPP
 
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

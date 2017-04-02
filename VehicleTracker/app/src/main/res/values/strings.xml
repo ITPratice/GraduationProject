@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Vehicle Tracker</string>
+
+    <string name="action_home">Home</string>
+    <string name="action_history">History</string>
+    <string name="action_more">More</string>
+
+    <!--Login Activity-->
+    <string name="login">Login</string>
+    <string name="id">Id</string>
+    <string name="password">Password</string>
+    <string name="empty_id">Id is empty!</string>
+    <string name="empty_password">Password is empty!</string>
+
+    <!--More Fragment-->
+    <string name="logout">Logout</string>
+</resources>

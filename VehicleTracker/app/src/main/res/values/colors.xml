@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#CFD9D3</color>
+    <color name="colorPrimaryDark">#B7BFBA</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+
+    <color name="default_background_color">#DCE7E1</color>
+    <color name="default_button_highlight_color">#32000000</color>
+    <color name="default_text_light_color">#e2e2e2</color>
+    <color name="default_text_dark_color">#303030</color>
+
+    <color name="default_stroke_line_light_color">#5c5c5c</color>
+    <color name="default_stroke_line_dark_color">#383838</color>
+
+    <!--More Fragment-->
+    <color name="more_actions_background_color">#421e1e1e</color>
+    <color name="logout_color">#DE3131</color>
+</resources>
