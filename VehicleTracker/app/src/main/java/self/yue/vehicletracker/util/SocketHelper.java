@@ -4,11 +4,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 
 /**
  * Created by dongc on 4/2/2017.
@@ -39,14 +37,13 @@ public class SocketHelper {
     }
 
     public void sendData(String data) throws IOException {
-        if (!mSocket.isClosed() && mSocket.isBound()) {
-            PrintWriter out = new PrintWriter(
-                    new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())), true);
-            out.println(data);
-        } else {
+        if (mSocket.isClosed() || mSocket.isBound()) {
             connect();
-
         }
+        PrintWriter out = new PrintWriter(
+                new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())), true);
+        out.println(data);
+        mSocket.close();
     }
 
     public void readData() {
@@ -56,6 +53,4 @@ public class SocketHelper {
     public void connect() throws IOException {
         mSocket.connect(mSocketAddress);
     }
-
-
 }

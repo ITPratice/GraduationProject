@@ -31,4 +31,8 @@ public abstract class BaseFragmentActivity extends BaseActivity {
     }
 
     protected abstract BaseFragment getFirstFragment();
+
+    public BaseFragment getCurrentFragment() {
+        return (BaseFragment) getFragmentManager().findFragmentById(R.id.fragment_container);
+    }
 }

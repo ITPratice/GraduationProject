@@ -1,10 +1,13 @@
 package self.yue.vehicletracker.ui.main;
 
+import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -31,6 +34,15 @@ public class MainFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(MainFragment.class.getSimpleName(), "" + requestCode);
+        Fragment fragment = getFragmentManager()
+                .findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + mPager.getCurrentItem());
+        fragment.onActivityResult(requestCode, resultCode, data);
     }
 
     private void initViews(View rootView) {

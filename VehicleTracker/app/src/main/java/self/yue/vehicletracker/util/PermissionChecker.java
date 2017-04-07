@@ -12,12 +12,27 @@ import android.support.v4.content.ContextCompat;
  */
 
 public class PermissionChecker {
-    public static final int REQUEST_CODE_NETWORK_STATE_PERMISSION = 430;
+    public static final int PERMISSIONS_REQUEST_NETWORK_STATE = 430;
+    public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 384;
 
-    public static void requestNetworkStatePermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity,
-                new String[]{Manifest.permission.ACCESS_NETWORK_STATE},
-                REQUEST_CODE_NETWORK_STATE_PERMISSION);
+    public static boolean checkNetworkStatePermission(Activity activity) {
+        if (!checkPermission(activity, Manifest.permission.ACCESS_NETWORK_STATE)) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.ACCESS_NETWORK_STATE},
+                    PERMISSIONS_REQUEST_NETWORK_STATE);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkLocationPermission(Activity activity) {
+        if (!checkPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            return false;
+        }
+        return true;
     }
 
     public static boolean checkPermission(Context context, String permission) {
