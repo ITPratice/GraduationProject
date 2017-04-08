@@ -41,16 +41,16 @@ check_module:
 
 void loop() {
   //  Do task when gps is available
-  if (isGpsAvailable) {
-    answer = sendAtCommand("AT+CGNSINF", response, "OK", "OK", 500);
-    if (answer == SUCCESS) {
-      getGpsInfo(response, &gpsInfo, ',');
-      if (gpsInfo.state) {
-        activateGPRS();
-      }
-    }
-  }
-  delay(10000);
+  //  if (isGpsAvailable) {
+  //    answer = sendAtCommand("AT+CGNSINF", response, "OK", "OK", 500);
+  //    if (answer == SUCCESS) {
+  //      getGpsInfo(response, &gpsInfo, ',');
+  //      if (gpsInfo.state) {
+  //        activateGPRS();
+  //      }
+  //    }
+  //  }
+  //  delay(10000);
 }
 
 void powerOn() {
@@ -210,6 +210,13 @@ void activateGPRS() {
     sendAtCommand("AT+CGATT=1", response, "OK", "", 500);
   }
   sendDataToServer();
+}
+
+void setupSim808() {
+  powerOn();
+check_module:
+  answer = NO_RESPONSE;
+  
 }
 
 void sendDataToServer() {
