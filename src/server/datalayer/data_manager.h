@@ -25,6 +25,7 @@ public:
     ResponseCode InsertUser(User &user);
     ResponseCode UpdateUser(User &user);
     ResponseCode DeleteUser(User &user);
+    ResponseCode GetAllUser(std::vector<User> &lstUser);
 
     // Location manager
     ResponseCode InsertLocation(Location &location);

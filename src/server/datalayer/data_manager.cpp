@@ -42,7 +42,7 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Opened database successfully\n");
     }
 
-    sql = "CREATE TABLE USER("                                          \
+    sql = (char *)"CREATE TABLE USER("                                          \
             "ID             NVARCHAR(10)    PRIMARY KEY     NOT NULL,"  \
             "EMAIL          NVARCHAR(100)                   NOT NULL,"  \
             "ADDRESS        NVARCHAR(100)                   NOT NULL,"  \
@@ -60,7 +60,7 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table USER created successfully\n");
     }
 
-    sql = "CREATE TABLE LOCATION("                                      \
+    sql = (char *)"CREATE TABLE LOCATION("                                      \
             "ID             NVARCHAR(10)    PRIMARY KEY     NOT NULL,"  \
             "LAT_POINT      NVARCHAR(20)                    NOT NULL,"  \
             "LON_POINT      NVARCHAR(20)                    NOT NULL);";
@@ -74,7 +74,7 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table LOCATION created successfully\n");
     }
 
-    sql = "CREATE TABLE USER_LOCATION("                                     \
+    sql = (char *)"CREATE TABLE USER_LOCATION("                                     \
             "USER_ID        NVARCHAR(10)                    NOT NULL,"      \
             "LOCATION_ID    NVARCHAR(10)                    NOT NULL,"      \
             "TIME           NVARCHAR(20)                    NOT NULL,"     \
@@ -96,7 +96,7 @@ ResponseCode DataManager::createDb() {
 bool DataManager::dbIsExist() {
     std::cout << "DATA_MANAGER - File .db full name: " << db_file_path << std::endl;
 
-    char* sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='USER';";
+    char* sql = (char *)"SELECT name FROM sqlite_master WHERE type='table' AND name='USER';";
 
     sqlite3_stmt *statement;
     if (sqlite3_prepare(db, sql, -1, &statement, 0 ) == SQLITE_OK) {
@@ -388,6 +388,41 @@ ResponseCode DataManager::DeleteUserLocation(UserLocation &ul) {
         return DATA_ERROR_DELETE_DB;
     } else {
         std::cout << "DATA_MANAGER - Delete UserLocation " << ul.getUserId() << " Successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM USER;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true)
+        {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                User user;
+                user.setId((char*)sqlite3_column_text(stmt, 0));
+                user.setEmail((char*)sqlite3_column_text(stmt, 1));
+                user.setAddress((char*)sqlite3_column_text(stmt, 2));
+                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
+                user.setPassword((char*)sqlite3_column_text(stmt, 4));
+                user.setNumberPlate((char*)sqlite3_column_text(stmt, 5));
+                user.setType((BYTE)sqlite3_column_bytes(stmt, 6));
+
+                lstUser.push_back(user);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR)
+            {
+                std::cout << "Get all user finish " << std::endl;
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
     }
     return DATA_SUCCESS;
 }
