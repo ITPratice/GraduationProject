@@ -63,12 +63,7 @@ ResponseCode DataManager::createDb() {
     sql = (char *)"CREATE TABLE LOCATION("                                      \
             "ID             NVARCHAR(10)    PRIMARY KEY     NOT NULL,"  \
             "LAT_POINT      NVARCHAR(20)                    NOT NULL,"  \
-            "LON_POINT      NVARCHAR(20)                    NOT NULL,"  \
-            "USER_ID        NVARCHAR(20)                    NOT NULL,"  \
-            "DATE           NVARCHAR(20)                    NOT NULL,"  \
-            "TIME           NVARCHAR(20)                    NOT NULL,"  \
-            "MOVING         INT                             NOT NULL,"  \
-            "FOREIGN KEY (USER_ID) REFERENCES USER(ID) ON DELETE CASCADE);";
+            "LON_POINT      NVARCHAR(20)                    NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -79,22 +74,22 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table LOCATION created successfully\n");
     }
 
-    // sql = (char *)"CREATE TABLE USER_LOCATION("                                     \
-    //         "USER_ID        NVARCHAR(10)                    NOT NULL,"      \
-    //         "LOCATION_ID    NVARCHAR(10)                    NOT NULL,"      \
-    //         "TIME           NVARCHAR(20)                    NOT NULL,"     \
-    //         "PRIMARY KEY (USER_ID, LOCATION_ID),"                           \
-    //         "FOREIGN KEY (USER_ID) REFERENCES USER(ID) ON DELETE CASCADE,"  \
-    //         "FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION(ID) ON DELETE CASCADE);";
-    // rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    // if(rc != SQLITE_OK) {
-    //     fprintf(stderr, "SQL error: %s\n", zErrMsg);
-    //     sqlite3_free(zErrMsg);
-    //     sqlite3_close(db);
-    //     return DATA_ERROR_CREATE_TB;
-    // } else {
-    //     fprintf(stdout, "DATA_MANAGER - Table USER_LOCATION created successfully\n");
-    // }
+    sql = (char *)"CREATE TABLE USER_LOCATION("                                     \
+            "USER_ID        NVARCHAR(10)                    NOT NULL,"      \
+            "LOCATION_ID    NVARCHAR(10)                    NOT NULL,"      \
+            "TIME           NVARCHAR(20)                    NOT NULL,"     \
+            "PRIMARY KEY (USER_ID, LOCATION_ID),"                           \
+            "FOREIGN KEY (USER_ID) REFERENCES USER(ID) ON DELETE CASCADE,"  \
+            "FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION(ID) ON DELETE CASCADE);";
+    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        sqlite3_free(zErrMsg);
+        sqlite3_close(db);
+        return DATA_ERROR_CREATE_TB;
+    } else {
+        fprintf(stdout, "DATA_MANAGER - Table USER_LOCATION created successfully\n");
+    }
     return DATA_SUCCESS;
 }
 
@@ -423,6 +418,65 @@ ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
             }
         }
         sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetLocationByTime(std::string uId, std::string uTime, std::vector<Location> &lstLocation) {
+    std::stringstream strm;
+    strm    << "SELECT * FROM" 
+            << "LOCATION"
+            << "INNER JOIN"
+            << "(SELECT LOCATION_ID FROM USER_LOCATION WHERE USER_ID = '" << uId << "' AND TIME '" << uTime << "') t1"
+            << "ON LOCATION.ID = t1.LOCATION_ID"
+            << ";";
+    std::string s = strm.str();
+    char *str = &s[0];
+
+    sqlite3_stmt *statement;
+    char *query = str;
+    if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+        int res = 0;
+        while(true) {
+            res = sqlite3_step(statement);
+            if(res == SQLITE_ROW) {
+                Location _local;
+                _local.setId((char*)sqlite3_column_text(statement, 0));
+                _local.setLatPoint((char*)sqlite3_column_text(statement, 1));
+                _local.setLonPoint((char*)sqlite3_column_text(statement, 2));
+                lstLocation.push_back(_local);
+            }
+            if(res == SQLITE_DONE || res == SQLITE_ERROR) {
+                std::cout << "DATA_MANAGER - Get all location successfully !\n";
+                break;
+            }
+        }
+        sqlite3_finalize(statement);                
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::Login(std::string email, std::string password) {
+    std::stringstream strm;
+    strm << "SELECT * FROM USER WHERE EMAIL = '" << email << "' AND PASSWORD = '" << password << "';";
+    std::string s = strm.str();
+    char *str = &s[0];
+    sqlite3_stmt *statement;
+    char *query = str;
+    if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+        int ctotal = sqlite3_column_count(statement);
+        int res;
+        while(true) {
+            res = sqlite3_step(statement);
+            if (res == SQLITE_ROW) {
+                break;
+            } 
+            return DATA_ERROR_SELECT_DB;
+        }
     } else {
         return DATA_ERROR_SELECT_DB;
     }

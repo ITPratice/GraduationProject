@@ -1,13 +1,11 @@
 #include "get_all_handler.h"
 
-DataManager data("test.db");
-
 get_all_handler::get_all_handler() {
-
- }
+    data = new DataManager("test.db");
+}
 
 void get_all_handler::listener(http_request request) {
-    if (data.connectDb() != DATA_SUCCESS)
+    if (data->connectDb() != DATA_SUCCESS)
         return;
     if(request.method() == methods::GET) {
         handle_get(request);
@@ -28,7 +26,7 @@ void get_all_handler::handle_get(http_request request) {
     std::map<std::string, std::string> dictionary;
     std::vector<json::value> vUser;
 
-    if (data.GetAllUser(lstUser) != DATA_SUCCESS) {
+    if (data->GetAllUser(lstUser) != DATA_SUCCESS) {
         std::cout << "ERROR" << std::endl;
         return;
     }

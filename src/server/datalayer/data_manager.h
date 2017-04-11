@@ -12,6 +12,9 @@
 #include "location.h"
 #include "user_location.h"
 
+#ifndef DATA_MANAGER_H
+#define DATA_MANAGER_H
+
 class DataManager {
 public:
     DataManager();
@@ -37,6 +40,10 @@ public:
     ResponseCode UpdateUserLocation(UserLocation &ul);
     ResponseCode DeleteUserLocation(UserLocation &ul);
 
+    // Location By Id
+    ResponseCode GetLocationByTime(std::string uId, std::string uTime, std::vector<Location> &lstLocation);
+    ResponseCode Login(std::string email, std::string password);
+
 public:
     void setDbPath(std::string pathFile);
 private:
@@ -47,3 +54,5 @@ private:
     ResponseCode createDb();
     bool dbIsExist();
 };
+
+#endif

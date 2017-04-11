@@ -11,6 +11,8 @@
 #include "../RouteMap.h"
 #include "../helper/string_helper.h"
 #include "../handler/user_handler/get_all_handler.h"
+#include "../handler/location_handler/location_time.h"
+#include "../handler/login_handler/login_handler.h"
 
 #include "user_location.h"
 #include "user.h"
@@ -24,7 +26,9 @@ void handle_get(http_request request);
 std::map<std::string, std::string> user_to_map(User &user);
 void routingHandler(http_request request);
 
-std::unique_ptr<get_all_handler> user_Handler;
+std::unique_ptr<get_all_handler> a_user_Handler;
+std::unique_ptr<location_time> t_Location_Handler;
+std::unique_ptr<login_handler> u_Login_Handler;
 
 int main()
 {
@@ -41,13 +45,27 @@ void routingHandler(http_request request) {
     switch(string_helper::hash_str(routePath)) {
         case E_GET_ALL_USER:
         {
-            user_Handler = std::unique_ptr<get_all_handler>(new get_all_handler());
-            user_Handler->listener(request);
+            a_user_Handler = std::unique_ptr<get_all_handler>(new get_all_handler());
+            a_user_Handler->listener(request);
             break;
         }
         case E_GET_ALL_LOCATION:
+        {
             request.reply(status_codes::OK, "Test Location Ok !");
             break;
+        }
+        case E_GET_LOCATION_BY_TIME:
+        {
+            t_Location_Handler = std::unique_ptr<location_time>(new location_time());
+            t_Location_Handler->ltListener(request);
+            break;
+        }
+        case E_CHECK_LOGIN:
+        {
+            u_Login_Handler = std::unique_ptr<login_handler>(new login_handler());
+            u_Login_Handler->listener(request);
+            break;
+        }
         default:
             break;
     }
