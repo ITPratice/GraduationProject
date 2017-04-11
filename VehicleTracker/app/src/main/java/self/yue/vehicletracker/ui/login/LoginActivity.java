@@ -16,8 +16,8 @@ import self.yue.vehicletracker.R;
 import self.yue.vehicletracker.base.BaseActivity;
 import self.yue.vehicletracker.base.BaseActivityBehaviour;
 import self.yue.vehicletracker.base.ShowableContent;
+import self.yue.vehicletracker.data.server.ApiProvider;
 import self.yue.vehicletracker.ui.main.MainActivity;
-import self.yue.vehicletracker.ui.test.TestActivity;
 
 /**
  * Created by dongc on 3/18/2017.
@@ -37,6 +37,7 @@ public class LoginActivity extends BaseActivity implements ShowableContent, Base
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViews();
+        ApiProvider.getInstance().init();
     }
 
     @Override

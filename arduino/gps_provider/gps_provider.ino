@@ -18,6 +18,7 @@ typedef struct {
 
 int powerKey = 9;
 String response = "";
+String baseUrl = "https://jsonplaceholder.typicode.com/";
 bool isGpsAvailable;
 bool isArduinoOn;
 bool isGprsOpened;
@@ -32,13 +33,48 @@ void setup() {
   setupModule();
   delay(1000);
 
-  //  openGprs();
   initGps();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  if (isGpsAvailable) {
+    // Get gps information
+    if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 500) != SUCCESS) {
+      delay(10000);
+      return;
+    }
+    getGpsInfo(&gpsInfo, response);
+    isGpsAvailable = gpsInfo.state;
 
+    // If gps is not available then return
+    if (!isGpsAvailable) {
+      delay(10000);
+      return;
+    }
+
+    // If gps is available, begin sending data process
+    openGprs();
+
+    if (!isGprsOpened) {
+      delay(10000);
+      return;
+    }
+
+    sendData("1", 0);
+  } else {
+    if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 500) != SUCCESS) {
+      delay(10000);
+      return;
+    }
+
+    getGpsInfo(&gpsInfo, response);
+    isGpsAvailable = gpsInfo.state;
+    if (!isGpsAvailable) {
+      delay(10000);
+      return;
+    }
+  }
+  delay(10000);
 }
 
 void powerOn() {
@@ -61,26 +97,6 @@ check_module:
   }
 }
 
-void openGprs() {
-  // Attach Gprs
-  if (sendATCommandWithoutResponse("AT+CGATT?", "1", "0", 500) != SUCCESS) {
-    sendATCommandWithoutResponse("AT+CGATT=1", "OK", "", 500);
-  }
-
-  // Select single connection mode
-  if (sendATCommandWithoutResponse("AT+CIPMUX=0", "OK", "ERROR", 1000) != SUCCESS)
-    return;
-  // Set APN
-  while (sendATCommandWithoutResponse("AT+CSTT=\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
-  // Bring up wireless connection
-  if (sendATCommandWithoutResponse("AT+CIICR", "OK", "ERROR", 30000) == SUCCESS) {
-    // Get local IP address
-    if (sendATCommandWithoutResponse("AT+CIFSR", ".", "ERROR", 10000) == SUCCESS) {
-      isGprsOpened = true;
-    }
-  }
-}
-
 void initGps() {
   // open gps
   while (sendATCommandWithoutResponse("AT+CGNSPWR=1", "OK", "OK", 200) != SUCCESS);
@@ -91,12 +107,61 @@ try_gps:
     goto try_gps;
   }
   getGpsInfo(&gpsInfo, response);
-  if (!gpsInfo.state) {
+  isGpsAvailable = gpsInfo.state;
+  if (!isGpsAvailable) {
     delay(20000);
     goto try_gps;
   }
-  Serial.println(gpsInfo.latitude);
-  Serial.println(gpsInfo.longitude);
+}
+
+void openGprs() {
+  // Attach Gprs
+  if (sendATCommandWithoutResponse("AT+CGATT?", "1", "0", 500) != SUCCESS) {
+    sendATCommandWithoutResponse("AT+CGATT=1", "OK", "", 500);
+  }
+
+  // Reset connection
+  sendATCommandWithoutResponse("AT+CIPSHUT", "OK", "ERROR", 1000);
+  delay(1000);
+  // Select single connection mode
+  while (sendATCommandWithoutResponse("AT+CIPMUX=0", "OK", "ERROR", 1000) != SUCCESS) {
+    delay(500);
+  }
+  delay(1000);
+  // Set APN
+  while (sendATCommandWithoutResponse("AT+CSTT=\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
+  delay(2000);
+  // Bring up wireless connection
+  if (sendATCommandWithoutResponse("AT+CIICR", "OK", "ERROR", 30000) == SUCCESS) {
+    delay(5000);
+    // Get local IP address
+    if (sendATCommandWithoutResponse("AT+CIFSR", ".", "ERROR", 10000) == SUCCESS) {
+      isGprsOpened = true;
+    }
+  }
+}
+
+void sendData(String data, int httpAction) {
+  if (sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 500) != SUCCESS) {
+    String command;
+
+    // Set http param
+    sendATCommandWithoutResponse("AT+HTTPPARA=\"CID\",1", "OK", "ERROR", 500);
+    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "comments?postId=1\"";
+    sendATCommandWithoutResponse(command, "OK", "ERROR", 500);
+
+    // Set http action. Type: 0=GET, 1=POST, 2=HEAD
+    command = "AT+HTTPACTION=0";
+    sendATCommandWithoutResponse(command, "OK", "ERROR", 500);
+    delay(5000);
+
+    // Read data
+    sendATCommandWithoutResponse("AT+HTTPREAD", "OK", "ERROR", 500);
+    delay(2000);
+
+    // Terminate http
+    sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 500);
+  }
 }
 
 void split(String source, String dest[], char seperateCharacter) {

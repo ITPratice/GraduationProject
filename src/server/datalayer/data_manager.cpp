@@ -63,7 +63,12 @@ ResponseCode DataManager::createDb() {
     sql = (char *)"CREATE TABLE LOCATION("                                      \
             "ID             NVARCHAR(10)    PRIMARY KEY     NOT NULL,"  \
             "LAT_POINT      NVARCHAR(20)                    NOT NULL,"  \
-            "LON_POINT      NVARCHAR(20)                    NOT NULL);";
+            "LON_POINT      NVARCHAR(20)                    NOT NULL,"  \
+            "USER_ID        NVARCHAR(20)                    NOT NULL,"  \
+            "DATE           NVARCHAR(20)                    NOT NULL,"  \
+            "TIME           NVARCHAR(20)                    NOT NULL,"  \
+            "MOVING         INT                             NOT NULL,"  \
+            "FOREIGN KEY (USER_ID) REFERENCES USER(ID) ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -74,22 +79,22 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table LOCATION created successfully\n");
     }
 
-    sql = (char *)"CREATE TABLE USER_LOCATION("                                     \
-            "USER_ID        NVARCHAR(10)                    NOT NULL,"      \
-            "LOCATION_ID    NVARCHAR(10)                    NOT NULL,"      \
-            "TIME           NVARCHAR(20)                    NOT NULL,"     \
-            "PRIMARY KEY (USER_ID, LOCATION_ID),"                           \
-            "FOREIGN KEY (USER_ID) REFERENCES USER(ID) ON DELETE CASCADE,"  \
-            "FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION(ID) ON DELETE CASCADE);";
-    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    if(rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-        sqlite3_close(db);
-        return DATA_ERROR_CREATE_TB;
-    } else {
-        fprintf(stdout, "DATA_MANAGER - Table USER_LOCATION created successfully\n");
-    }
+    // sql = (char *)"CREATE TABLE USER_LOCATION("                                     \
+    //         "USER_ID        NVARCHAR(10)                    NOT NULL,"      \
+    //         "LOCATION_ID    NVARCHAR(10)                    NOT NULL,"      \
+    //         "TIME           NVARCHAR(20)                    NOT NULL,"     \
+    //         "PRIMARY KEY (USER_ID, LOCATION_ID),"                           \
+    //         "FOREIGN KEY (USER_ID) REFERENCES USER(ID) ON DELETE CASCADE,"  \
+    //         "FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION(ID) ON DELETE CASCADE);";
+    // rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    // if(rc != SQLITE_OK) {
+    //     fprintf(stderr, "SQL error: %s\n", zErrMsg);
+    //     sqlite3_free(zErrMsg);
+    //     sqlite3_close(db);
+    //     return DATA_ERROR_CREATE_TB;
+    // } else {
+    //     fprintf(stdout, "DATA_MANAGER - Table USER_LOCATION created successfully\n");
+    // }
     return DATA_SUCCESS;
 }
 
