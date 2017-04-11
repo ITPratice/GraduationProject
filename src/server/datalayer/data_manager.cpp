@@ -99,10 +99,10 @@ bool DataManager::dbIsExist() {
     char* sql = (char *)"SELECT name FROM sqlite_master WHERE type='table' AND name='USER';";
 
     sqlite3_stmt *statement;
-    if (sqlite3_prepare(db, sql, -1, &statement, 0 ) == SQLITE_OK) {
+    if (sqlite3_prepare(db, sql, -1, &statement, 0) == SQLITE_OK) {
         int res = 0;
         res = sqlite3_step(statement);
-        if ( res != SQLITE_ROW ) {
+        if (res != SQLITE_ROW) {
             sqlite3_finalize(statement);
             sqlite3_close(db);
             return false;
@@ -118,19 +118,16 @@ bool DataManager::dbIsExist() {
 }
 
 ResponseCode DataManager::connectDb() {
-    if (!dbIsExist()) {
-        std::cout << "DATA_MANAGER - Start create DB\n";
-        ResponseCode ret = createDb();
-        if (ret != DATA_SUCCESS) {
-            return ret;
-        }
-    }
+    // if (!dbIsExist()) {
+    //     std::cout << "DATA_MANAGER - Start create DB\n";
+    //     ResponseCode ret = createDb();
+    //     if (ret != DATA_SUCCESS) {
+    //         return ret;
+    //     }
+    // }
 
-    int rc;
-
-    rc = sqlite3_open(db_file_path.c_str(), &db);
-
-    if( rc ){
+    int rc = sqlite3_open(db_file_path.c_str(), &db);
+    if(rc) {
         fprintf(stderr, "DATA_MANAGER - Can't open database: %s\n", sqlite3_errmsg(db));
         return DATA_ERROR_OPEN_DB;
     } else {
