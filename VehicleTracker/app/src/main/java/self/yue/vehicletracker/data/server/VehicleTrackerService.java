@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import self.yue.vehicletracker.data.local.ServerResponse;
 import self.yue.vehicletracker.data.local.User;
 
@@ -14,4 +15,7 @@ import self.yue.vehicletracker.data.local.User;
 public interface VehicleTrackerService {
     @GET("user/all")
     Call<ServerResponse<List<User>>> getAllUsers();
+
+    @GET("login/user")
+    Call<String> login(@Query("email") String email, @Query("pass") String password);
 }
