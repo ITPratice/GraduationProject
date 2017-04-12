@@ -1,33 +1,34 @@
+#ifndef TRACKING_H
+#define TRACKING_H
+
 #include <string>
 
 class Tracking {
 public:
     Tracking();
-    Tracking(std::string _date, std::string _time, std::string _lat, std::string _lon, std::string _vNumber, std::string _hId);
+    Tracking(std::string _date, std::string _time, std::string _lat, std::string _lon, std::string _hId);
     ~Tracking();
 private:
-    std::string tracking_date;
-    std::string tracking_time;
-    std::string lat_point;
-    std::string lon_point;
-    std::string vehicle_number;
+    std::string date;
+    std::string time;
+    std::string latitude;
+    std::string longititu;
     std::string hardware_id;
 public:
-    void setTrackingDate(std::string _date);
-    std::string getTrackingDate();
+    void setDate(std::string _date);
+    std::string getDate();
 
-    void setTrackingTime(std::string _time);
-    std::string getTrackingTime();
+    void setTime(std::string _time);
+    std::string getTime();
 
-    void setLatPoint(std::string _lat);
-    std::string getLatPoint();
+    void setLatitude(std::string _lat);
+    std::string getLatitude();
 
-    void setLonPoint(std::string _lon);
-    std::string getLonPoint();
-
-    void setVehicleNumber(std::string _vNumber);
-    std::string getVehicleNumber();
+    void setLongititu(std::string _lon);
+    std::string getLongititu();
 
     void setHardwareId(std::string _hId);
     std::string getHardwareId();
 };
+
+#endif  // TRACKING_H

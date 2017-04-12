@@ -6,11 +6,11 @@
 #include <vector>
 #include <cstring>
 #include <sqlite3.h>
+#include <ctime>
 
 #include "../ResponseInterface.h"
 #include "user.h"
-#include "location.h"
-#include "user_location.h"
+#include "tracking.h"
 
 #ifndef DATA_MANAGER_H
 #define DATA_MANAGER_H
@@ -24,28 +24,28 @@ public:
     ResponseCode connectDb();
     ResponseCode disconnectDb();
 
-    // User manager
-    ResponseCode InsertUser(User &user);
-    ResponseCode UpdateUser(User &user);
-    ResponseCode DeleteUser(User &user);
-    ResponseCode GetAllUser(std::vector<User> &lstUser);
+    // // User manager
+    // ResponseCode InsertUser(User &user);
+    // ResponseCode UpdateUser(User &user);
+    // ResponseCode DeleteUser(User &user);
+    // ResponseCode GetAllUser(std::vector<User> &lstUser);
 
-    // Location manager
-    ResponseCode InsertLocation(Location &location);
-    ResponseCode UpdateLocation(Location &location);
-    ResponseCode DeleteLocation(Location &location);
+    // // Location manager
+    // ResponseCode InsertLocation(Location &location);
+    // ResponseCode UpdateLocation(Location &location);
+    // ResponseCode DeleteLocation(Location &location);
 
-    // User_Location manager
-    ResponseCode InsertUserLocation(UserLocation &ul);
-    ResponseCode UpdateUserLocation(UserLocation &ul);
-    ResponseCode DeleteUserLocation(UserLocation &ul);
+    // // User_Location manager
+    // ResponseCode InsertUserLocation(UserLocation &ul);
+    // ResponseCode UpdateUserLocation(UserLocation &ul);
+    // ResponseCode DeleteUserLocation(UserLocation &ul);
 
     // Location By Id
-    ResponseCode GetLocationByTime(std::string uId, std::string uTime, std::vector<Location> &lstLocation);
     ResponseCode Login(std::string email, std::string password);
+    ResponseCode GetAllUser(std::vector<User>& lstUser);
 
     // Tracking manager
-    ResponseCode UpdateTracking()
+    ResponseCode InsertTracking(Tracking &tracking);
 
 public:
     void setDbPath(std::string pathFile);

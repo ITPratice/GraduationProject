@@ -4,47 +4,47 @@
 #ifndef USER_H
 #define USER_H
 
-enum {
-    USER_GROUP = 1,
-    WAIT_USER_GROUP = 2,
-    ADMIN_GROUP = 3,
-};
+// Type: 1 - Admin / 2 - Wait-confirm-user / 3 - user / 4 - unregister
+// isConfirm: 1 - True / 0 - False
 
 class User {
 public:
     User();
-    User(std::string _id, std::string _email, std::string _address, std::string _phone, std::string _numberPlate, std::string _password, unsigned char _type);
-    User(std::string _id, std::string _email, std::string _password);
+    User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _confirm, int type);
     ~User();
 private:
-    std::string id;
     std::string email;
+    std::string uName;
     std::string address;
     std::string phone_number;
-    std::string number_plate;
+    std::string full_name;
     std::string password;
-    unsigned char type;
+    int is_confirm;
+    int type;
 public:
-    void setId(std::string id_str);
-    std::string getId() const;
-
     void setEmail(std::string email_str);
-    std::string getEmail() const;
+    std::string getEmail();
+
+    void setUsername(std::string _uName);
+    std::string getUsername();
 
     void setAddress(std::string address_str);
-    std::string getAddress() const;
+    std::string getAddress();
 
     void setPhoneNumber(std::string phone_str);
-    std::string getPhoneNumber() const;
+    std::string getPhoneNumber();
 
-    void setNumberPlate(std::string _numberPlate);
-    std::string getNumberPlate() const;
+    void setFullname(std::string _fName);
+    std::string getFullname();
 
     void setPassword(std::string pass_str);
-    std::string getPassword() const;
+    std::string getPassword();
 
-    void setType(unsigned char _type);
-    unsigned char getType() const;
+    void setIsConfirm(int _confirm);
+    int getIsConfirm();
+
+    void setType(int _type);
+    int getType();
 };
 
 #endif  //USER_H

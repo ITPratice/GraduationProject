@@ -2,58 +2,50 @@
 #include "../stdafx.h"
 
 User::User() {
-    id = "";
+    uName = "";
     email = "";
     address = "";
     phone_number = "";
-    number_plate = "";
+    full_name = "";
     password = "";
-    type = USER_GROUP;
+    is_confirm = 0;
+    type = 4;
 }
 
-User::User(std::string _id, std::string _email, std::string _address, std::string _phone, std::string _numberPlate, std::string _password, BYTE _type) {
-    id = _id;
+User::User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _confirm, int _type) {
     email = _email;
-    address = _address;
+    uName = _uName;
+    address = _addr;
     phone_number = _phone;
-    number_plate = _numberPlate;
-    password = _password;
+    full_name = _fullName;
+    password = _pass;
+    is_confirm = _confirm;
     type = _type;
 }
 
-User::User(std::string _id, std::string _email, std::string _password) {
-    id = _id;
-    email = _email;
-    address = "";
-    phone_number = "";
-    number_plate = "";
-    password = _password;
-    type = USER_GROUP;
-}
-
 User::~User() {}
-
-void User::setId(std::string id_str) {
-    id = id_str;
-}
-
-std::string User::getId() const {
-    return id;
-}
 
 void User::setEmail(std::string email_str) {
     email = email_str;
 }
 
-std::string User::getEmail() const {
+std::string User::getEmail(){
     return email;
+}
+
+void User::setUsername(std::string _uName) {
+    uName = _uName;
+}
+
+std::string User::getUsername() {
+    return uName;
 }
 
 void User::setAddress(std::string address_str) {
     address = address_str;
 }
 
-std::string User::getAddress() const {
+std::string User::getAddress(){
     return address;
 }
 
@@ -61,30 +53,38 @@ void User::setPhoneNumber(std::string phone_str) {
     phone_number = phone_str;
 }
 
-std::string User::getPhoneNumber() const {
+std::string User::getPhoneNumber(){
     return phone_number;
 }
 
-void User::setNumberPlate(std::string _numberPlate) {
-    number_plate = _numberPlate;
+void User::setFullname(std::string _fName) {
+    full_name = _fName;
 }
 
-std::string User::getNumberPlate() const {
-    return number_plate;
+std::string User::getFullname(){
+    return full_name;
 }
 
 void User::setPassword(std::string pass_str) {
     password = pass_str;
 }
 
-std::string User::getPassword() const {
+std::string User::getPassword() {
     return password;
 }
 
-void User::setType(BYTE _type) {
+void User::setIsConfirm(int _confirm) {
+    is_confirm = _confirm;
+}
+
+int User::getIsConfirm() {
+    return is_confirm;
+}
+
+void User::setType(int _type) {
     type = _type;
 }
 
-BYTE User::getType() const {
+int User::getType() {
     return type;
 }

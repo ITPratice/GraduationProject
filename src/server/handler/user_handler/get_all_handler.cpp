@@ -42,7 +42,7 @@ void get_all_handler::handle_get(http_request request) {
     }
 
     json::value answer;
-    answer["allUser"] = json::value::array(vUser);
+    answer["data"] = json::value::array(vUser);
 
     request.reply(status_codes::OK, answer);
 }
@@ -61,11 +61,11 @@ void get_all_handler::handle_delete(http_request request) {
 
 std::map<utility::string_t,utility::string_t> get_all_handler::user_to_map(User &user) {
     std::map<utility::string_t, utility::string_t> dictionary;
-    dictionary["Id"] = user.getId();
     dictionary["Email"] = user.getEmail();
+    dictionary["Username"] = user.getUsername();
     dictionary["Address"] = user.getAddress();
     dictionary["PhoneNumber"] = user.getPhoneNumber();
     dictionary["Password"] = user.getPassword();
-    dictionary["NumberPlate"] = user.getNumberPlate();
+    dictionary["Fullname"] = user.getFullname();
     return dictionary;
 }

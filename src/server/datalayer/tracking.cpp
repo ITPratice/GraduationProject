@@ -1,69 +1,59 @@
 #include "tracking.h"
 
-Tracking::Tracking() {
-    this.tracking_date = "";
-    this.tracking_time = "";
-    this.lat_point = "";
-    this.lon_point = "";
-    this.vehicle_number = "";
-    this.hardware_id = "";
+Tracking::Tracking() {   
+    date = "";
+    time = "";
+    latitude = "";
+    longititu = "";
+    hardware_id = "";
  }
 
- Tracking::Tracking(std::string _date, std::string _time, std::string _lat, std::string _lon, std::string _vNumber, std::string _hId) {
-    this.tracking_date = _date;
-    this.tracking_time = _time;
-    this.lat_point = _lat;
-    this.lon_point = _lon;
-    this.vehicle_number = _vNumber;
-    this.hardware_id = _hId;
- }
+Tracking::Tracking(std::string _date, std::string _time, std::string _lat, std::string _lon, std::string _hId) {
+    date = _date;
+    time = _time;
+    latitude = _lat;
+    longititu = _lon;
+    hardware_id = _hId;
+}
 
- Tracking::~Tracking() { }
+Tracking::~Tracking() { }
 
- void Tracking::setTrackingDate(std::string _date) {
-     this.tracking_date = _date;
- }
+ void Tracking::setDate(std::string _date) {
+     date = _date;
+}
 
- std::string Tracking::getTrackingDate() {
-     return tracking_date;
- }
+std::string Tracking::getDate() {
+     return date;
+}
 
- void Tracking::setTrackingTime(std::string _time) {
-     this.tracking_time = _time;
- }
+void Tracking::setTime(std::string _time) {
+     time = _time;
+}
 
- std::string Tracking::getTrackingTime() {
-     return tracking_time;
- }
+std::string Tracking::getTime() {
+     return time;
+}
 
- void Tracking::setLatPoint(std::string _lat) {
-     this.lat_point = _lat;
- }
+void Tracking::setLatitude(std::string _lat) {
+     latitude = _lat;
+}
 
- std::string Tracking::getLatPoint() {
-     return lat_point;
- }
+std::string Tracking::getLatitude() {
+     return latitude;
+}
 
- void Tracking::setLonPoint(std::string _lon) {
-     this.lon_point = _lon;
- }
+void Tracking::setLongititu(std::string _lon) {
+     longititu = _lon;
+}
 
- std::string Tracking::getLonPoint() {
-     return lon_point;
- }
+std::string Tracking::getLongititu() {
+     return longititu;
+}
 
- void Tracking::setVehicleNumber(std::string _vNumber) {
-     this.vehicle_number = _vNumber;
- }
+void Tracking::setHardwareId(std::string _hId) {
+    hardware_id = _hId;
+}
 
- std::string Tracking::getVehicleNumber() {
-     return vehicle_number;
- }
-
- void Tracking::setHardwareId(std::string _hId) {
-     this.hardware_id = _hId;
- }
-
- std::string Tracking::getHardwareId() {
-     return hardware_id;
- }
+std::string Tracking::getHardwareId() {
+    return hardware_id;
+}
