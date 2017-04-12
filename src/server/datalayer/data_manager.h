@@ -44,6 +44,9 @@ public:
     ResponseCode GetLocationByTime(std::string uId, std::string uTime, std::vector<Location> &lstLocation);
     ResponseCode Login(std::string email, std::string password);
 
+    // Tracking manager
+    ResponseCode UpdateTracking()
+
 public:
     void setDbPath(std::string pathFile);
 private:
