@@ -18,6 +18,7 @@ import self.yue.vehicletracker.base.BaseActivityBehaviour;
 import self.yue.vehicletracker.base.ShowableContent;
 import self.yue.vehicletracker.data.server.ApiProvider;
 import self.yue.vehicletracker.ui.main.MainActivity;
+import self.yue.vehicletracker.util.OnServerResponseListener;
 
 /**
  * Created by dongc on 3/18/2017.
@@ -83,12 +84,28 @@ public class LoginActivity extends BaseActivity implements ShowableContent, Base
     }
 
     private void login() {
-        if (TextUtils.isEmpty(mEditId.getText().toString())) {
+        String email = mEditId.getText().toString();
+        String password = mEditPassword.getText().toString();
+        if (TextUtils.isEmpty(email)) {
             showSnackbar(getString(R.string.empty_id));
-        } else if (TextUtils.isEmpty(mEditPassword.getText().toString())) {
+        } else if (TextUtils.isEmpty(password)) {
             showSnackbar(getString(R.string.empty_password));
         } else {
-            startActivity(newIntent());
+            ApiProvider.getInstance().login(email, password, new OnServerResponseListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    if (data.equals("OK")) {
+                        startActivity(newIntent());
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFail(Throwable t) {
+                    Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

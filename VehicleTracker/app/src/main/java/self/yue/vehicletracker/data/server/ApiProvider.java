@@ -62,4 +62,18 @@ public class ApiProvider {
             }
         });
     }
+
+    public void login(String email, String password, final OnServerResponseListener<String> listener) {
+        mService.login(email, password).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                listener.onFail(t);
+            }
+        });
+    }
 }

@@ -18,7 +18,8 @@ typedef struct {
 
 int powerKey = 9;
 String response = "";
-String baseUrl = "https://jsonplaceholder.typicode.com/";
+String baseUrl = "http://52.221.199.175:3000/api/";
+String hardwareId = "1";
 bool isGpsAvailable;
 bool isArduinoOn;
 bool isGprsOpened;
@@ -53,12 +54,12 @@ void loop() {
     }
 
     // If gps is available, begin sending data process
-    openGprs();
+    openGprs2();
 
-    if (!isGprsOpened) {
-      delay(10000);
-      return;
-    }
+    //    if (!isGprsOpened) {
+    //      delay(10000);
+    //      return;
+    //    }
 
     sendData("1", 0);
   } else {
@@ -141,19 +142,36 @@ void openGprs() {
   }
 }
 
+void openGprs2() {
+  // Attach Gprs
+  if (sendATCommandWithoutResponse("AT+CGATT?", "1", "0", 500) != SUCCESS) {
+    sendATCommandWithoutResponse("AT+CGATT=1", "OK", "", 500);
+  }
+
+  while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"", "OK", "ERROR", 1000) != SUCCESS) {
+    delay(500);
+  }
+  delay(1000);
+
+  // Set APN
+  while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"APN\",\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
+  delay(4000);
+
+  while (sendATCommandWithoutResponse("AT+SAPBR=1,1", "OK", "ERROR", 30000) != SUCCESS);
+  delay(2000);
+}
+
 void sendData(String data, int httpAction) {
-  if (sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 500) != SUCCESS) {
+  if (sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 500) == SUCCESS) {
     String command;
 
-    // Set http param
-    sendATCommandWithoutResponse("AT+HTTPPARA=\"CID\",1", "OK", "ERROR", 500);
-    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "comments?postId=1\"";
+    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "tracking?lat=" + gpsInfo.latitude + "&lon=" + gpsInfo.longitude + "&hId=" + hardwareId + "\"";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 500);
-
+    delay(1000);
     // Set http action. Type: 0=GET, 1=POST, 2=HEAD
     command = "AT+HTTPACTION=0";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 500);
-    delay(5000);
+    delay(10000);
 
     // Read data
     sendATCommandWithoutResponse("AT+HTTPREAD", "OK", "ERROR", 500);
@@ -161,6 +179,8 @@ void sendData(String data, int httpAction) {
 
     // Terminate http
     sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 500);
+    delay(1000);
+    sendATCommandWithoutResponse("AT+SAPBR=0,1", "OK", "ERROR", 500);
   }
 }
 
