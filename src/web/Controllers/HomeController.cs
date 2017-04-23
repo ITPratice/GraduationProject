@@ -41,7 +41,8 @@ namespace VehicleTracker.Controllers
                         lstUser.Add(_user);
                     }
                     return View(lstUser);
-                }catch(HttpRequestException ex)
+                }
+                catch (HttpRequestException ex)
                 {
                     return (BadRequest($"Error getting: {ex.Message.ToString()}"));
                 }

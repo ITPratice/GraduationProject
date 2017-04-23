@@ -1,0 +1,16 @@
+.admin-content-con {
+    margin-top: 20px;
+    background-color: #fff;
+    border-top: 4px #e7eaec solid;
+    padding: 15px;
+}
+    .admin-content-con header {
+        margin-bottom: 20px;
+        border-bottom: 1px #eee solid;
+        padding-bottom: 10px;
+    }
+
+    .admin-content-con h5 {
+        margin: 0px;
+        padding-top: 3px;
+    }

@@ -51,8 +51,7 @@ ResponseCode DataManager::createDb() {
             "PHONE_NUMBER   NVARCHAR(15)                                NOT NULL,"  \
             "FULL_NAME      NVARCHAR(50)                                NOT NULL,"  \
             "PASSWORD       NVARCHAR(20)                                NOT NULL,"  \
-            "IS_CONFIRM     INTEGER                                     NOT NULL,"  \
-            "TYPE           INTEGER                                     NOT NULL);";
+            "ROLE           INTEGER                                     NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -66,8 +65,7 @@ ResponseCode DataManager::createDb() {
     // Cretae Vehicle_type table
     sql = (char *)"CREATE TABLE VEHICLE_TYPE    ("                                  \
             "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
-            "NAME           NVARCHAR(10)                                NOT NULL,"  \
-            "DESCRIPTION    NVARCHAR(10)                                NOT NULL);"; 
+            "NAME           NVARCHAR(10)                                NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -81,8 +79,7 @@ ResponseCode DataManager::createDb() {
     // Create VEHICLES table
     sql = (char *)"CREATE TABLE VEHICLE    ("                                   \
             "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY         NOT NULL,"  \
-            "BRANCH             NVARCHAR(10)                        NOT NULL,"  \
-            "COLOR              NVARCHAR(10)                        NOT NULL,"  \
+            "BRANCH_ID          INTEGER                             NOT NULL,"  \
             "HARDWARE_ID        NVARCHAR(10)                                ,"  \
             "DESCRIPTION        NVARCHAR(100)                               ,"  \
             "TYPE_ID            INTEGER                             NOT NULL,"  \
@@ -117,12 +114,8 @@ ResponseCode DataManager::createDb() {
     // Create TRACKING table
     sql = (char *)"CREATE TABLE TRACKING  (" \
             "ID                 INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"              \       
-            "DATE               NVARCHAR(15)                                NOT NULL,"              \
-            "TIME               NVARCHAR(15)                                NOT NULL,"              \
             "LATITUDE           NVARCHAR(20)                                NOT NULL,"              \
-            "LONGITUDE          NVARCHAR(20)                                NOT NULL,"              \
-            "HARDWARE_ID        NVARCHAR(10)                                NOT NULL,"              \
-            "FOREIGN KEY (HARDWARE_ID) REFERENCES VEHICLE(HARDWARE_ID)      ON DELETE CASCADE);";
+            "LONGITUDE          NVARCHAR(20)                                NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -133,13 +126,45 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table TRACKING created successfully\n");
     }
 
+    sql = (char *)"CREATE TABLE ROUTE ("\
+            "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL"           \
+            "LOCATION_ID                        INTEGER                             NOT NULL"           \
+            "START_DATE                         NVARCHER(10)                        NOT NULL"           \
+            "START_TIME                         NVARCHAR(10)                        NOT NULL"           \
+            "END_DATE                           NVARCHAR(10)                        NOT NULL"           \
+            "END_TIME                           NVARCHAR(10)                        NOT NULL"           \
+            "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID)"                                           \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE"  \
+            "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);";
+    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        sqlite3_free(zErrMsg);
+        sqlite3_close(db);
+        return DATA_ERROR_CREATE_TB;
+    } else {
+        fprintf(stdout, "DATA_MANAGER - Table ROUTE created successfully\n");
+    }
+
+    sql = (char *)"CREATE TABLE BRANCH("\
+            "BRANCH_ID      INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
+            "NAME           NVARCHAR(50)                                NOT NULL);";
+    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        sqlite3_free(zErrMsg);
+        sqlite3_close(db);
+        return DATA_ERROR_CREATE_TB;
+    } else {
+        fprintf(stdout, "DATA_MANAGER - Table BRANCH created successfully\n");
+    }
     return DATA_SUCCESS;
 }
 
 bool DataManager::dbIsExist() {
     std::cout << "DATA_MANAGER - File .db full name: " << db_file_path << std::endl;
 
-    char* sql = (char *)"SELECT name FROM sqlite_master WHERE type='table' AND name='USERS';";
+    char* sql = (char *)"SELECT name FROM sqlite_master WHERE type='table' AND name='USER';";
 
     sqlite3_stmt *statement;
     if (sqlite3_prepare(db, sql, -1, &statement, 0) == SQLITE_OK) {
@@ -249,23 +274,118 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     return DATA_SUCCESS;
 }
 
-ResponseCode DataManager::InsertTracking(Tracking &tracking) {
-    /*"CREATE TABLE TRACKING  ("                                                        \
-            "ID                 INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"              \       
-            "DATE               NVARCHAR(15)                                NOT NULL,"              \
-            "TIME               NVARCHAR(15)                                NOT NULL,"              \
-            "LATITUDE           NVARCHAR(20)                                NOT NULL,"              \
-            "LONGITUDE          NVARCHAR(20)                                NOT NULL,"              \
-            "HARDWARE_ID        NVARCHAR(10)                                NOT NULL,"              \
-            "FOREIGN KEY (HARDWARE_ID) REFERENCES VEHICLE(HARDWARE_ID)      ON DELETE CASCADE);";*/
-
+// User
+ResponseCode DataManager::InsertUser(User &user) {
+   /* "CREATE TABLE USER   ("                                           \
+            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
+            "EMAIL          NVARCHAR(50)                                NOT NULL,"  \
+            "USERNAME       NVARCHER(20)                                NOT NULL,"  \
+            "ADDRESS        NVARCHAR(100)                               NOT NULL,"  \
+            "PHONE_NUMBER   NVARCHAR(15)                                NOT NULL,"  \
+            "FULL_NAME      NVARCHAR(50)                                NOT NULL,"  \
+            "PASSWORD       NVARCHAR(20)                                NOT NULL,"  \
+            "ROLE           INTEGER                                     NOT NULL);" */
     std::stringstream strm;
-    strm << "INSERT INTO TRACKING (DATE, TIME, LATITUDE, LONGITUDE, HARDWARE_ID) values ('"
-         << tracking.getDate()
-         << "','" << tracking.getTime()
-         << "','" << tracking.getLatitude()
+    strm << "INSERT INTO USER (EMAIL, USERNAME, ADDRESS, PHONE_NUMBER, FULL_NAME, PASSWORD, ROLE) values ('"
+         << user.getEmail()
+         << "','" << user.getUsername()
+         << "','" << user.getAddress()
+         << "','" << user.getPhoneNumber()
+         << "','" << user.getFullname()
+         << "','" << user.getPassword()
+         << "','" << user.getRole()
+         << "');";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query InsertUser: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Insert User successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateUser(User &user) {
+   /* "CREATE TABLE USER   ("                                           \
+            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
+            "EMAIL          NVARCHAR(50)                                NOT NULL,"  \
+            "USERNAME       NVARCHER(20)                                NOT NULL,"  \
+            "ADDRESS        NVARCHAR(100)                               NOT NULL,"  \
+            "PHONE_NUMBER   NVARCHAR(15)                                NOT NULL,"  \
+            "FULL_NAME      NVARCHAR(50)                                NOT NULL,"  \
+            "PASSWORD       NVARCHAR(20)                                NOT NULL,"  \
+            "ROLE           INTEGER                                     NOT NULL);" */
+    std::stringstream strm;
+    strm << "UPDATE USER SET"
+         << "EMAIL = '" << user.getEmail() << "',"
+         << "USERNAME = '" << user.getUsername() << "',"
+         << "ADDRESS = '" << user.getAddress() << "',"
+         << "PHONE_NUMBER = '" << user.getPhoneNumber() << "',"
+         << "FULL_NAME = '" << user.getFullname() << "',"
+         << "PASSWORD = '" << user.getPassword() << "',"
+         << "ROLE = '" << user.getRole() << "',"
+         << "WHERE ID = '" << user.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query UpdateUser: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Update User successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::DeleteUser(User &user) {
+    /* "CREATE TABLE USER   ("                                           \
+            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
+            "EMAIL          NVARCHAR(50)                                NOT NULL,"  \
+            "USERNAME       NVARCHER(20)                                NOT NULL,"  \
+            "ADDRESS        NVARCHAR(100)                               NOT NULL,"  \
+            "PHONE_NUMBER   NVARCHAR(15)                                NOT NULL,"  \
+            "FULL_NAME      NVARCHAR(50)                                NOT NULL,"  \
+            "PASSWORD       NVARCHAR(20)                                NOT NULL,"  \
+            "ROLE           INTEGER                                     NOT NULL);" */
+    std::stringstream strm;
+    strm << "DELETE FROM USER "
+         << "WHERE ID = '" << user.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query DeleteUser: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Delete User successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+// Tracking
+ResponseCode DataManager::InsertTracking(Tracking &tracking) {
+    /* "CREATE TABLE TRACKING  (" \
+            "ID                 INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"              \       
+            "LATITUDE           NVARCHAR(20)                                NOT NULL,"              \
+            "LONGITUDE          NVARCHAR(20)                                NOT NULL,"              */
+    std::stringstream strm;
+    strm << "INSERT INTO TRACKING (LATITUDE, LONGITUDE) values ('"
+         << tracking.getLatitude()
          << "','" << tracking.getLongititu()
-         << "','" << tracking.getHardwareId()
          << "');";
          
     std::string temp = strm.str();

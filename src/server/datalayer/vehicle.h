@@ -6,12 +6,11 @@
 class Vehicle {
 public:
     Vehicle();
-    Vehicle(std::string _nPlate, std::string _branch, std::string _color, std::string _hId, std::string _des, int _tId);
+    Vehicle(std::string _nPlate, int _branch_id, std::string _hId, std::string _des, int _tId);
     ~Vehicle();
 private:
     std::string number_plate;
-    std::string branch;
-    std::string color;
+    int branch_id;
     std::string hardware_id;
     std::string description;
     int type_id;
@@ -19,11 +18,8 @@ public:
     void setNumberPlate(std::string _nPlate);
     std::string getNumberPlate();
 
-    void setBranch(std::string _branch);
-    std::string getBranch();
-
-    void setColor(std::string _color);
-    std::string getColor();
+    void setBranchId(int _branch_id);
+    int getBranchId();
 
     void setHardwareId(std::string _hId);
     std::string getHardwareId();

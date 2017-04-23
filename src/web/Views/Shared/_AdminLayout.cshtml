@@ -6,6 +6,7 @@
     <title>Admin</title>
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/default.css" rel="stylesheet" />
+    <link href="~/admin/css/index.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -13,27 +14,31 @@
         <div class="row display-table-row">
             <!-- Side Menu-->
             <div class="col-lg-2 col-xs-1 hidden-xs display-table-cell valign-top" id="side-menu">
-                <h1 class="hidden-xs hidden-sm">Navigation</h1>
+                <h1 class="hidden-xs hidden-sm">Admin Panel</h1>
                 <ul>
                     <li class="link active">
                         <a href="#">
                             <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                            <span class="hidden-xs hidden-sm">Dashboard</span>
+                            <span class="hidden-xs hidden-sm">Trang chủ</span>
                         </a>
                     </li>
                     <li class="link">
                         <a href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
                             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                            <span class="hidden-xs hidden-sm">Article</span>
+                            <span class="hidden-xs hidden-sm">Thành viên</span>
                             <span class="label label-success pull-right hidden-xs hidden-sm">20</span>
                         </a>
                         <ul class="collapse collapseable" id="collapse-post">
-                            <li><a href="#">Create new</a></li>
-                            <li><a href="#">Edit</a></li>
+                            <li>
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                <a href="@Url.Action("Index", "User")">Danh sách thành viên</a>
+                            </li>
+                            <li><a href="#">Thêm mới</a></li>
+                            <li><a href="#">Kích hoạt</a></li>
                         </ul>
                     </li>
                     <li class="link">
-                        <a href="#">
+                        <a href="@Url.Action("Index", "User")">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             <span class="hidden-xs hidden-sm">User</span>
                         </a>
@@ -66,14 +71,14 @@
                         <div class="col-md-7">
                             <ul class="pull-right">
                                 <li id="welcome" class="hidden-xs">Welcome to Admin</li>
-                                <li class="fixed-width">
+                                <li class="fixed-width hidden-xs">
                                     <a href="#">
                                         <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
                                         <span class="label label-warning">3</span>
                                     </a>
                                 </li>
 
-                                <li class="fixed-width">
+                                <li class="fixed-width hidden-xs">
                                     <a href="#">
                                         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                                         <span class="label label-message">3</span>

@@ -27,7 +27,7 @@ std::unique_ptr<tracking_handler> t_Hanlder;
 
 int main()
 {
-    http_listener listener("http://localhost:3000/");
+    http_listener listener("http://0.0.0.0:3000/");
     listener.support(routingHandler);
     listener.open().wait();
     while(true);
@@ -44,10 +44,6 @@ void routingHandler(http_request request) {
         case E_GET_ALL_LOCATION:
             request.reply(status_codes::OK, "Test Location Ok !");
             break;
-        // case E_GET_LOCATION_BY_TIME:
-        //     t_Location_Handler = std::unique_ptr<location_time>(new location_time());
-        //     t_Location_Handler->ltListener(request);
-        //     break;
         case E_CHECK_LOGIN:
             u_Login_Handler = std::unique_ptr<login_handler>(new login_handler());
             u_Login_Handler->listener(request);

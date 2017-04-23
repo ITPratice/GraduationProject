@@ -8,22 +8,24 @@ User::User() {
     phone_number = "";
     full_name = "";
     password = "";
-    is_confirm = 0;
-    type = 4;
+    role = 1;
 }
 
-User::User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _confirm, int _type) {
+User::User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _role) {
     email = _email;
     uName = _uName;
     address = _addr;
     phone_number = _phone;
     full_name = _fullName;
     password = _pass;
-    is_confirm = _confirm;
-    type = _type;
+    role = _role;
 }
 
 User::~User() {}
+
+int getId() {
+    return id;
+}
 
 void User::setEmail(std::string email_str) {
     email = email_str;
@@ -73,18 +75,10 @@ std::string User::getPassword() {
     return password;
 }
 
-void User::setIsConfirm(int _confirm) {
-    is_confirm = _confirm;
+void User::setRole(int _role) {
+    role = _role;
 }
 
-int User::getIsConfirm() {
-    return is_confirm;
-}
-
-void User::setType(int _type) {
-    type = _type;
-}
-
-int User::getType() {
-    return type;
+int User::getRole() {
+    return role;
 }

@@ -2,17 +2,15 @@
 
  Vehicle::Vehicle() {
     number_plate = "";
-    branch = "";
-    color = "";
+    branch_id = 1;
     hardware_id = "";
     description = "";
-    type_id = 0;
+    type_id = 1;
  }
     
-Vehicle::Vehicle(std::string _nPlate, std::string _branch, std::string _color, std::string _hId, std::string _des, int _tId) {
+Vehicle::Vehicle(std::string _nPlate, int _branch_id, std::string _hId, std::string _des, int _tId) {
     number_plate = _nPlate;
-    branch = _branch;
-    color = _color;
+    branch_id = _branch_id;
     hardware_id = _hId;
     description = _des;
     type_id = _tId;
@@ -28,20 +26,12 @@ std::string Vehicle::getNumberPlate() {
     return number_plate;
 }
 
-void Vehicle::setBranch(std::string _branch) {
-    branch = _branch;
+void Vehicle::setBranchId(int _branch_id) {
+    branch_id = _branch_id;
 }
 
-std::string Vehicle::getBranch() {
-    return branch;
-}
-
-void Vehicle::setColor(std::string _color) {
-    color = _color;
-}
-
-std::string Vehicle::getColor() {
-    return color;
+std::string Vehicle::getBranchId() {
+    return branch_id;
 }
 
 void Vehicle::setHardwareId(std::string _hId) {

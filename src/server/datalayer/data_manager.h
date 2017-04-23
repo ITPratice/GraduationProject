@@ -24,12 +24,11 @@ public:
     ResponseCode connectDb();
     ResponseCode disconnectDb();
 
-    // // User manager
-    // ResponseCode InsertUser(User &user);
-    // ResponseCode UpdateUser(User &user);
-    // ResponseCode DeleteUser(User &user);
-    // ResponseCode GetAllUser(std::vector<User> &lstUser);
-
+    // User manager
+    ResponseCode InsertUser(User &user);
+    ResponseCode UpdateUser(User &user);
+    ResponseCode DeleteUser(User &user);
+    
     // // Location manager
     // ResponseCode InsertLocation(Location &location);
     // ResponseCode UpdateLocation(Location &location);

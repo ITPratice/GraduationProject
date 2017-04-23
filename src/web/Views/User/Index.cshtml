@@ -1,0 +1,45 @@
+@using VehicleTracker.Models
+@model List<User>
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    <div class="col-md-12">
+        <div class="admin-content-con clearfix">
+            <header>
+                <h5>User</h5>
+            </header>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Address</th>
+                        <th>Phonenumber</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{
+                        foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="name" value="" />
+                                </td>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+                                <td>@user.UserName</td>
+                                <td>@user.Address</td>
+                                <td>@user.PhoneNumber</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+

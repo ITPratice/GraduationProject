@@ -10,18 +10,20 @@
 class User {
 public:
     User();
-    User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _confirm, int type);
+    User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int role);
     ~User();
 private:
+    int id;
     std::string email;
     std::string uName;
     std::string address;
     std::string phone_number;
     std::string full_name;
     std::string password;
-    int is_confirm;
-    int type;
+    int role;
 public:
+    int getId();
+
     void setEmail(std::string email_str);
     std::string getEmail();
 
@@ -40,11 +42,8 @@ public:
     void setPassword(std::string pass_str);
     std::string getPassword();
 
-    void setIsConfirm(int _confirm);
-    int getIsConfirm();
-
-    void setType(int _type);
-    int getType();
+    void setRole(int _role);
+    int getRole();
 };
 
 #endif  //USER_H
