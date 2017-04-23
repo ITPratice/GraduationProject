@@ -1,0 +1,18 @@
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\bin\Debug\netcoreapp1.1\VehicleTracker.deps.json
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\bin\Debug\netcoreapp1.1\VehicleTracker.runtimeconfig.json
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\bin\Debug\netcoreapp1.1\VehicleTracker.runtimeconfig.dev.json
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\bin\Debug\netcoreapp1.1\VehicleTracker.dll
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\bin\Debug\netcoreapp1.1\VehicleTracker.pdb
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\obj\Debug\netcoreapp1.1\VehicleTracker.csprojResolveAssemblyReference.cache
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\obj\Debug\netcoreapp1.1\VehicleTracker.AssemblyInfo.cs
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\obj\Debug\netcoreapp1.1\VehicleTracker.dll
+c:\users\duvuthacu\documents\visual studio 2017\Projects\VehicleTracker\VehicleTracker\obj\Debug\netcoreapp1.1\VehicleTracker.pdb
+E:\Project\VehicleTracker\src\web\bin\Debug\netcoreapp1.1\VehicleTracker.deps.json
+E:\Project\VehicleTracker\src\web\bin\Debug\netcoreapp1.1\VehicleTracker.runtimeconfig.json
+E:\Project\VehicleTracker\src\web\bin\Debug\netcoreapp1.1\VehicleTracker.runtimeconfig.dev.json
+E:\Project\VehicleTracker\src\web\bin\Debug\netcoreapp1.1\VehicleTracker.dll
+E:\Project\VehicleTracker\src\web\bin\Debug\netcoreapp1.1\VehicleTracker.pdb
+E:\Project\VehicleTracker\src\web\obj\Debug\netcoreapp1.1\VehicleTracker.csprojResolveAssemblyReference.cache
+E:\Project\VehicleTracker\src\web\obj\Debug\netcoreapp1.1\VehicleTracker.AssemblyInfo.cs
+E:\Project\VehicleTracker\src\web\obj\Debug\netcoreapp1.1\VehicleTracker.dll
+E:\Project\VehicleTracker\src\web\obj\Debug\netcoreapp1.1\VehicleTracker.pdb

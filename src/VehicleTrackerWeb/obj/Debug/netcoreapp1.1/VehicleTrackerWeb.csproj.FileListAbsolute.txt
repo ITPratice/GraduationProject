@@ -1,8 +1,0 @@
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\bin\Debug\netcoreapp1.1\VehicleTrackerWeb.deps.json
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\bin\Debug\netcoreapp1.1\VehicleTrackerWeb.runtimeconfig.json
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\bin\Debug\netcoreapp1.1\VehicleTrackerWeb.runtimeconfig.dev.json
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\bin\Debug\netcoreapp1.1\VehicleTrackerWeb.dll
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\bin\Debug\netcoreapp1.1\VehicleTrackerWeb.pdb
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\obj\Debug\netcoreapp1.1\VehicleTrackerWeb.AssemblyInfo.cs
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\obj\Debug\netcoreapp1.1\VehicleTrackerWeb.dll
-E:\Project\VehicleTracker\src\VehicleTrackerWeb\obj\Debug\netcoreapp1.1\VehicleTrackerWeb.pdb

@@ -1,0 +1,111 @@
+﻿<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin</title>
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/default.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+            <!-- Side Menu-->
+            <div class="col-lg-2 col-xs-1 hidden-xs display-table-cell valign-top" id="side-menu">
+                <h1 class="hidden-xs hidden-sm">Navigation</h1>
+                <ul>
+                    <li class="link active">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                            <span class="hidden-xs hidden-sm">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="link">
+                        <a href="#collapse-post" data-toggle="collapse" aria-controls="collapse-post">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            <span class="hidden-xs hidden-sm">Article</span>
+                            <span class="label label-success pull-right hidden-xs hidden-sm">20</span>
+                        </a>
+                        <ul class="collapse collapseable" id="collapse-post">
+                            <li><a href="#">Create new</a></li>
+                            <li><a href="#">Edit</a></li>
+                        </ul>
+                    </li>
+                    <li class="link">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <span class="hidden-xs hidden-sm">User</span>
+                        </a>
+                    </li>
+                    <li class="link">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                            <span class="hidden-xs hidden-sm">Tags</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Main content area-->
+            <div class="col-lg-10 col-xs-11 display-table-cell valign-top">
+                <div class="row">
+                    <header id="nav-header" class="clearfix">
+                        <!-- Search bar-->
+                        <div class="col-md-5">
+                            <nav class="navbar-default pull-left">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu"
+                                        aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </nav>
+                            <input type="text" id="header-search-field" class="hidden-sm hidden-xs" placeholder="Search for somethings...">
+                        </div>
+                        <div class="col-md-7">
+                            <ul class="pull-right">
+                                <li id="welcome" class="hidden-xs">Welcome to Admin</li>
+                                <li class="fixed-width">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                                        <span class="label label-warning">3</span>
+                                    </a>
+                                </li>
+
+                                <li class="fixed-width">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                        <span class="label label-message">3</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="logout">
+                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> log out
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </header>
+                </div>
+                <div class="row">
+                    @RenderBody()
+                </div>
+                <div class="row">
+                    <footer id="admin-footer" class="clearfix">
+                        <div class="pull-left"><b>Copyright </b>&copy; 2017</div>
+                        <div class="pull-right"><b>Admin system</b></div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript-->
+    <script src="~/lib/bootstrap/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/js/default.js"></script>
+</body>
+
+</html>

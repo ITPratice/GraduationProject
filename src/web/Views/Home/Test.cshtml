@@ -1,0 +1,14 @@
+@using VehicleTracker.Models
+@model List<User>
+    @{
+        ViewData["Title"] = "TestJson";
+    }
+
+    @{
+        foreach (var user in Model)
+        {
+        <h1>@user.Email</h1>
+        }
+    }
+
+

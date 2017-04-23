@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\default.css" />
+    <Content Include="wwwroot\images\admin-ava\varun.jpg" />
+    <Content Include="wwwroot\images\admin-logo\admin-logo-dark.png" />
+    <Content Include="wwwroot\images\admin-logo\admin-text-dark.png" />
+    <Content Include="wwwroot\js\default.js" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.min.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap.css" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="wwwroot\lib\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wwwroot\lib\bootstrap\jquery\jquery-3.2.1.min.js" />
+    <Content Include="wwwroot\lib\bootstrap\js\bootstrap.js" />
+    <Content Include="wwwroot\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="wwwroot\lib\bootstrap\js\npm.js" />
+    <Content Include="wwwroot\lib\font-awesome\css\font-awesome.css" />
+    <Content Include="wwwroot\lib\font-awesome\css\font-awesome.min.css" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Admin\" />
+    <Folder Include="wwwroot\lib\jquery\" />
+  </ItemGroup>
+
+</Project>
