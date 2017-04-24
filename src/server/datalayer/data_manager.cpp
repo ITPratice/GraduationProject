@@ -42,15 +42,14 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Opened database successfully\n");
     }
 
-    // Create USERS table
-    sql = (char *)"CREATE TABLE USER   ("                                           \
-            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
-            "EMAIL          NVARCHAR(50)                                NOT NULL,"  \
-            "USERNAME       NVARCHER(20)                                NOT NULL,"  \
+    // Create USERS table - OK
+    sql = (char *)"CREATE TABLE USER   (" \
+            "EMAIL          VARCHAR(80)        PRIMARY KEY              NOT NULL,"  \
+            "USERNAME       VARCHER(20)                                 NOT NULL,"  \
             "ADDRESS        NVARCHAR(100)                               NOT NULL,"  \
-            "PHONE_NUMBER   NVARCHAR(15)                                NOT NULL,"  \
-            "FULL_NAME      NVARCHAR(50)                                NOT NULL,"  \
-            "PASSWORD       NVARCHAR(20)                                NOT NULL,"  \
+            "PHONE_NUMBER   VARCHAR(20)                                 NOT NULL,"  \
+            "FULL_NAME      NVARCHAR(100)                               NOT NULL,"  \
+            "PASSWORD       VARCHAR(20)                                 NOT NULL,"  \
             "ROLE           INTEGER                                     NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -62,10 +61,10 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table USERS created successfully\n");
     }
 
-    // Cretae Vehicle_type table
-    sql = (char *)"CREATE TABLE VEHICLE_TYPE    ("                                  \
-            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
-            "NAME           NVARCHAR(10)                                NOT NULL);";
+    // Cretae Vehicle_type table - OK
+    sql = (char *)"CREATE TABLE VEHICLE_TYPE (" \
+            "ID             VARCHAR(10)         PRIMARY KEY         NOT NULL,"  \
+            "NAME           NVARCHAR(50)                            NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -76,13 +75,30 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table VEHICLE_TYPE created successfully\n");
     }
 
-    // Create VEHICLES table
+    // Create BRANCH table - OK
+    sql = (char *)"CREATE TABLE BRANCH("\
+            "ID             VARCHAR(10)         PRIMARY KEY             NOT NULL,"   \
+            "NAME           NVARCHAR(50)                                NOT NULL);";
+    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        sqlite3_free(zErrMsg);
+        sqlite3_close(db);
+        return DATA_ERROR_CREATE_TB;
+    } else {
+        fprintf(stdout, "DATA_MANAGER - Table BRANCH created successfully\n");
+    }
+    return DATA_SUCCESS;
+
+    // Create VEHICLES table - OK
     sql = (char *)"CREATE TABLE VEHICLE    ("                                       \
-            "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY             NOT NULL,"  \
-            "BRANCH_ID          INTEGER                                 NOT NULL,"  \
-            "HARDWARE_ID        NVARCHAR(10)                                    ,"  \
-            "DESCRIPTION        NVARCHAR(100)                                   ,"  \
-            "TYPE_ID            INTEGER                                 NOT NULL,"  \
+            "NUMBER_PLATE       VARCHAR(20)         PRIMARY KEY         NOT NULL,"  \
+            "BRANCH_ID          VARCHAR(10)                             NOT NULL,"  \
+            "HARDWARE_ID        VARCHAR(10)                             NOT NULL,"  \
+            "DESCRIPTION        NVARCHAR(200)                                   ,"  \
+            "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
+            "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
+            "FOREIGN KEY (USER_EMAIL)    REFERENCES USER(EMAIL)         ON DELETE CASCADE "
             "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE "
             "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
@@ -95,13 +111,13 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table VEHICLE created successfully\n");
     }
 
-    // Create USERS_CARS table
-    sql = (char *)"CREATE TABLE USER_VEHICLE  (" \
-            "USER_ID                                INTEGER                             NOT NULL            ,"  \ 
-            "VEHICLE_NUMBER_PLATE                   NVARCHAR(10)                        NOT NULL            ,"  \ 
-            "PRIMARY KEY (USER_ID, VEHICLE_NUMBER_PLATE)                                                    ,"  \ 
-            "FOREIGN KEY (USER_ID)                  REFERENCES USER(ID)                 ON DELETE CASCADE    "  \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE)  ;";
+    // Create LOCATION table - OK
+    sql = (char *)"CREATE TABLE LOCATION  (" \
+            "ID                     INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \       
+            "LATITUDE               VARCHAR(20)                                         NOT NULL," \
+            "LONGITUDE              VARCHAR(20)                                         NOT NULL," \
+            "VEHICLE_NUMBER_PLATE   VARCHAR(20)                                         NOT NULL," \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -109,34 +125,19 @@ ResponseCode DataManager::createDb() {
         sqlite3_close(db);
         return DATA_ERROR_CREATE_TB;
     } else {
-        fprintf(stdout, "DATA_MANAGER - Table USER_VEHICLE created successfully\n");
+        fprintf(stdout, "DATA_MANAGER - Table LOCATION created successfully\n");
     }
 
-    // Create TRACKING table
-    sql = (char *)"CREATE TABLE TRACKING  (" \
-            "ID                 INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"              \       
-            "LATITUDE           NVARCHAR(20)                                NOT NULL,"              \
-            "LONGITUDE          NVARCHAR(20)                                NOT NULL);";
-    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    if(rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-        sqlite3_close(db);
-        return DATA_ERROR_CREATE_TB;
-    } else {
-        fprintf(stdout, "DATA_MANAGER - Table TRACKING created successfully\n");
-    }
-
-    sql = (char *)"CREATE TABLE ROUTE ("               \
-            "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL,"           \
+    // Create HISTORY table - OK
+    sql = (char *)"CREATE TABLE HISTORY (" \
+            "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
             "LOCATION_ID                        INTEGER                             NOT NULL,"           \
-            "START_DATE                         NVARCHER(10)                                ,"           \
-            "START_TIME                         NVARCHAR(10)                                ,"           \
-            "END_DATE                           NVARCHAR(10)                                ,"           \
-            "END_TIME                           NVARCHAR(10)                                ,"           \
+            "DATE                               VARCHER(20)                                 ,"           \
+            "START_TIME                         VARCHAR(20)                                ,"           \
+            "END_TIME                           VARCHAR(20)                                ,"           \
             "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
             "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE " \
-            "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);";
+            "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -146,20 +147,6 @@ ResponseCode DataManager::createDb() {
     } else {
         fprintf(stdout, "DATA_MANAGER - Table ROUTE created successfully\n");
     }
-
-    sql = (char *)"CREATE TABLE BRANCH("\
-            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"   \
-            "NAME           NVARCHAR(50)                                NOT NULL);";
-    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    if(rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-        sqlite3_close(db);
-        return DATA_ERROR_CREATE_TB;
-    } else {
-        fprintf(stdout, "DATA_MANAGER - Table BRANCH created successfully\n");
-    }
-    return DATA_SUCCESS;
 }
 
 bool DataManager::dbIsExist() {
