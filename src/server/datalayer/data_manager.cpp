@@ -97,8 +97,8 @@ ResponseCode DataManager::createDb() {
             "DESCRIPTION        NVARCHAR(200)                                   ,"  \
             "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
             "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
-            "FOREIGN KEY (USER_EMAIL)    REFERENCES USER(EMAIL)         ON DELETE CASCADE "
-            "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE "
+            "FOREIGN KEY (USER_EMAIL)    REFERENCES USER(EMAIL)         ON DELETE CASCADE, "
+            "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE, "
             "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -135,7 +135,7 @@ ResponseCode DataManager::createDb() {
             "START_TIME                         VARCHAR(20)                                 ,"           \
             "END_TIME                           VARCHAR(20)                                 ,"           \
             "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE " \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE, " \
             "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -176,6 +176,7 @@ bool DataManager::dbIsExist() {
     return true;
 }
 
+// BUG
 ResponseCode DataManager::connectDb() {
     if (!dbIsExist()) {
         std::cout << "DATA_MANAGER - Start create DB\n";
@@ -250,7 +251,7 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     sqlite3_stmt *statement;
     char *query = str;
     if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
-        int ctotal = sqlite3_column_count(statement);
+        // int ctotal = sqlite3_column_count(statement);
         int res;
         while(true) {
             res = sqlite3_step(statement);
@@ -265,7 +266,7 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     return DATA_SUCCESS;
 }
 
-// User manager
+// User manager - Test OK
 ResponseCode DataManager::InsertUser(User &user) {
    /* "CREATE TABLE USER   (" \
             "EMAIL          VARCHAR(80)        PRIMARY KEY              NOT NULL,"  \
@@ -317,7 +318,7 @@ ResponseCode DataManager::UpdateUser(User &user) {
          << "PHONE_NUMBER = '" << user.getPhoneNumber() << "',"
          << "FULL_NAME = '" << user.getFullname() << "',"
          << "PASSWORD = '" << user.getPassword() << "',"
-         << "ROLE = '" << user.getRole() << " "
+         << "ROLE = '" << user.getRole() << "' "
          << "WHERE EMAIL = '" << user.getEmail() << "';";
          
     std::string temp = strm.str();
@@ -363,7 +364,7 @@ ResponseCode DataManager::DeleteUser(User &user) {
     return DATA_SUCCESS;
 }
 
-// VehicleType manager
+// VehicleType manager - Test OK
 ResponseCode DataManager::InsertVehicleType(VehicleType &vehicle_type) {
     /*"CREATE TABLE VEHICLE_TYPE (" \
             "ID             VARCHAR(10)         PRIMARY KEY         NOT NULL,"  \
@@ -436,7 +437,7 @@ ResponseCode DataManager::DeleteVehicleType(VehicleType &vehicle_type) {
     return DATA_SUCCESS;
 }
 
-// Vehicle manager
+// Vehicle manager - Test OK
 ResponseCode DataManager::InsertVehicle(Vehicle &vehicle) {
     /*"CREATE TABLE VEHICLE    ("                                       \
             "NUMBER_PLATE       VARCHAR(20)         PRIMARY KEY         NOT NULL,"  \
@@ -445,7 +446,7 @@ ResponseCode DataManager::InsertVehicle(Vehicle &vehicle) {
             "DESCRIPTION        NVARCHAR(200)                                   ,"  \
             "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
             "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
-            "FOREIGN KEY (USER_EMAIL)    REFERENCES USER(EMAIL)         ON DELETE CASCADE "
+            "FOREIGN KEY (USER_EMAIL)   REFERENCES USER(EMAIL)         ON DELETE CASCADE "
             "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE "
             "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";*/
     std::stringstream strm;
@@ -538,7 +539,7 @@ ResponseCode DataManager::DeleteVehicle(Vehicle &vehicle) {
     return DATA_SUCCESS;
 }
 
-// Branch manager
+// Branch manager - Test OK
 ResponseCode DataManager::InsertBranch(Branch &branch) {
     /*"CREATE TABLE BRANCH("\
             "ID             VARCHAR(10)         PRIMARY KEY             NOT NULL,"   \
@@ -571,7 +572,7 @@ ResponseCode DataManager::UpdateBranch(Branch &branch) {
     std::stringstream strm;
     strm << "UPDATE BRANCH SET "
          << "NAME = '" << branch.getName() << "' "
-         << "WHERE ID = " << branch.getId() << "';";
+         << "WHERE ID = '" << branch.getId() << "';";
          
     std::string temp = strm.str();
     std::cout << "DATA_MANAGER - Query Update Branch: " << temp << std::endl;
@@ -594,7 +595,7 @@ ResponseCode DataManager::DeleteBranch(Branch &branch) {
             "NAME           NVARCHAR(50)                                NOT NULL);"*/
     std::stringstream strm;
     strm << "DELETE FROM BRANCH "
-         << "WHERE ID = " << branch.getId() << "';";
+         << "WHERE ID = '" << branch.getId() << "';";
          
     std::string temp = strm.str();
     std::cout << "DATA_MANAGER - Query Delete Branch: " << temp << std::endl;
@@ -611,7 +612,7 @@ ResponseCode DataManager::DeleteBranch(Branch &branch) {
     return DATA_SUCCESS;
 }
 
-// Location
+// Location - Test OK
 ResponseCode DataManager::InsertLocation(Location &location) {
     /* "CREATE TABLE LOCATION  (" \
             "ID                     INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
@@ -652,7 +653,7 @@ ResponseCode DataManager::UpdateLocation(Location &location) {
     strm << "UPDATE LOCATION SET "
          << "LATITUDE = '" << location.getLatitude() << "',"
          << "LONGITUDE = '" << location.getLongititu() << "', "
-         << "VEHICLE_NUMBER_PLATE = '" << location.getNumberPlate() << "' '"
+         << "VEHICLE_NUMBER_PLATE = '" << location.getNumberPlate() << "' "
          << "WHERE ID = '" << location.getId() << "';";
          
     std::string temp = strm.str();
@@ -696,7 +697,7 @@ ResponseCode DataManager::DeleteLocation(Location &location) {
     return DATA_SUCCESS;
 }
 
-// Route manager
+// History manager - Test OK
 ResponseCode DataManager::InsertHistory(History &history) {
     /*"CREATE TABLE HISTORY (" \
             "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
@@ -713,7 +714,7 @@ ResponseCode DataManager::InsertHistory(History &history) {
          << "', '" << history.getLocationId()
          << "', '" << history.getDate()
          << "', '" << history.getStartTime()
-         << "', '" << route.getEndTime()         
+         << "', '" << history.getEndTime()         
          << "');";
          
     std::string temp = strm.str();
@@ -743,11 +744,11 @@ ResponseCode DataManager::UpdateHistory(History &history) {
             "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);" */
     std::stringstream strm;
     strm << "UPDATE HISTORY SET "
-         << "DATE '" << route.getStartDate() << "', "
-         << "START_TIME = '" << route.getStartTime() << "', "
-         << "END_TIME = '" << route.getEndTime() << "' "
-         << "WHERE VEHICLE_NUMBER_PLATE = '" << route.getNumberPlate() << "' AND "
-         << "LOCATION_ID = '" << route.getLocationId() << "';";
+         << "DATE = '" << history.getDate() << "', "
+         << "START_TIME = '" << history.getStartTime() << "', "
+         << "END_TIME = '" << history.getEndTime() << "' "
+         << "WHERE VEHICLE_NUMBER_PLATE = '" << history.getNumberPlate() << "' AND "
+         << "LOCATION_ID = '" << history.getLocationId() << "';";
          
     std::string temp = strm.str();
     std::cout << "DATA_MANAGER - Query Update History: " << temp << std::endl;
