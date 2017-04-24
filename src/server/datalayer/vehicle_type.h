@@ -7,13 +7,14 @@
 class VehicleType {
 public:
     VehicleType();
-    VehicleType(std::string _name);
+    VehicleType(std::string _name, std::string _id);
     ~VehicleType();
 private:
-   int id;
+    std::string id;
     std::string name;
 public:
-    int getId();
+    void setId(std::string _id);
+    std::string getId();
 
     void setName(std::string _name);
     std::string getName();

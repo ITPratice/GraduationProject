@@ -6,20 +6,21 @@
 class Vehicle {
 public:
     Vehicle();
-    Vehicle(std::string _nPlate, int _branch_id, std::string _hId, std::string _des, int _tId);
+    Vehicle(std::string _nPlate, std::string _branch_id, std::string _hId, std::string _des, std::string _tId, std::string _uEmail);
     ~Vehicle();
 private:
     std::string number_plate;
-    int branch_id;
+    std::string branch_id;
     std::string hardware_id;
     std::string description;
-    int type_id;
+    std::string type_id;
+    std::string user_email;
 public:
     void setNumberPlate(std::string _nPlate);
     std::string getNumberPlate();
 
-    void setBranchId(int _branch_id);
-    int getBranchId();
+    void setBranchId(std::string _branch_id);
+    std::string getBranchId();
 
     void setHardwareId(std::string _hId);
     std::string getHardwareId();
@@ -27,8 +28,11 @@ public:
     void setDescription(std::string _Des);
     std::string getDescription();
 
-    void setTypeId(int _tId);
-    int getTypeId();
+    void setTypeId(std::string _tId);
+    std::string getTypeId();
+
+    void setUserEmail(std::string _uEmail);
+    std::string getUserEmail();
 };
 
 #endif  // VEHICLE_H

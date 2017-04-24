@@ -2,15 +2,21 @@
 
 VehicleType::VehicleType() {
     name = "";
+    id = "";
 }
 
-VehicleType::VehicleType(std::string _name) {
+VehicleType::VehicleType(std::string _name, std::string _id) {
     name = _name;
+    id = _id;
 }
 
 VehicleType::~VehicleType() { }
 
-int VehicleType::getId() {
+void VehicleType::setId(std::string _id) {
+    id = _id;
+}
+
+std::string VehicleType::getId() {
     return id;
 }
 

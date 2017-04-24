@@ -13,7 +13,6 @@ public:
     User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int role);
     ~User();
 private:
-    int id;
     std::string email;
     std::string uName;
     std::string address;
@@ -22,8 +21,6 @@ private:
     std::string password;
     int role;
 public:
-    int getId();
-
     void setEmail(std::string email_str);
     std::string getEmail();
 

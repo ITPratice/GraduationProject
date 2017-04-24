@@ -6,13 +6,14 @@
 class Branch {
 public:
     Branch();
-    Branch(std::string _name);
+    Branch(std::string _id, std::string _name);
     ~Branch();
 private:
-    int id;
+    std::string id;
     std::string name;
 public:
-    int getId();
+    void setId(std::string _id);
+    std::string getId();
 
     void setName(std::string _name);
     std::string getName();

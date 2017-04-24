@@ -23,10 +23,6 @@ User::User(std::string _email, std::string _uName, std::string _addr, std::strin
 
 User::~User() {}
 
-int User::getId() {
-    return id;
-}
-
 void User::setEmail(std::string email_str) {
     email = email_str;
 }

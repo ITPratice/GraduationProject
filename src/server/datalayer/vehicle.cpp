@@ -2,18 +2,20 @@
 
  Vehicle::Vehicle() {
     number_plate = "";
-    branch_id = 1;
+    branch_id = "";
     hardware_id = "";
     description = "";
-    type_id = 1;
+    type_id = "";
+    user_email = "";
  }
     
-Vehicle::Vehicle(std::string _nPlate, int _branch_id, std::string _hId, std::string _des, int _tId) {
+Vehicle::Vehicle(std::string _nPlate, std::string _branch_id, std::string _hId, std::string _des, std::string _tId, std::string _uEmail) {
     number_plate = _nPlate;
     branch_id = _branch_id;
     hardware_id = _hId;
     description = _des;
     type_id = _tId;
+    user_email = _uEmail;
 }
 
 Vehicle::~Vehicle() { }
@@ -26,11 +28,11 @@ std::string Vehicle::getNumberPlate() {
     return number_plate;
 }
 
-void Vehicle::setBranchId(int _branch_id) {
+void Vehicle::setBranchId(std::string _branch_id) {
     branch_id = _branch_id;
 }
 
-int Vehicle::getBranchId() {
+std::string Vehicle::getBranchId() {
     return branch_id;
 }
 
@@ -50,10 +52,18 @@ std::string Vehicle::getDescription() {
     return description;
 }
 
-void Vehicle::setTypeId(int _tId) {
+void Vehicle::setTypeId(std::string _tId) {
     type_id = _tId;
 }
 
-int Vehicle::getTypeId() {
+std::string Vehicle::getTypeId() {
     return type_id;
+}
+
+void Vehicle::setUserEmail(std::string _uEmail) {
+    user_email = _uEmail;
+}
+
+std::string Vehicle::getUserEmail() {
+    return user_email;
 }

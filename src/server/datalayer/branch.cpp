@@ -1,16 +1,22 @@
 #include "branch.h"
 
 Branch::Branch() {
+    id = "";
     name = "";
 }
 
-Branch::Branch(std::string _name) {
+Branch::Branch(std::string _id, std::string _name) {
+    id = _id;
     name = _name;
 }
 
 Branch::~Branch() { }
 
-int Branch::getId() {
+void Branch::setId(std::string _id) {
+    id = _id;
+}
+
+std::string Branch::getId() {
     return id;
 }
 

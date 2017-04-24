@@ -11,12 +11,11 @@
 #include "../ResponseInterface.h"
 
 #include "user.h"
-#include "tracking.h"
+#include "location.h"
 #include "vehicle_type.h"
 #include "vehicle.h"
 #include "branch.h"
-#include "user_vehicle.h"
-#include "route.h"
+#include "history.h"
 
 #ifndef DATA_MANAGER_H
 #define DATA_MANAGER_H
@@ -52,19 +51,14 @@ public:
     ResponseCode UpdateBranch(Branch &branch);
     ResponseCode DeleteBranch(Branch &branch);
 
-    // UserVehicle manager
-    ResponseCode InsertUserVehicle(UserVehicle &user_vehicle);
-    ResponseCode UpdateUserVehicle(UserVehicle &user_vehicle);
-    ResponseCode DeleteUserVehicle(UserVehicle &user_vehicle);
-
     // Tracking manager
-    ResponseCode InsertTracking(Tracking &tracking);
-    ResponseCode UpdateTracking(Tracking &tracking);
-    ResponseCode DeleteTracking(Tracking &tracking);
+    ResponseCode InsertLocation(Location &location);
+    ResponseCode UpdateLocation(Location &location);
+    ResponseCode DeleteLocation(Location &location);
 
     // Route manager
-    ResponseCode InsertRoute(Route &route);
-    ResponseCode UpdateRoute(Route &route);
+    ResponseCode InsertHistory(History &history);
+    ResponseCode UpdateHistory(History &history);
 
 public:
     void setDbPath(std::string pathFile);
