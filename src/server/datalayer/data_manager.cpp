@@ -127,15 +127,15 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table TRACKING created successfully\n");
     }
 
-    sql = (char *)"CREATE TABLE ROUTE ("\
-            "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL"           \
-            "LOCATION_ID                        INTEGER                             NOT NULL"           \
-            "START_DATE                         NVARCHER(10)                                "           \
-            "START_TIME                         NVARCHAR(10)                                "           \
-            "END_DATE                           NVARCHAR(10)                                "           \
-            "END_TIME                           NVARCHAR(10)                                "           \
-            "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID)"                                           \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE " \
+    sql = (char *)"CREATE TABLE ROUTE ("               \
+            "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL,"           \
+            "LOCATION_ID                        INTEGER                             NOT NULL,"           \
+            "START_DATE                         NVARCHER(10)                                ,"           \
+            "START_TIME                         NVARCHAR(10)                                ,"           \
+            "END_DATE                           NVARCHAR(10)                                ,"           \
+            "END_TIME                           NVARCHAR(10)                                ,"           \
+            "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE " \
             "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -148,7 +148,7 @@ ResponseCode DataManager::createDb() {
     }
 
     sql = (char *)"CREATE TABLE BRANCH("\
-            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
+            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"   \
             "NAME           NVARCHAR(50)                                NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -165,35 +165,38 @@ ResponseCode DataManager::createDb() {
 bool DataManager::dbIsExist() {
     std::cout << "DATA_MANAGER - File .db full name: " << db_file_path << std::endl;
 
-    char* sql = (char *)"SELECT name FROM sqlite_master WHERE type='table' AND name='USER';";
-
+    std::stringstream strm;
+    strm << "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'USER';";
+    std::string s = strm.str();
+    char *str = &s[0];
     sqlite3_stmt *statement;
-    if (sqlite3_prepare(db, sql, -1, &statement, 0) == SQLITE_OK) {
+    char *query = str;
+
+    if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
         int res = 0;
         res = sqlite3_step(statement);
         if (res != SQLITE_ROW) {
             sqlite3_finalize(statement);
             sqlite3_close(db);
             return false;
-        }
+        } 
     } else {
         sqlite3_close(db);
         return false;
     }
     sqlite3_finalize(statement);
     sqlite3_close(db);
-
     return true;
 }
 
 ResponseCode DataManager::connectDb() {
-    // if (!dbIsExist()) {
-    //     std::cout << "DATA_MANAGER - Start create DB\n";
-    //     ResponseCode ret = createDb();
-    //     if (ret != DATA_SUCCESS) {
-    //         return ret;
-    //     }
-    // }
+    if (!dbIsExist()) {
+        std::cout << "DATA_MANAGER - Start create DB\n";
+        ResponseCode ret = createDb();
+        if (ret != DATA_SUCCESS) {
+            return ret;
+        }
+    }
 
     int rc = sqlite3_open(db_file_path.c_str(), &db);
     if(rc) {
@@ -695,7 +698,7 @@ ResponseCode DataManager::UpdateTracking(Tracking &tracking) {
             "LONGITUDE          NVARCHAR(20)                                NOT NULL,"              */
     std::stringstream strm;
     strm << "UPDATE TRACKING SET "
-         << "LATITUDE = '" tracking.getLatitude() << "',"
+         << "LATITUDE = '" << tracking.getLatitude() << "',"
          << "LONGITUDE = '" << tracking.getLongititu() << "' "
          << "WHERE ID = '" << tracking.getId() << "';";
          
@@ -788,8 +791,6 @@ ResponseCode DataManager::UpdateRoute(Route &route) {
         "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);"; */
     std::stringstream strm;
     strm << "UPDATE ROUTE SET "
-         << "VEHICLE_NUMBER_PLATE = '" <<  << "', "
-         << "LOCATION_ID = '" <<  << "', "
          << "START_DATE '" << route.getStartDate() << "', "
          << "START_TIME = '" << route.getStartTime() << "', "
          << "END_DATE = '" << route.getEndDate() << "', "

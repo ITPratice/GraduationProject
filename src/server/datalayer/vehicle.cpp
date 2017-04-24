@@ -30,7 +30,7 @@ void Vehicle::setBranchId(int _branch_id) {
     branch_id = _branch_id;
 }
 
-std::string Vehicle::getBranchId() {
+int Vehicle::getBranchId() {
     return branch_id;
 }
 

@@ -23,7 +23,7 @@ User::User(std::string _email, std::string _uName, std::string _addr, std::strin
 
 User::~User() {}
 
-int getId() {
+int User::getId() {
     return id;
 }
 
