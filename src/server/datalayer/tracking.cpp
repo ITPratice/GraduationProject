@@ -12,6 +12,10 @@ Tracking::Tracking(std::string _lat, std::string _lon) {
 
 Tracking::~Tracking() { }
 
+int Tracking::getId() {
+    return id;
+}
+
 void Tracking::setLatitude(std::string _lat) {
      latitude = _lat;
 }

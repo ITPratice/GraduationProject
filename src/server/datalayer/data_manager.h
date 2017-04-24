@@ -9,8 +9,14 @@
 #include <ctime>
 
 #include "../ResponseInterface.h"
+
 #include "user.h"
 #include "tracking.h"
+#include "vehicle_type.h"
+#include "vehicle.h"
+#include "branch.h"
+#include "user_vehicle.h"
+#include "route.h"
 
 #ifndef DATA_MANAGER_H
 #define DATA_MANAGER_H
@@ -28,23 +34,37 @@ public:
     ResponseCode InsertUser(User &user);
     ResponseCode UpdateUser(User &user);
     ResponseCode DeleteUser(User &user);
-    
-    // // Location manager
-    // ResponseCode InsertLocation(Location &location);
-    // ResponseCode UpdateLocation(Location &location);
-    // ResponseCode DeleteLocation(Location &location);
-
-    // // User_Location manager
-    // ResponseCode InsertUserLocation(UserLocation &ul);
-    // ResponseCode UpdateUserLocation(UserLocation &ul);
-    // ResponseCode DeleteUserLocation(UserLocation &ul);
-
-    // Location By Id
     ResponseCode Login(std::string email, std::string password);
     ResponseCode GetAllUser(std::vector<User>& lstUser);
 
+    // VehicleType manager
+    ResponseCode InsertVehicleType(VehicleType &vehicle_type);
+    ResponseCode UpdateVehicleType(VehicleType &vehicle_type);
+    ResponseCode DeleteVehicleType(VehicleType &vehicle_type);
+
+    // Vehicle manager
+    ResponseCode InsertVehicle(Vehicle &vehicle);
+    ResponseCode UpdateVehicle(Vehicle &vehicle);
+    ResponseCode DeleteVehicle(Vehicle &vehicle);
+
+    // Branch manager
+    ResponseCode InsertBranch(Branch &branch);
+    ResponseCode UpdateBranch(Branch &branch);
+    ResponseCode DeleteBranch(Branch &branch);
+
+    // UserVehicle manager
+    ResponseCode InsertUserVehicle(UserVehicle &user_vehicle);
+    ResponseCode UpdateUserVehicle(UserVehicle &user_vehicle);
+    ResponseCode DeleteUserVehicle(UserVehicle &user_vehicle);
+
     // Tracking manager
     ResponseCode InsertTracking(Tracking &tracking);
+    ResponseCode UpdateTracking(Tracking &tracking);
+    ResponseCode DeleteTracking(Tracking &tracking);
+
+    // Route manager
+    ResponseCode InsertRoute(Route &route);
+    ResponseCode UpdateRoute(Route &route);
 
 public:
     void setDbPath(std::string pathFile);

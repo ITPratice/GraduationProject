@@ -77,13 +77,14 @@ ResponseCode DataManager::createDb() {
     }
 
     // Create VEHICLES table
-    sql = (char *)"CREATE TABLE VEHICLE    ("                                   \
-            "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY         NOT NULL,"  \
-            "BRANCH_ID          INTEGER                             NOT NULL,"  \
-            "HARDWARE_ID        NVARCHAR(10)                                ,"  \
-            "DESCRIPTION        NVARCHAR(100)                               ,"  \
-            "TYPE_ID            INTEGER                             NOT NULL,"  \
-            "FOREIGN KEY (TYPE_ID)   REFERENCES VEHICLE_TYPE(ID)    ON DELETE CASCADE);";
+    sql = (char *)"CREATE TABLE VEHICLE    ("                                       \
+            "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY             NOT NULL,"  \
+            "BRANCH_ID          INTEGER                                 NOT NULL,"  \
+            "HARDWARE_ID        NVARCHAR(10)                                    ,"  \
+            "DESCRIPTION        NVARCHAR(100)                                   ,"  \
+            "TYPE_ID            INTEGER                                 NOT NULL,"  \
+            "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE "
+            "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -99,7 +100,7 @@ ResponseCode DataManager::createDb() {
             "USER_ID                                INTEGER                             NOT NULL            ,"  \ 
             "VEHICLE_NUMBER_PLATE                   NVARCHAR(10)                        NOT NULL            ,"  \ 
             "PRIMARY KEY (USER_ID, VEHICLE_NUMBER_PLATE)                                                    ,"  \ 
-            "FOREIGN KEY (USER_ID)                  REFERENCES USER(ID)                 ON DELETE CASCADE   ,"  \
+            "FOREIGN KEY (USER_ID)                  REFERENCES USER(ID)                 ON DELETE CASCADE    "  \
             "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE)  ;";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -129,12 +130,12 @@ ResponseCode DataManager::createDb() {
     sql = (char *)"CREATE TABLE ROUTE ("\
             "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL"           \
             "LOCATION_ID                        INTEGER                             NOT NULL"           \
-            "START_DATE                         NVARCHER(10)                        NOT NULL"           \
-            "START_TIME                         NVARCHAR(10)                        NOT NULL"           \
-            "END_DATE                           NVARCHAR(10)                        NOT NULL"           \
-            "END_TIME                           NVARCHAR(10)                        NOT NULL"           \
+            "START_DATE                         NVARCHER(10)                                "           \
+            "START_TIME                         NVARCHAR(10)                                "           \
+            "END_DATE                           NVARCHAR(10)                                "           \
+            "END_TIME                           NVARCHAR(10)                                "           \
             "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID)"                                           \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE"  \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE " \
             "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -147,7 +148,7 @@ ResponseCode DataManager::createDb() {
     }
 
     sql = (char *)"CREATE TABLE BRANCH("\
-            "BRANCH_ID      INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
+            "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
             "NAME           NVARCHAR(50)                                NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -274,7 +275,7 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     return DATA_SUCCESS;
 }
 
-// User
+// User manager
 ResponseCode DataManager::InsertUser(User &user) {
    /* "CREATE TABLE USER   ("                                           \
             "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
@@ -322,14 +323,14 @@ ResponseCode DataManager::UpdateUser(User &user) {
             "PASSWORD       NVARCHAR(20)                                NOT NULL,"  \
             "ROLE           INTEGER                                     NOT NULL);" */
     std::stringstream strm;
-    strm << "UPDATE USER SET"
+    strm << "UPDATE USER SET "
          << "EMAIL = '" << user.getEmail() << "',"
          << "USERNAME = '" << user.getUsername() << "',"
          << "ADDRESS = '" << user.getAddress() << "',"
          << "PHONE_NUMBER = '" << user.getPhoneNumber() << "',"
          << "FULL_NAME = '" << user.getFullname() << "',"
          << "PASSWORD = '" << user.getPassword() << "',"
-         << "ROLE = '" << user.getRole() << "',"
+         << "ROLE = '" << user.getRole() << " "
          << "WHERE ID = '" << user.getId() << "';";
          
     std::string temp = strm.str();
@@ -340,7 +341,7 @@ ResponseCode DataManager::UpdateUser(User &user) {
     int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
-        return DATA_ERROR_INSERT_TB;
+        return DATA_ERROR_UPDATE_DB;
     } else {
         std::cout << "DATA_MANAGER - Update User successfully" << std::endl;
     }
@@ -369,10 +370,294 @@ ResponseCode DataManager::DeleteUser(User &user) {
     int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
-        return DATA_ERROR_INSERT_TB;
+        return DATA_ERROR_DELETE_DB;
     } else {
         std::cout << "DATA_MANAGER - Delete User successfully" << std::endl;
     }
+    return DATA_SUCCESS;
+}
+
+// VehicleType manager
+ResponseCode DataManager::InsertVehicleType(VehicleType &vehicle_type) {
+    /*"CREATE TABLE VEHICLE_TYPE    ("                                  \
+        "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
+        "NAME           NVARCHAR(10)                                NOT NULL);"; */
+    std::stringstream strm;
+    strm << "INSERT INTO VEHICLE_TYPE (NAME) values ('"
+         << vehicle_type.getName()
+         << "');";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query InsertVehicleType: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Insert VehicleType successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateVehicleType(VehicleType &vehicle_type) {
+    /*"CREATE TABLE VEHICLE_TYPE    ("                                  \
+        "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
+        "NAME           NVARCHAR(10)                                NOT NULL);"; */
+    std::stringstream strm;
+    strm << "UPDATE VEHICLE_TYPE SET "
+         << "NAME = '" << vehicle_type.getName() << "' "
+         << "WHERE ID = '" << vehicle_type.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query UpdateVehicleType: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Update VehicleType successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::DeleteVehicleType(VehicleType &vehicle_type) {
+    /*"CREATE TABLE VEHICLE_TYPE    ("                                  \
+        "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"  \
+        "NAME           NVARCHAR(10)                                NOT NULL);"; */
+    std::stringstream strm;
+    strm << "DELETE FROM VEHICLE_TYPE "
+         << "WHERE ID = '" << vehicle_type.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query DeleteVehicleType: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_DELETE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Delete VehicleType successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+// Vehicle manager
+ResponseCode DataManager::InsertVehicle(Vehicle &vehicle) {
+    /*"CREATE TABLE VEHICLE    ("                                   \
+            "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY         NOT NULL,"  \
+            "BRANCH_ID          INTEGER                             NOT NULL,"  \
+            "HARDWARE_ID        NVARCHAR(10)                                ,"  \
+            "DESCRIPTION        NVARCHAR(100)                               ,"  \
+            "TYPE_ID            INTEGER                             NOT NULL,"  \
+            "FOREIGN KEY (TYPE_ID)   REFERENCES VEHICLE_TYPE(ID)    ON DELETE CASCADE);";*/
+    std::stringstream strm;
+    strm << "INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID) values ('"
+         << vehicle.getNumberPlate()
+         << "','" << vehicle.getBranchId()
+         << "','" << vehicle.getHardwareId()
+         << "','" << vehicle.getDescription()
+         << "','" << vehicle.getTypeId()
+         << "');";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query InsertVehicle: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Insert Vehicle successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateVehicle(Vehicle &vehicle) {
+    /*"CREATE TABLE VEHICLE    ("                                   \
+            "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY         NOT NULL,"  \
+            "BRANCH_ID          INTEGER                             NOT NULL,"  \
+            "HARDWARE_ID        NVARCHAR(10)                                ,"  \
+            "DESCRIPTION        NVARCHAR(100)                               ,"  \
+            "TYPE_ID            INTEGER                             NOT NULL,"  \
+            "FOREIGN KEY (TYPE_ID)   REFERENCES VEHICLE_TYPE(ID)    ON DELETE CASCADE);";*/
+    std::stringstream strm;
+    strm << "UPDATE VEHICLE SET "
+         << "BRANCH_ID = '" << vehicle.getBranchId() << "', "
+         << "HARDWARE_ID = '" << vehicle.getHardwareId() << "', "
+         << "DESCRIPTION = '" << vehicle.getDescription() << "', "
+         << "TYPE_ID = '" << vehicle.getTypeId() << "' "
+         << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query UpdateVehicle: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Update Vehicle successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::DeleteVehicle(Vehicle &vehicle) {
+     /*"CREATE TABLE VEHICLE    ("                                   \
+            "NUMBER_PLATE       NVARCHAR(10)    PRIMARY KEY         NOT NULL,"  \
+            "BRANCH_ID          INTEGER                             NOT NULL,"  \
+            "HARDWARE_ID        NVARCHAR(10)                                ,"  \
+            "DESCRIPTION        NVARCHAR(100)                               ,"  \
+            "TYPE_ID            INTEGER                             NOT NULL,"  \
+            "FOREIGN KEY (TYPE_ID)   REFERENCES VEHICLE_TYPE(ID)    ON DELETE CASCADE);";*/
+    std::stringstream strm;
+    strm << "DELETE FROM VEHICLE "
+         << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query DeleteVehicle: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_DELETE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Delete Vehicle successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+// Branch manager
+ResponseCode DataManager::InsertBranch(Branch &branch) {
+    /*"CREATE TABLE BRANCH("\
+        "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
+        "NAME           NVARCHAR(50)                                NOT NULL);"; */
+    std::stringstream strm;
+    strm << "INSERT INTO BRANCH (NAME) values ('"
+         << branch.getName()
+         << "');";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Insert Branch: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Insert Branch successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateBranch(Branch &branch) {
+    /*"CREATE TABLE BRANCH("\
+        "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
+        "NAME           NVARCHAR(50)                                NOT NULL);"; */
+    std::stringstream strm;
+    strm << "UPDATE BRANCH SET "
+         << "NAME = '" << branch.getName() << "' "
+         << "WHERE ID = " << branch.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Update Branch: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Update Branch successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::DeleteBranch(Branch &branch) {
+    /*"CREATE TABLE BRANCH("\
+        "ID             INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL"   \
+        "NAME           NVARCHAR(50)                                NOT NULL);"; */
+    std::stringstream strm;
+    strm << "DELETE FROM BRANCH "
+         << "WHERE ID = " << branch.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Delete Branch: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_DELETE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Delete Branch successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+// UserVehicle manager
+ResponseCode DataManager::InsertUserVehicle(UserVehicle &user_vehicle) {
+    /*"CREATE TABLE USER_VEHICLE  (" \
+        "USER_ID                                INTEGER                             NOT NULL            ,"  \ 
+        "VEHICLE_NUMBER_PLATE                   NVARCHAR(10)                        NOT NULL            ,"  \ 
+        "PRIMARY KEY (USER_ID, VEHICLE_NUMBER_PLATE)                                                    ,"  \ 
+        "FOREIGN KEY (USER_ID)                  REFERENCES USER(ID)                 ON DELETE CASCADE    "  \
+        "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE)  ;";*/
+    std::stringstream strm;
+    strm << "INSERT INTO USER_VEHICLE (USER_ID, VEHICLE_NUMBER_PLATE) values ('"
+         << user_vehicle.getUserId()
+         << "','" << user_vehicle.getNumberPlate()
+         << "');";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Insert UserVehicle: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Insert UserVehicle successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateUserVehicle(UserVehicle &user_vehicle) {
+    /*"CREATE TABLE USER_VEHICLE  (" \
+        "USER_ID                                INTEGER                             NOT NULL            ,"  \ 
+        "VEHICLE_NUMBER_PLATE                   NVARCHAR(10)                        NOT NULL            ,"  \ 
+        "PRIMARY KEY (USER_ID, VEHICLE_NUMBER_PLATE)                                                    ,"  \ 
+        "FOREIGN KEY (USER_ID)                  REFERENCES USER(ID)                 ON DELETE CASCADE    "  \
+        "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE)  ;";*/
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::DeleteUserVehicle(UserVehicle &user_vehicle) {
+    /*"CREATE TABLE USER_VEHICLE  (" \
+        "USER_ID                                INTEGER                             NOT NULL            ,"  \ 
+        "VEHICLE_NUMBER_PLATE                   NVARCHAR(10)                        NOT NULL            ,"  \ 
+        "PRIMARY KEY (USER_ID, VEHICLE_NUMBER_PLATE)                                                    ,"  \ 
+        "FOREIGN KEY (USER_ID)                  REFERENCES USER(ID)                 ON DELETE CASCADE    "  \
+        "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE)  ;";*/
     return DATA_SUCCESS;
 }
 
@@ -399,6 +684,130 @@ ResponseCode DataManager::InsertTracking(Tracking &tracking) {
         return DATA_ERROR_INSERT_TB;
     } else {
         std::cout << "DATA_MANAGER - Insert Tracking successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateTracking(Tracking &tracking) {
+    /* "CREATE TABLE TRACKING  (" \
+            "ID                 INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"              \       
+            "LATITUDE           NVARCHAR(20)                                NOT NULL,"              \
+            "LONGITUDE          NVARCHAR(20)                                NOT NULL,"              */
+    std::stringstream strm;
+    strm << "UPDATE TRACKING SET "
+         << "LATITUDE = '" tracking.getLatitude() << "',"
+         << "LONGITUDE = '" << tracking.getLongititu() << "' "
+         << "WHERE ID = '" << tracking.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Update Tracking: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Update Tracking successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::DeleteTracking(Tracking &tracking) {
+    /* "CREATE TABLE TRACKING  (" \
+        "ID                 INTEGER         PRIMARY KEY AUTOINCREMENT   NOT NULL,"              \       
+        "LATITUDE           NVARCHAR(20)                                NOT NULL,"              \
+        "LONGITUDE          NVARCHAR(20)                                NOT NULL,"              */
+    std::stringstream strm;
+    strm << "DELETE FROM TRACKING "
+         << "WHERE ID = '" << tracking.getId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Delete Tracking: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Delete Tracking successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+// Route manager
+ResponseCode DataManager::InsertRoute(Route &route) {
+    /*"CREATE TABLE ROUTE ("\
+        "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL"           \
+        "LOCATION_ID                        INTEGER                             NOT NULL"           \
+        "START_DATE                         NVARCHER(10)                                "           \
+        "START_TIME                         NVARCHAR(10)                                "           \
+        "END_DATE                           NVARCHAR(10)                                "           \
+        "END_TIME                           NVARCHAR(10)                                "           \
+        "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID)"                                           \
+        "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE " \
+        "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);"; */
+    std::stringstream strm;
+    strm << "INSERT INTO ROUTE (VEHICLE_NUMBER_PLATE, LOCATION_ID, START_DATE, START_TIME, END_DATE, END_TIME) values ('"
+         << route.getNumberPlate()
+         << "', '" << route.getLocationId()
+         << "', '" << route.getStartDate()
+         << "', '" << route.getStartTime()
+         << "', '" << route.getEndDate()
+         << "', '" << route.getEndTime()         
+         << "');";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Insert Route: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_INSERT_TB;
+    } else {
+        std::cout << "DATA_MANAGER - Insert Route successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateRoute(Route &route) {
+    /*"CREATE TABLE ROUTE ("\
+        "VEHICLE_NUMBER_PLATE               NVARCHAR(10)                        NOT NULL"           \
+        "LOCATION_ID                        INTEGER                             NOT NULL"           \
+        "START_DATE                         NVARCHER(10)                                "           \
+        "START_TIME                         NVARCHAR(10)                                "           \
+        "END_DATE                           NVARCHAR(10)                                "           \
+        "END_TIME                           NVARCHAR(10)                                "           \
+        "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID)"                                           \
+        "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE " \
+        "FOREIGN KEY (LOCATION_ID)          REFERENCES  TRACKING(ID)            ON DELETE CASCADE);"; */
+    std::stringstream strm;
+    strm << "UPDATE ROUTE SET "
+         << "VEHICLE_NUMBER_PLATE = '" <<  << "', "
+         << "LOCATION_ID = '" <<  << "', "
+         << "START_DATE '" << route.getStartDate() << "', "
+         << "START_TIME = '" << route.getStartTime() << "', "
+         << "END_DATE = '" << route.getEndDate() << "', "
+         << "END_TIME = '" << route.getEndTime() << "' "
+         << "WHERE VEHICLE_NUMBER_PLATE = '" << route.getNumberPlate() << "' AND "
+         << "LOCATION_ID = '" << route.getLocationId() << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Update Route: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - Update Route successfully" << std::endl;
     }
     return DATA_SUCCESS;
 }

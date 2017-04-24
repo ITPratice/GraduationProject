@@ -9,8 +9,11 @@ public:
     Branch(std::string _name);
     ~Branch();
 private:
+    int id;
     std::string name;
 public:
+    int getId();
+
     void setName(std::string _name);
     std::string getName();
 };

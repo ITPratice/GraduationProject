@@ -10,6 +10,10 @@ VehicleType::VehicleType(std::string _name) {
 
 VehicleType::~VehicleType() { }
 
+int VehicleType::getId() {
+    return id;
+}
+
 void VehicleType::setName(std::string _name) {
     name = _name;
 }

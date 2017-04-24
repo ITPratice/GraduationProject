@@ -10,8 +10,11 @@ public:
     VehicleType(std::string _name);
     ~VehicleType();
 private:
+   int id;
     std::string name;
 public:
+    int getId();
+
     void setName(std::string _name);
     std::string getName();
 };
