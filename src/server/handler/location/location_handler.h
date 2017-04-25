@@ -1,13 +1,10 @@
 #include <iostream>
-#include <map>
+#include <ctime>
 
 #include "../stdafx.h"
-#include "../../datalayer/user.h"
-#include "../../datalayer/data_manager.h"
-#include "../../ResponseInterface.h"
 
-#ifndef LOGIN_HANDLER_H
-#define LOGIN_HANDLER_H
+#ifndef LOCATION_HANDLER_H
+#define LOCATION_HANDLER_H
 
 using namespace std;
 using namespace web;
@@ -15,9 +12,9 @@ using namespace http;
 using namespace utility;
 using namespace http::experimental::listener;
 
-class login_handler {
+class LocationHandler {
 public:
-    login_handler();
+    LocationHandler();
     void listener(http_request request);
 private:
     void handle_get(http_request request);
@@ -28,4 +25,4 @@ private:
     DataManager *data;
 };
 
-#endif
+#endif  // LOCATION_HANDLER_H

@@ -35,6 +35,7 @@ public:
     ResponseCode DeleteUser(User &user);
     ResponseCode Login(std::string email, std::string password);
     ResponseCode GetAllUser(std::vector<User>& lstUser);
+    ResponseCode GetUserById(std::string email, User &outUser);
 
     // VehicleType manager
     ResponseCode InsertVehicleType(VehicleType &vehicle_type);
@@ -50,6 +51,7 @@ public:
     ResponseCode InsertBranch(Branch &branch);
     ResponseCode UpdateBranch(Branch &branch);
     ResponseCode DeleteBranch(Branch &branch);
+    ResponseCode GetBranchById(std::string id, Branch &outBranch);
 
     // Location manager
     ResponseCode InsertLocation(Location &location);

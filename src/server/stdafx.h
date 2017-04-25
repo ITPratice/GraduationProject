@@ -7,9 +7,8 @@
 #include "../ResponseInterface.h"
 #include "../RouteMap.h"
 #include "../helper/string_helper.h"
-#include "../handler/user_handler/get_all_handler.h"
-#include "../handler/location_handler/location_time.h"
-#include "../handler/login_handler/login_handler.h"
-#include "../handler/tracking_handler/tracking_handler.h"
+
+#include "../handler/user/user_handler.h"
+#include "../handler/location/location_handler.h"
 
 #endif

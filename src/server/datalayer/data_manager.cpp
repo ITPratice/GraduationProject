@@ -711,3 +711,59 @@ ResponseCode DataManager::DeleteLocation(Location &location) {
     }
     return DATA_SUCCESS;
 }
+
+// Get User by Id
+ResponseCode DataManager::GetUserByEmail(std::string email, User &outUser) {
+    std::stringstream strm;
+    strm << "SELECT * FROM USER WHERE EMAIL = '" << email << "';";
+
+    std::string s = strm.str();
+	char *str = &s[0];
+	sqlite3_stmt *statement;
+	char *query = str;
+
+    if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+		int res = 0;
+		res = sqlite3_step(statement);
+		if (res == SQLITE_ROW) {
+            outUser.setEmail((char*)sqlite3_column_text(statement, 0));
+            outUser.setUsername((char*)sqlite3_column_text(statement, 1));
+            outUser.setAddress((char*)sqlite3_column_text(statement, 2));
+            outUser.setPhoneNumber((char*)sqlite3_column_text(statement, 3));
+            outUser.setFullname((char*)sqlite3_column_text(statement, 4));
+            outUser.setPassword((char*)sqlite3_column_text(statement, 5));
+            outUser.setRole((int)sqlite3_column_text(statement, 6));
+		} else {
+            return DATA_SELECT_EMPTY;
+		}
+		sqlite3_finalize(statement);
+	} else {
+		return DATA_ERROR_SELECT_DB;
+	}
+	return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetBranchById(std::string id, Branch &outBranch) {
+    std::stringstream strm;
+    strm << "SELECT * FROM BRANCH WHERE ID = '" << id << "';";
+
+    std::string s = strm.str();
+	char *str = &s[0];
+	sqlite3_stmt *statement;
+	char *query = str;
+
+    if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+		int res = 0;
+		res = sqlite3_step(statement);
+		if (res == SQLITE_ROW) {
+            outBranch.setId((char*)sqlite3_column_text(statement, 0));
+            outBranch.setName((char*)sqlite3_column_text(statement, 1));
+		} else {
+            return DATA_SELECT_EMPTY;
+		}
+		sqlite3_finalize(statement);
+	} else {
+		return DATA_ERROR_SELECT_DB;
+	}
+	return DATA_SUCCESS;
+}

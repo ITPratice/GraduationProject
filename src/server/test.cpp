@@ -12,9 +12,8 @@ using namespace web::http::experimental::listener;
 
 void routingHandler(http_request request);
 
-std::unique_ptr<get_all_handler> a_user_Handler;
-std::unique_ptr<login_handler> u_Login_Handler;
-std::unique_ptr<tracking_handler> t_Hanlder;
+std::unique_ptr<UserHandler> userHandler;
+std::unique_ptr<LocationHandler> locationHandler;
 
 int main()
 {
@@ -28,20 +27,13 @@ int main()
 void routingHandler(http_request request) {
     utility::string_t routePath = request.relative_uri().path();
     switch(string_helper::hash_str(routePath)) {
-        case E_GET_ALL_USER:
-            a_user_Handler = std::unique_ptr<get_all_handler>(new get_all_handler());
-            a_user_Handler->listener(request);
+        case ROUTE_USER:
+            userHandler = std::unique_ptr<UserHandler>(new UserHandler());
+            userHandler->listener(request);
             break;
-        case E_GET_ALL_LOCATION:
-            request.reply(status_codes::OK, "Test Location Ok !");
-            break;
-        case E_CHECK_LOGIN:
-            u_Login_Handler = std::unique_ptr<login_handler>(new login_handler());
-            u_Login_Handler->listener(request);
-            break;
-        case E_TRACKING:
-            t_Hanlder = std::unique_ptr<tracking_handler>(new tracking_handler());
-            t_Hanlder->listener(request);
+        case ROUTE_LOCATION:
+            locationHandler = std::unique_ptr<LocationHandler>(new LocationHandler());
+            locationHandler->listener();
             break;
         default:
             break;
