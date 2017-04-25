@@ -76,7 +76,7 @@ ResponseCode DataManager::createDb() {
     }
 
     // Create BRANCH table - OK
-    sql = (char *)"CREATE TABLE BRANCH("\
+    sql = (char *)"CREATE TABLE BRANCH ("\
             "ID             VARCHAR(10)         PRIMARY KEY             NOT NULL,"   \
             "NAME           NVARCHAR(50)                                NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
@@ -97,7 +97,7 @@ ResponseCode DataManager::createDb() {
             "DESCRIPTION        NVARCHAR(200)                                   ,"  \
             "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
             "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
-            "FOREIGN KEY (USER_EMAIL)    REFERENCES USER(EMAIL)         ON DELETE CASCADE, "
+            "FOREIGN KEY (USER_EMAIL)   REFERENCES USER(EMAIL)          ON DELETE CASCADE, "
             "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE, "
             "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
@@ -112,10 +112,13 @@ ResponseCode DataManager::createDb() {
 
     // Create LOCATION table - OK
     sql = (char *)"CREATE TABLE LOCATION  (" \
-            "ID                     INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
-            "LATITUDE               VARCHAR(20)                                         NOT NULL," \
-            "LONGITUDE              VARCHAR(20)                                         NOT NULL," \
-            "VEHICLE_NUMBER_PLATE   VARCHAR(20)                                         NOT NULL," \
+            "ID                         INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
+            "LATITUDE                   VARCHAR(20)                                         NOT NULL," \
+            "LONGITUDE                  VARCHAR(20)                                         NOT NULL," \
+            "VEHICLE_NUMBER_PLATE       VARCHAR(20)                                         NOT NULL," \
+            "DATE                       VARCHER(20)                                                 ," \
+            "START_TIME                 VARCHAR(20)                                                 ," \
+            "END_TIME                   VARCHAR(20)                                                 ," \
             "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
@@ -127,25 +130,22 @@ ResponseCode DataManager::createDb() {
         fprintf(stdout, "DATA_MANAGER - Table LOCATION created successfully\n");
     }
 
-    // Create HISTORY table - OK
-    sql = (char *)"CREATE TABLE HISTORY (" \
-            "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
-            "LOCATION_ID                        INTEGER                             NOT NULL,"           \
-            "DATE                               VARCHER(20)                                 ,"           \
-            "START_TIME                         VARCHAR(20)                                 ,"           \
-            "END_TIME                           VARCHAR(20)                                 ,"           \
-            "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE, " \
-            "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);";
-    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    if(rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", zErrMsg);
-        sqlite3_free(zErrMsg);
-        sqlite3_close(db);
-        return DATA_ERROR_CREATE_TB;
-    } else {
-        fprintf(stdout, "DATA_MANAGER - Table HISTORY created successfully\n");
-    }
+    // // Create HISTORY table - OK
+    // sql = (char *)"CREATE TABLE HISTORY (" \
+    //         "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
+    //         "LOCATION_ID                        INTEGER                             NOT NULL,"           \
+    //         "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
+    //         "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE, " \
+    //         "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);";
+    // rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+    // if(rc != SQLITE_OK) {
+    //     fprintf(stderr, "SQL error: %s\n", zErrMsg);
+    //     sqlite3_free(zErrMsg);
+    //     sqlite3_close(db);
+    //     return DATA_ERROR_CREATE_TB;
+    // } else {
+    //     fprintf(stdout, "DATA_MANAGER - Table HISTORY created successfully\n");
+    // }
     return DATA_SUCCESS;
 }
 
@@ -615,16 +615,22 @@ ResponseCode DataManager::DeleteBranch(Branch &branch) {
 // Location - Test OK
 ResponseCode DataManager::InsertLocation(Location &location) {
     /* "CREATE TABLE LOCATION  (" \
-            "ID                     INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
-            "LATITUDE               VARCHAR(20)                                         NOT NULL," \
-            "LONGITUDE              VARCHAR(20)                                         NOT NULL," \
-            "VEHICLE_NUMBER_PLATE   VARCHAR(20)                                         NOT NULL," \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);*/
+            "ID                         INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
+            "LATITUDE                   VARCHAR(20)                                         NOT NULL," \
+            "LONGITUDE                  VARCHAR(20)                                         NOT NULL," \
+            "VEHICLE_NUMBER_PLATE       VARCHAR(20)                                         NOT NULL," \
+            "DATE                       VARCHER(20)                                                 ," \
+            "START_TIME                 VARCHAR(20)                                                 ," \
+            "END_TIME                   VARCHAR(20)                                                 ," \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);"*/
     std::stringstream strm;
-    strm << "INSERT INTO LOCATION (LATITUDE, LONGITUDE, VEHICLE_NUMBER_PLATE) values ('"
+    strm << "INSERT INTO LOCATION (LATITUDE, LONGITUDE, VEHICLE_NUMBER_PLATE, DATE, START_TIME, END_TIME) values ('"
          << location.getLatitude()
          << "', '" << location.getLongititu()
          << "', '" << location.getNumberPlate()
+         << "', '" << location.getDate()
+         << "', '" << location.getStartTime()
+         << "', '" << location.getEndTime()
          << "');";
          
     std::string temp = strm.str();
@@ -644,16 +650,22 @@ ResponseCode DataManager::InsertLocation(Location &location) {
 
 ResponseCode DataManager::UpdateLocation(Location &location) {
     /* "CREATE TABLE LOCATION  (" \
-            "ID                     INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
-            "LATITUDE               VARCHAR(20)                                         NOT NULL," \
-            "LONGITUDE              VARCHAR(20)                                         NOT NULL," \
-            "VEHICLE_NUMBER_PLATE   VARCHAR(20)                                         NOT NULL," \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);*/
+            "ID                         INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
+            "LATITUDE                   VARCHAR(20)                                         NOT NULL," \
+            "LONGITUDE                  VARCHAR(20)                                         NOT NULL," \
+            "VEHICLE_NUMBER_PLATE       VARCHAR(20)                                         NOT NULL," \
+            "DATE                       VARCHER(20)                                                 ," \
+            "START_TIME                 VARCHAR(20)                                                 ," \
+            "END_TIME                   VARCHAR(20)                                                 ," \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);"*/
     std::stringstream strm;
     strm << "UPDATE LOCATION SET "
          << "LATITUDE = '" << location.getLatitude() << "',"
          << "LONGITUDE = '" << location.getLongititu() << "', "
          << "VEHICLE_NUMBER_PLATE = '" << location.getNumberPlate() << "' "
+         << "DATE = '" << location.getDate() << "' "
+         << "START_TIME = '" << location.getStartTime() << "' "
+         << "END_TIME = '" << location.getEndTime() << "' "
          << "WHERE ID = '" << location.getId() << "';";
          
     std::string temp = strm.str();
@@ -673,11 +685,14 @@ ResponseCode DataManager::UpdateLocation(Location &location) {
 
 ResponseCode DataManager::DeleteLocation(Location &location) {
     /* "CREATE TABLE LOCATION  (" \
-            "ID                     INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
-            "LATITUDE               VARCHAR(20)                                         NOT NULL," \
-            "LONGITUDE              VARCHAR(20)                                         NOT NULL," \
-            "VEHICLE_NUMBER_PLATE   VARCHAR(20)                                         NOT NULL," \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE); */
+            "ID                         INTEGER         PRIMARY KEY AUTOINCREMENT           NOT NULL," \
+            "LATITUDE                   VARCHAR(20)                                         NOT NULL," \
+            "LONGITUDE                  VARCHAR(20)                                         NOT NULL," \
+            "VEHICLE_NUMBER_PLATE       VARCHAR(20)                                         NOT NULL," \
+            "DATE                       VARCHER(20)                                                 ," \
+            "START_TIME                 VARCHAR(20)                                                 ," \
+            "END_TIME                   VARCHAR(20)                                                 ," \
+            "FOREIGN KEY (VEHICLE_NUMBER_PLATE)     REFERENCES VEHICLE(NUMBER_PLATE)    ON DELETE CASCADE);" */
     std::stringstream strm;
     strm << "DELETE FROM LOCATION "
          << "WHERE ID = '" << location.getId() << "';";
@@ -693,74 +708,6 @@ ResponseCode DataManager::DeleteLocation(Location &location) {
         return DATA_ERROR_UPDATE_DB;
     } else {
         std::cout << "DATA_MANAGER - Delete Location successfully" << std::endl;
-    }
-    return DATA_SUCCESS;
-}
-
-// History manager - Test OK
-ResponseCode DataManager::InsertHistory(History &history) {
-    /*"CREATE TABLE HISTORY (" \
-            "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
-            "LOCATION_ID                        INTEGER                             NOT NULL,"           \
-            "DATE                               VARCHER(20)                                 ,"           \
-            "START_TIME                         VARCHAR(20)                                 ,"           \
-            "END_TIME                           VARCHAR(20)                                 ,"           \
-            "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE " \
-            "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);"*/
-    std::stringstream strm;
-    strm << "INSERT INTO HISTORY (VEHICLE_NUMBER_PLATE, LOCATION_ID, DATE, START_TIME, END_TIME) values ('"
-         << history.getNumberPlate()
-         << "', '" << history.getLocationId()
-         << "', '" << history.getDate()
-         << "', '" << history.getStartTime()
-         << "', '" << history.getEndTime()         
-         << "');";
-         
-    std::string temp = strm.str();
-    std::cout << "DATA_MANAGER - Query Insert History: " << temp << std::endl;
-
-    char *query = &temp[0];
-    char *zErrMsg = 0;
-    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
-    if(rc != SQLITE_OK) {
-        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
-        return DATA_ERROR_INSERT_TB;
-    } else {
-        std::cout << "DATA_MANAGER - Insert History successfully" << std::endl;
-    }
-    return DATA_SUCCESS;
-}
-
-ResponseCode DataManager::UpdateHistory(History &history) {
-    /*"CREATE TABLE HISTORY (" \
-            "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
-            "LOCATION_ID                        INTEGER                             NOT NULL,"           \
-            "DATE                               VARCHER(20)                                 ,"           \
-            "START_TIME                         VARCHAR(20)                                 ,"           \
-            "END_TIME                           VARCHAR(20)                                 ,"           \
-            "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
-            "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE " \
-            "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);" */
-    std::stringstream strm;
-    strm << "UPDATE HISTORY SET "
-         << "DATE = '" << history.getDate() << "', "
-         << "START_TIME = '" << history.getStartTime() << "', "
-         << "END_TIME = '" << history.getEndTime() << "' "
-         << "WHERE VEHICLE_NUMBER_PLATE = '" << history.getNumberPlate() << "' AND "
-         << "LOCATION_ID = '" << history.getLocationId() << "';";
-         
-    std::string temp = strm.str();
-    std::cout << "DATA_MANAGER - Query Update History: " << temp << std::endl;
-
-    char *query = &temp[0];
-    char *zErrMsg = 0;
-    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
-    if(rc != SQLITE_OK) {
-        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
-        return DATA_ERROR_UPDATE_DB;
-    } else {
-        std::cout << "DATA_MANAGER - Update History successfully" << std::endl;
     }
     return DATA_SUCCESS;
 }

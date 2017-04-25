@@ -51,14 +51,10 @@ public:
     ResponseCode UpdateBranch(Branch &branch);
     ResponseCode DeleteBranch(Branch &branch);
 
-    // Tracking manager
+    // Location manager
     ResponseCode InsertLocation(Location &location);
     ResponseCode UpdateLocation(Location &location);
     ResponseCode DeleteLocation(Location &location);
-
-    // Route manager
-    ResponseCode InsertHistory(History &history);
-    ResponseCode UpdateHistory(History &history);
 
 public:
     void setDbPath(std::string pathFile);

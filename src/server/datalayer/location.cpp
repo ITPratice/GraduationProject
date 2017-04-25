@@ -6,10 +6,13 @@ Location::Location() {
     number_plate = "";
  }
 
-Location::Location(std::string _lat, std::string _lon, std::string _nPlate) {
+Location::Location(std::string _lat, std::string _lon, std::string _nPlate, std::string _date, std::string _sTime, std::string _eTime) {
     latitude = _lat;
     longititu = _lon;
     number_plate = _nPlate;
+    date = _date;
+    start_time = _sTime;
+    end_time = _eTime;
 }
 
 Location::~Location() { }
@@ -40,5 +43,28 @@ void Location::setNumberPlate(std::string _nPlate) {
 
 std::string Location::getNumberPlate() {
     return number_plate;
+}
+
+void Location::setDate(std::string _date) {
+    date = _date;
+}
+std::string Location::getDate() {
+    return date;
+}
+
+void Location::setStartTime(std::string _sTime) {
+    start_time = _sTime;
+}
+
+std::string Location::getStartTime() {
+    return start_time;
+}
+
+void Location::setEndTime(std::string _eTime) {
+    end_time = _eTime;
+}
+
+std::string Location::getEndTime() {
+    return end_time;
 }
 
