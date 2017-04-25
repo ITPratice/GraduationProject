@@ -129,23 +129,6 @@ ResponseCode DataManager::createDb() {
     } else {
         fprintf(stdout, "DATA_MANAGER - Table LOCATION created successfully\n");
     }
-
-    // // Create HISTORY table - OK
-    // sql = (char *)"CREATE TABLE HISTORY (" \
-    //         "VEHICLE_NUMBER_PLATE               VARCHAR(20)                         NOT NULL,"           \
-    //         "LOCATION_ID                        INTEGER                             NOT NULL,"           \
-    //         "PRIMARY KEY (VEHICLE_NUMBER_PLATE, LOCATION_ID),"                                           \
-    //         "FOREIGN KEY (VEHICLE_NUMBER_PLATE) REFERENCES  VEHICLE(NUMBER_PLATE)   ON DELETE CASCADE, " \
-    //         "FOREIGN KEY (LOCATION_ID)          REFERENCES  LOCATION(ID)            ON DELETE CASCADE);";
-    // rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    // if(rc != SQLITE_OK) {
-    //     fprintf(stderr, "SQL error: %s\n", zErrMsg);
-    //     sqlite3_free(zErrMsg);
-    //     sqlite3_close(db);
-    //     return DATA_ERROR_CREATE_TB;
-    // } else {
-    //     fprintf(stdout, "DATA_MANAGER - Table HISTORY created successfully\n");
-    // }
     return DATA_SUCCESS;
 }
 
@@ -758,6 +741,63 @@ ResponseCode DataManager::GetBranchById(std::string id, Branch &outBranch) {
 		if (res == SQLITE_ROW) {
             outBranch.setId((char*)sqlite3_column_text(statement, 0));
             outBranch.setName((char*)sqlite3_column_text(statement, 1));
+		} else {
+            return DATA_SELECT_EMPTY;
+		}
+		sqlite3_finalize(statement);
+	} else {
+		return DATA_ERROR_SELECT_DB;
+	}
+	return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetVehicleByNumberPlate(std::string nPlate, Vehicle &outVehicle) {
+    std::stringstream strm;
+    strm << "SELECT * FROM VEHICLE WHERE NUMBER_PLATE = '" << nPlate << "';";
+
+    std::string s = strm.str();
+	char *str = &s[0];
+	sqlite3_stmt *statement;
+	char *query = str;
+
+    if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+		int res = 0;
+		res = sqlite3_step(statement);
+		if (res == SQLITE_ROW) {
+            outVehicle.setNumberPlate((char*)sqlite3_column_text(statement, 0));
+            outVehicle.setBranchId((char*)sqlite3_column_text(statement, 1));
+            outVehicle.setHardwareId((char*)sqlite3_column_text(statement, 2));
+            outVehicle.setDescription((char*)sqlite3_column_text(statement, 3));
+            outVehicle.setTypeId((char*)sqlite3_column_text(statement, 4));
+            outVehicle.setUserEmail((char*)sqlite3_column_text(statement, 5));
+		} else {
+            return DATA_SELECT_EMPTY;
+		}
+		sqlite3_finalize(statement);
+	} else {
+		return DATA_ERROR_SELECT_DB;
+	}
+	return DATA_SUCCESS;
+} 
+
+ResponseCode DataManager::GetVehicleTypeById(std::string id, VehicleType &outVehicleType) {
+    /*"CREATE TABLE VEHICLE_TYPE (" \
+            "ID             VARCHAR(10)         PRIMARY KEY         NOT NULL,"  \
+            "NAME           NVARCHAR(50)                            NOT NULL);"*/
+    std::stringstream strm;
+    strm << "SELECT * FROM VEHICLE_TYPE WHERE ID = '" << id << "';";
+
+    std::string s = strm.str();
+	char *str = &s[0];
+	sqlite3_stmt *statement;
+	char *query = str;
+
+    if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+		int res = 0;
+		res = sqlite3_step(statement);
+		if (res == SQLITE_ROW) {
+            outVehicleType.setId((char*)sqlite3_column_text(statement, 0));
+            outVehicleType.setName((char*)sqlite3_column_text(statement, 1));
 		} else {
             return DATA_SELECT_EMPTY;
 		}

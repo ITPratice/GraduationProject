@@ -35,17 +35,19 @@ public:
     ResponseCode DeleteUser(User &user);
     ResponseCode Login(std::string email, std::string password);
     ResponseCode GetAllUser(std::vector<User>& lstUser);
-    ResponseCode GetUserById(std::string email, User &outUser);
+    ResponseCode GetUserByEmail(std::string email, User &outUser);
 
     // VehicleType manager
     ResponseCode InsertVehicleType(VehicleType &vehicle_type);
     ResponseCode UpdateVehicleType(VehicleType &vehicle_type);
     ResponseCode DeleteVehicleType(VehicleType &vehicle_type);
+    ResponseCode GetVehicleTypeById(std::string id, VehicleType &outVehicleType);
 
     // Vehicle manager
     ResponseCode InsertVehicle(Vehicle &vehicle);
     ResponseCode UpdateVehicle(Vehicle &vehicle);
     ResponseCode DeleteVehicle(Vehicle &vehicle);
+    ResponseCode GetVehicleByNumberPlate(std::string nPlate, Vehicle &outVehicle);
 
     // Branch manager
     ResponseCode InsertBranch(Branch &branch);

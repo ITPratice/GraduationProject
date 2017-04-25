@@ -1,52 +1,57 @@
 #include <iostream>
-#include <redox.hpp>
 #include <string>
-#include <fstream>
 #include <vector>
+#include <map>
+#include <set>
 
-#include "json/json.hpp"
+#include "stdafx.h"
 
-// for convenience
-using json = nlohmann::json;
+using namespace web;
+using namespace web::http;
+using namespace web::http::experimental::listener;
 
-#define TILE38_PORT 9851
-#define TILE38_HOST "127.0.0.1"
+void RoutingHandler(http_request request);
 
-int main(int argc, char* argv[]) {
-    redox::Redox rdx;
+std::unique_ptr<UserHandler> userHandler;
+std::unique_ptr<LocationHandler> locationHandler;
+std::unique_ptr<BranchHandler> branchHandler;
+std::unique_ptr<VehicleHandler> vehicleHandler;
+std::unique_ptr<VehicleTypeHandler> t_vehicleHandler;
 
-    if(!rdx.connect(TILE38_HOST, TILE38_PORT)) return 1;
-
-    rdx.command<std::string>({"NEARBY", "fleet", "FENCE", "POINT", "33.01", "-115.05", "6000"}, [](redox::Command<std::string>& c) {
-        if(!c.ok()) return 1;
-        std::cout << c.reply() << std::endl;
-    });
-
-    // rdx.command<std::string>({"SET", "fleet", "bob", "POINT", "33.01", "-115.01"}, [](redox::Command<std::string>& c) {
-    //     if(!c.ok()) return 1;
-    // });
-
-    // rdx.command<std::string>({"SET", "fleet", "bob", "POINT", "33.01", "-115.02"}, [](redox::Command<std::string>& c) {
-    //     if(!c.ok()) return 1;
-    // });
-
-    // rdx.command<std::string>({"GET", "fleet", "truck"}, [](redox::Command<std::string>& c) {
-    //     json jArray;
-    //     if(!c.ok()) return 1;
-    //     auto j3 = json::parse(c.reply());
-    //     auto j4 = j3["coordinates"].get<std::vector<float>>();
-    //     std::cout << j3 << std::endl;
-    //     for(auto i : j4) {
-    //         std::cout << i << std::endl;
-    //     }
-    // });
-    rdx.wait();
-
+int main()
+{
+    http_listener listener(Constants::API_BASE_URL);
+    listener.support(RoutingHandler);
+    listener.open().wait();
+    while(true);
     return 0;
 }
 
-bool SetLocation(redox::Redox rdx, float latPoint, float lonPoint) {
-    
+void RoutingHandler(http_request request) {
+    utility::string_t routePath = request.relative_uri().path();
+    switch(string_helper::hash_str(routePath)) {
+        case ROUTE_USER:
+            userHandler = std::unique_ptr<UserHandler>(new UserHandler());
+            userHandler->listener(request);
+            break;
+        case ROUTE_LOCATION:
+            locationHandler = std::unique_ptr<LocationHandler>(new LocationHandler());
+            locationHandler->listener(request);
+            break;
+        case ROUTE_BRANCH:
+            branchHandler = std::unique_ptr<BranchHandler>(new BranchHandler());
+            branchHandler->listener(request);
+            break;
+        case ROUTE_VEHICLE:
+            vehicleHandler = std::unique_ptr<VehicleHandler>(new VehicleHandler());
+            vehicleHandler->listener(request);
+            break;
+        case ROUTE_VEHICLE_TYPE:
+            t_vehicleHandler = std::unique_ptr<VehicleTypeHandler>(new VehicleTypeHandler());
+            t_vehicleHandler->listener(request);
+            break;
+        default:
+            break;
+    }
 }
-
 

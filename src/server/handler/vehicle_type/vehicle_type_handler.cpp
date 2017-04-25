@@ -1,52 +1,51 @@
-#include "branch_handler.h"
+#include "vehicle_type_handler.h"
 
-BranchHandler::BranchHandler() {
+VehicleTypeHandler::VehicleTypeHandler() {
     data = new DataManager(Constants::DATABASE_PATH);
 }
 
-void BranchHandler::listener(http_request request) {
-   if (data->connectDb() != DATA_SUCCESS)
+void VehicleTypeHandler::listener(http_request request) {
+    if (data->connectDb() != DATA_SUCCESS)
         return;
-    if(request.method() == methods::GET) {
+    if (request.method() == methods::GET) {
         handle_get(request);
-    } else if(request.method() == methods::PUT) {
+    } else if (request.method() == methods::PUT) {
         handle_put(request);
-    } else if(request.method() == methods::POST) {
+    } else if (request.method() == methods::POST) {
         handle_post(request);
-    } else if(request.method() == methods::DEL) {
+    } else if (request.method() == methods::DEL) {
         handle_delete(request);
-    } 
+    }
 }
 
-// GET /api/branch?id={value}
-void BranchHandler::handle_get(http_request request) {
-    std::cout << "GET /api/branch\n";
-    Branch _outBranch;
+// GET /api/vehicletype?id
+void VehicleTypeHandler::handle_get(http_request request) {
+    std::cout << "GET /api/vehicletype?id\n";
+    VehicleType _outVehicleType;
     auto get_vars = uri::split_query(request.request_uri().query());
-    if(get_vars.empty()) {
+    if (get_vars.empty()) {
         request.reply(status_codes::BadRequest, "Query is null");
         return;
     }
 
-    // Get Branch By Id
+    // Get vehicle type by id
     auto _id = get_vars.find("id")->second;
-    if(data->GetBranchById(_id, _outBranch) != DATA_SUCCESS) {
+    if (data->GetVehicleTypeById(_id, _outVehicleType) != DATA_SUCCESS) {
         request.reply(status_codes::BadRequest, json::value::string("Query Error"));
         return;
     }
 
-    // Set Branch json
+    // Set User json
     json::value _jValue;
-    _jValue["Id"] = json::value::string(_outBranch.getId());
-    _jValue["Name"] = json::value::string(_outBranch.getName());
+    _jValue["Id"] = json::value::string(outUser.getEmail());
+    _jValue["Name"] = json::value::string(outUser.getUsername());
 
-    // Reply to client
     request.reply(status_code::OK, _jValue);
 }
 
-// PUT /api/branch
-void BranchHandler::handle_put(http_request request) {
-    std::cout << "PUT /api/branch\n";
+// PUT /api/vehicletype
+void VehicleTypeHandler::handle_put(http_request request) {
+    std::cout << "PUT /api/vehicletype\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
     if(get_vars.empty()) {
@@ -54,22 +53,22 @@ void BranchHandler::handle_put(http_request request) {
         return;
     }
 
-    // Get Branch value
+    // Get vehicletype values from query
     auto _id = get_vars.find("id")->second;
     auto _name = get_vars.find("name")->second;
-    Branch _branch(_id, _name);
+    VehicleType _vType(_id, _name);
 
-    // Update Branch
-    if(data->UpdateBranch(_branch) == DATA_SUCCESS) {
+    // Update VehicleType
+    if (data->UpdateVehicleType(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
     } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));
     }
 }
 
-// POST /api/branch
-void BranchHandler::handle_post(http_request request) {
-    std::cout << "POST /api/branch\n";
+// POST /api/vehicletype
+void VehicleTypeHandler::handle_post(http_request request) {
+    std::cout << "POST /api/vehicletype\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
     if(get_vars.empty()) {
@@ -77,22 +76,22 @@ void BranchHandler::handle_post(http_request request) {
         return;
     }
 
-    // Get Branch value
+    // Get vehicletype values from query
     auto _id = get_vars.find("id")->second;
     auto _name = get_vars.find("name")->second;
-    Branch _branch(_id, _name);
+    VehicleType _vType(_id, _name);
 
-    // Update Branch
-    if(data->InsertBranch(_branch) == DATA_SUCCESS) {
+    // Insert VehicleType
+    if (data->InsertVehicle(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
     } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));
     }
 }
 
-// DELETE /api/branch
-void BranchHandler::handle_delete(http_request request) {
-    std::cout << "DELETE /api/branch\n";
+// DELETE /api/vehicletype
+void VehicleTypeHandler::handle_delete(http_request request) {
+    std::cout << "DELETE /api/vehicletype\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
     if(get_vars.empty()) {
@@ -100,13 +99,13 @@ void BranchHandler::handle_delete(http_request request) {
         return;
     }
 
-    // Get Branch value
+    // Get vehicletype values from query
     auto _id = get_vars.find("id")->second;
     auto _name = get_vars.find("name")->second;
-    Branch _branch(_id, _name);
+    VehicleType _vType(_id, _name);
 
-    // Update Branch
-    if(data->DeleteBranch(_branch) == DATA_SUCCESS) {
+    // Insert VehicleType
+    if (data->DeleteVehicleType(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
     } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));
