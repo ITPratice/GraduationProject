@@ -1,7 +1,7 @@
-#include <iostream>
-#include <map>
-
 #include "../stdafx.h"
+#include "../../datalayer/data_manager.h"
+#include "../../datalayer/user.h"
+#include "../../ResponseInterface.h"
 
 #ifndef USER_HANDLER_H
 #define USER_HANDLER_H

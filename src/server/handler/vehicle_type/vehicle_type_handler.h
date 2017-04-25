@@ -1,7 +1,7 @@
-#include <iostream>
-#include <map>
-
 #include "../stdafx.h"
+#include "../../datalayer/data_manager.h"
+#include "../../datalayer/vehicle_type.h"
+#include "../../ResponseInterface.h"
 
 #ifndef VEHICLE_TYPE_HANDLER_H
 #define VEHICLE_TYPE_HANDLER_H

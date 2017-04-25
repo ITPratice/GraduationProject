@@ -715,7 +715,7 @@ ResponseCode DataManager::GetUserByEmail(std::string email, User &outUser) {
             outUser.setPhoneNumber((char*)sqlite3_column_text(statement, 3));
             outUser.setFullname((char*)sqlite3_column_text(statement, 4));
             outUser.setPassword((char*)sqlite3_column_text(statement, 5));
-            outUser.setRole((int)sqlite3_column_text(statement, 6));
+            outUser.setRole(atoi((char*)sqlite3_column_text(statement, 6)));
 		} else {
             return DATA_SELECT_EMPTY;
 		}

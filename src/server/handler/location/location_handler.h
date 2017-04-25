@@ -1,7 +1,7 @@
-#include <iostream>
-#include <ctime>
-
 #include "../stdafx.h"
+#include "../../datalayer/data_manager.h"
+#include "../../datalayer/location.h"
+#include "../../ResponseInterface.h"
 
 #ifndef LOCATION_HANDLER_H
 #define LOCATION_HANDLER_H

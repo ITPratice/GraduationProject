@@ -5,6 +5,12 @@
 #include <set>
 
 #include "stdafx.h"
+#include "handler/user/user_handler.h"
+#include "handler/location/location_handler.h"
+#include "handler/branch/branch_handler.h"
+#include "handler/vehicle/vehicle_handler.h"
+#include "handler/vehicle_type/vehicle_type_handler.h"
+#include "helper/string_helper.h"
 
 using namespace web;
 using namespace web::http;
@@ -20,7 +26,7 @@ std::unique_ptr<VehicleTypeHandler> t_vehicleHandler;
 
 int main()
 {
-    http_listener listener(Constants::API_BASE_URL);
+    http_listener listener("http://0.0.0.0:3000");
     listener.support(RoutingHandler);
     listener.open().wait();
     while(true);

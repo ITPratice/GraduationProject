@@ -15,7 +15,6 @@
 #include "vehicle_type.h"
 #include "vehicle.h"
 #include "branch.h"
-#include "history.h"
 
 #ifndef DATA_MANAGER_H
 #define DATA_MANAGER_H

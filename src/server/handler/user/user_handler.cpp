@@ -1,7 +1,7 @@
 #include "user_handler.h"
 
 UserHandler::UserHandler() {
-    data = new DataManager(Constants::DATABASE_PATH);
+    data = new DataManager("../../tracker.db");
 }
 
 void UserHandler::listener(http_request request) {
@@ -45,7 +45,7 @@ void UserHandler::handle_get(http_request request) {
     _jValue["Fullname"] = json::value::string(outUser.getFullname());
     _jValue["Role"] = json::value::number(outUser.getRole());
 
-    request.reply(status_code::OK, _jValue);
+    request.reply(status_codes::OK, _jValue);
 }
 
 // PUT /api/user
@@ -66,7 +66,7 @@ void UserHandler::handle_put(http_request request) {
     auto pass = get_vars.find("pass")->second;
     auto fname =  get_vars.find("name")->second;
     auto role = get_vars.find("role")->second;
-    User _user(email, uname, addr, phone, fname, pass, role);
+    User _user(email, uname, addr, phone, fname, pass, stoi(role));
 
     // Update User
     if (data->UpdateUser(_user) == DATA_SUCCESS) {
@@ -84,13 +84,6 @@ void UserHandler::handle_post(http_request request) {
         request.reply(status_codes::BadRequest, "Query is null");
         return;
     }
-    
-    // auto found_email = get_vars.find("email");
-    // auto found_uname = get_vars.find("username");
-    // auto found_addr = get_vars.find("address");
-    // auto found_phone = get_vars.find("phone");
-    // auto found_pass = get_vars.find("pass");
-    // auto found_
 
     // Get user values from query
     auto email = get_vars.find("email")->second;
@@ -100,7 +93,7 @@ void UserHandler::handle_post(http_request request) {
     auto pass = get_vars.find("pass")->second;
     auto fname =  get_vars.find("name")->second;
     auto role = get_vars.find("role")->second;
-    User _user(email, uname, addr, phone, fname, pass, role);
+    User _user(email, uname, addr, phone, fname, pass, stoi(role));
 
     if(data->InsertUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
@@ -127,7 +120,7 @@ void UserHandler::handle_delete(http_request request) {
     auto pass = get_vars.find("pass")->second;
     auto fname =  get_vars.find("name")->second;
     auto role = get_vars.find("role")->second;
-    User _user(email, uname, addr, phone, fname, pass, role);
+    User _user(email, uname, addr, phone, fname, pass, stoi(role));
 
     if(data->DeleteUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));

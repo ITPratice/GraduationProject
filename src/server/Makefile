@@ -1,17 +1,17 @@
 CC      	= g++
 CFLAGS  	= -I. -c -Wall -fPIC
 LDFLAGS 	= -Wall -shared -lpthread -o
-EXFLAGS		= -lstdc++ -lsqlite3 -lboost_system -lcrypto -lssl -lcpprest -Wall -lpthread
+EXFLAGS		= -lstdc++ -lsqlite3 -lboost_system -lcrypto -lssl -lcpprest -Wall -lpthread -std=c++11
 
-SOURCES		= 	data_manager.cpp user.cpp location.cpp vehicle.cpp \
-			vehicle_type.cpp branch.cpp \
+SOURCES		= 	datalayer/data_manager.cpp datalayer/user.cpp datalayer/location.cpp datalayer/vehicle.cpp \
+			datalayer/vehicle_type.cpp datalayer/branch.cpp \
 			handler/branch/branch_handler.cpp \
 			handler/location/location_handler.cpp \
 			handler/user/user_handler.cpp \
 			handler/vehicle/vehicle_handler.cpp \
 			handler/vehicle_type/vehicle_type_handler.cpp
 
-all: $(SOURCES) test.cpp
+all: $(SOURCES) main.cpp
 		$(CC) $(SOURCES) test.cpp $(EXFLAGS) -o test
 
 clean:

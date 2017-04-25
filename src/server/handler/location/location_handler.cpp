@@ -1,14 +1,14 @@
 #include "location_handler.h"
 
 LocationHandler::LocationHandler() { 
-    data = new DataManager("tracker.db");
+    data = new DataManager("../../tracker.db");
 }
 
 void LocationHandler::listener(http_request request) {
-    if(data->connectDb() != DATA_SUCCESS) {
+    if (data->connectDb() != DATA_SUCCESS) {
         return;
     }
-    if(request.method() == methods::GET) {
+    if (request.method() == methods::GET) {
         handle_get(request);
     } else if(request.method() == methods::PUT) {
         handle_put(request);
@@ -23,16 +23,16 @@ void LocationHandler::listener(http_request request) {
 void LocationHandler::handle_get(http_request request) {
     std::cout << "LOCATION_HANDLER - GET /api/location\n";
 
-    request.reply(status_code::BadRequest, "Not Support"); 
+    request.reply(status_codes::BadRequest, "Not Support"); 
 }
 
 // POST /api/location
 void LocationHandler::handle_post(http_request request) {
-    std::cout << "LOCATION_HANDLER - POST /api/location\n"
+    std::cout << "LOCATION_HANDLER - POST /api/location\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
     if(get_vars.empty()) {
-        request.reply(status_code::BadRequest, "Query null");
+        request.reply(status_codes::BadRequest, "Query null");
         return;
     }
 
@@ -41,7 +41,7 @@ void LocationHandler::handle_post(http_request request) {
     auto _lon = get_vars.find("lon")->second;
     auto _nPlate = get_vars.find("plate")->second;
     auto _date = get_vars.find("date")->second;
-    auto _start = get_vars.find("start").second;
+    auto _start = get_vars.find("start")->second;
 
     // Get DateTime.Now
     auto t = std::time(nullptr);
@@ -62,21 +62,21 @@ void LocationHandler::handle_post(http_request request) {
 
     if(data->InsertLocation(_location) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("SUCCESS"));
-    } esle {
+    } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));
     }
 }
 
 // PUT api/location
-void LocationHandler::handle_get(http_request request) {
+void LocationHandler::handle_put(http_request request) {
     std::cout << "LOCATION_HANDLER - PUT /api/location\n";
 
-    request.reply(status_code::BadRequest, "Not Support"); 
+    request.reply(status_codes::BadRequest, "Not Support"); 
 }
 
 // DELETE api/location
-void LocationHandler::handle_get(http_request request) {
+void LocationHandler::handle_delete(http_request request) {
     std::cout << "LOCATION_HANDLER - DELETE /api/location\n";
 
-    request.reply(status_code::BadRequest, "Not Support"); 
+    request.reply(status_codes::BadRequest, "Not Support"); 
 }

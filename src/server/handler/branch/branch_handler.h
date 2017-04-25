@@ -1,7 +1,7 @@
-#include <iostream>
-#include <map>
-
 #include "../stdafx.h"
+#include "../../datalayer/data_manager.h"
+#include "../../datalayer/branch.h"
+#include "../../ResponseInterface.h"
 
 #ifndef BRANCH_HANDLER_H
 #define BRANCH_HANDLER_H

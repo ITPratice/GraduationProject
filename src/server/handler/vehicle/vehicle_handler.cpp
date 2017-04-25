@@ -1,7 +1,7 @@
 #include "vehicle_handler.h"
 
 VehicleHandler::VehicleHandler() {
-    data = new DataManager(Constants::DATABASE_PATH);
+    data = new DataManager("../../tracker.db");
 }
 
 void VehicleHandler::listener(http_request request) {
@@ -45,7 +45,7 @@ void VehicleHandler::handle_get(http_request request) {
     _jValue["UserEmail"] = json::value::string(_outVehicle.getUserEmail());
 
     // Reply to client
-    request.reply(status_code::OK, _jValue);
+    request.reply(status_codes::OK, _jValue);
 }
 
 // PUT /api/vehicle
@@ -61,7 +61,7 @@ void VehicleHandler::handle_put(http_request request) {
     auto _plate = get_vars.find("plate")->second;
     auto _bId = get_vars.find("brand")->second;
     auto _hId = get_vars.find("hardware")->second;
-    auto _des = get_var.find("description")->second;
+    auto _des = get_vars.find("description")->second;
     auto _type = get_vars.find("type")->second;
     auto _email = get_vars.find("email")->second;
     Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
@@ -87,7 +87,7 @@ void VehicleHandler::handle_post(http_request request) {
     auto _plate = get_vars.find("plate")->second;
     auto _bId = get_vars.find("brand")->second;
     auto _hId = get_vars.find("hardware")->second;
-    auto _des = get_var.find("description")->second;
+    auto _des = get_vars.find("description")->second;
     auto _type = get_vars.find("type")->second;
     auto _email = get_vars.find("email")->second;
     Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
@@ -113,7 +113,7 @@ void VehicleHandler::handle_delete(http_request request) {
     auto _plate = get_vars.find("plate")->second;
     auto _bId = get_vars.find("brand")->second;
     auto _hId = get_vars.find("hardware")->second;
-    auto _des = get_var.find("description")->second;
+    auto _des = get_vars.find("description")->second;
     auto _type = get_vars.find("type")->second;
     auto _email = get_vars.find("email")->second;
     Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);

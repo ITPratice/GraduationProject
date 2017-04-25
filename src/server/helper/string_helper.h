@@ -13,8 +13,9 @@ public:
 
 inline RouteMapCode string_helper::hash_str(std::string &in_str) {
     if(in_str == API_USER) return ROUTE_USER;
-    if(in_str == API_LOCATION) return ROUTE_LOCATION;
-    if(in_str == API_BRANCH) return ROUTE_BRANCH;
-    if(in_str == API_VEHICLE) return ROUTE_VEHICLE;
-    if(in_str == API_VEHICLE_TYPE) return ROUTE_VEHICLE_TYPE;
+    else if(in_str == API_LOCATION) return ROUTE_LOCATION;
+    else if(in_str == API_BRANCH) return ROUTE_BRANCH;
+    else if(in_str == API_VEHICLE) return ROUTE_VEHICLE;
+    else if(in_str == API_VEHICLE_TYPE) return ROUTE_VEHICLE_TYPE;
+    else return ROUTE_FAILED;
 }

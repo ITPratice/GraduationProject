@@ -1,7 +1,7 @@
 #include "vehicle_type_handler.h"
 
 VehicleTypeHandler::VehicleTypeHandler() {
-    data = new DataManager(Constants::DATABASE_PATH);
+    data = new DataManager("../../tracker.db");
 }
 
 void VehicleTypeHandler::listener(http_request request) {
@@ -37,10 +37,10 @@ void VehicleTypeHandler::handle_get(http_request request) {
 
     // Set User json
     json::value _jValue;
-    _jValue["Id"] = json::value::string(outUser.getEmail());
-    _jValue["Name"] = json::value::string(outUser.getUsername());
+    _jValue["Id"] = json::value::string(_outVehicleType.getId());
+    _jValue["Name"] = json::value::string(_outVehicleType.getName());
 
-    request.reply(status_code::OK, _jValue);
+    request.reply(status_codes::OK, _jValue);
 }
 
 // PUT /api/vehicletype
@@ -82,7 +82,7 @@ void VehicleTypeHandler::handle_post(http_request request) {
     VehicleType _vType(_id, _name);
 
     // Insert VehicleType
-    if (data->InsertVehicle(_vType) == DATA_SUCCESS) {
+    if (data->InsertVehicleType(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
     } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));

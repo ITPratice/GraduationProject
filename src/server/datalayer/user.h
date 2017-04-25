@@ -4,9 +4,6 @@
 #ifndef USER_H
 #define USER_H
 
-// Type: 1 - Admin / 2 - Wait-confirm-user / 3 - user / 4 - unregister
-// isConfirm: 1 - True / 0 - False
-
 class User {
 public:
     User();

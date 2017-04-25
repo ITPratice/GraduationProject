@@ -5,6 +5,7 @@
 #include <set>
 
 #include "stdafx.h"
+#include "helper/string_helper.h"
 
 using namespace web;
 using namespace web::http;
@@ -20,7 +21,7 @@ std::unique_ptr<VehicleTypeHandler> t_vehicleHandler;
 
 int main()
 {
-    http_listener listener(Constants::API_BASE_URL);
+    http_listener listener("http://0.0.0.0:3000");
     listener.support(RoutingHandler);
     listener.open().wait();
     while(true);

@@ -1,7 +1,7 @@
 #include "branch_handler.h"
 
 BranchHandler::BranchHandler() {
-    data = new DataManager(Constants::DATABASE_PATH);
+    data = new DataManager("../../tracker.db");
 }
 
 void BranchHandler::listener(http_request request) {
@@ -41,7 +41,7 @@ void BranchHandler::handle_get(http_request request) {
     _jValue["Name"] = json::value::string(_outBranch.getName());
 
     // Reply to client
-    request.reply(status_code::OK, _jValue);
+    request.reply(status_codes::OK, _jValue);
 }
 
 // PUT /api/branch
