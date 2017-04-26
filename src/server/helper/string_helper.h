@@ -1,3 +1,6 @@
+#include <string>
+#include <iostream>
+
 #include "../RouteMap.h"
 
 #define API_USER "/api/user"
@@ -9,6 +12,8 @@
 class string_helper {
 public:
     static RouteMapCode hash_str(std::string &str);
+    static std::string replace_in_str(std::string in_str, std::string to_find, int len, std::string to_replace);
+    static std::string replace_space(std::string in_str);
 };
 
 inline RouteMapCode string_helper::hash_str(std::string &in_str) {
@@ -18,4 +23,18 @@ inline RouteMapCode string_helper::hash_str(std::string &in_str) {
     else if(in_str == API_VEHICLE) return ROUTE_VEHICLE;
     else if(in_str == API_VEHICLE_TYPE) return ROUTE_VEHICLE_TYPE;
     else return ROUTE_FAILED;
+}
+
+inline std::string string_helper::replace_in_str(std::string in_str, std::string to_find, int len, std::string to_replace) {
+    std::size_t pos = 0;
+    std::string _tmp = in_str;
+    for (pos = _tmp.find(to_find); pos != std::string::npos; pos = _tmp.find(to_find, pos)) {
+        _tmp.replace(pos, len, to_replace);
+    }
+    return _tmp;
+}
+
+
+inline std::string string_helper::replace_space(std::string in_str) {
+    return replace_in_str(in_str, "%20", 3, " ");
 }

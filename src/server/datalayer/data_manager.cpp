@@ -161,13 +161,13 @@ bool DataManager::dbIsExist() {
 
 // BUG
 ResponseCode DataManager::connectDb() {
-    if (!dbIsExist()) {
-        std::cout << "DATA_MANAGER - Start create DB\n";
-        ResponseCode ret = createDb();
-        if (ret != DATA_SUCCESS) {
-            return ret;
-        }
-    }
+    // if (!dbIsExist()) {
+    //     std::cout << "DATA_MANAGER - Start create DB\n";
+    //     ResponseCode ret = createDb();
+    //     if (ret != DATA_SUCCESS) {
+    //         return ret;
+    //     }
+    // }
 
     int rc = sqlite3_open(db_file_path.c_str(), &db);
     if(rc) {

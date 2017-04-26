@@ -1,7 +1,7 @@
 #include "user_handler.h"
 
 UserHandler::UserHandler() {
-    data = new DataManager("../../tracker.db");
+    data = new DataManager("tracker.db");
 }
 
 void UserHandler::listener(http_request request) {
@@ -59,13 +59,13 @@ void UserHandler::handle_put(http_request request) {
     }
 
     // Get user values from query
-    auto email = get_vars.find("email")->second;
-    auto uname = get_vars.find("username")->second;
-    auto addr = get_vars.find("address")->second;
-    auto phone = get_vars.find("phone")->second;
-    auto pass = get_vars.find("pass")->second;
-    auto fname =  get_vars.find("name")->second;
-    auto role = get_vars.find("role")->second;
+    auto email = string_helper::replace_space(get_vars.find("email")->second);
+    auto uname = string_helper::replace_space(get_vars.find("username")->second);
+    auto addr = string_helper::replace_space(get_vars.find("address")->second);
+    auto phone = string_helper::replace_space(get_vars.find("phone")->second);
+    auto pass = string_helper::replace_space(get_vars.find("pass")->second);
+    auto fname =  string_helper::replace_space(get_vars.find("name")->second);
+    auto role = string_helper::replace_space(get_vars.find("role")->second);
     User _user(email, uname, addr, phone, fname, pass, stoi(role));
 
     // Update User
@@ -86,16 +86,16 @@ void UserHandler::handle_post(http_request request) {
     }
 
     // Get user values from query
-    auto email = get_vars.find("email")->second;
-    auto uname = get_vars.find("username")->second;
-    auto addr = get_vars.find("address")->second;
-    auto phone = get_vars.find("phone")->second;
-    auto pass = get_vars.find("pass")->second;
-    auto fname =  get_vars.find("name")->second;
-    auto role = get_vars.find("role")->second;
+    auto email = string_helper::replace_space(get_vars.find("email")->second);
+    auto uname = string_helper::replace_space(get_vars.find("username")->second);
+    auto addr = string_helper::replace_space(get_vars.find("address")->second);
+    auto phone = string_helper::replace_space(get_vars.find("phone")->second);
+    auto pass = string_helper::replace_space(get_vars.find("pass")->second);
+    auto fname =  string_helper::replace_space(get_vars.find("name")->second);
+    auto role = string_helper::replace_space(get_vars.find("role")->second);
     User _user(email, uname, addr, phone, fname, pass, stoi(role));
 
-    if(data->InsertUser(_user) == DATA_SUCCESS) {
+    if (data->InsertUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
     } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));
@@ -113,16 +113,16 @@ void UserHandler::handle_delete(http_request request) {
     }
 
     // Get user values from query
-    auto email = get_vars.find("email")->second;
-    auto uname = get_vars.find("username")->second;
-    auto addr = get_vars.find("address")->second;
-    auto phone = get_vars.find("phone")->second;
-    auto pass = get_vars.find("pass")->second;
-    auto fname =  get_vars.find("name")->second;
-    auto role = get_vars.find("role")->second;
+    auto email = string_helper::replace_space(get_vars.find("email")->second);
+    auto uname = string_helper::replace_space(get_vars.find("username")->second);
+    auto addr = string_helper::replace_space(get_vars.find("address")->second);
+    auto phone = string_helper::replace_space(get_vars.find("phone")->second);
+    auto pass = string_helper::replace_space(get_vars.find("pass")->second);
+    auto fname =  string_helper::replace_space(get_vars.find("name")->second);
+    auto role = string_helper::replace_space(get_vars.find("role")->second);
     User _user(email, uname, addr, phone, fname, pass, stoi(role));
 
-    if(data->DeleteUser(_user) == DATA_SUCCESS) {
+    if (data->DeleteUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
     } else {
         request.reply(status_codes::BadRequest, json::value::string("ERROR"));

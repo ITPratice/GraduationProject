@@ -12,4 +12,6 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/uri.h>
 
+#include "../helper/string_helper.h"
+
 #endif // STDAFX_H

@@ -1,7 +1,7 @@
 #include "vehicle_type_handler.h"
 
 VehicleTypeHandler::VehicleTypeHandler() {
-    data = new DataManager("../../tracker.db");
+    data = new DataManager("tracker.db");
 }
 
 void VehicleTypeHandler::listener(http_request request) {
@@ -48,14 +48,14 @@ void VehicleTypeHandler::handle_put(http_request request) {
     std::cout << "PUT /api/vehicletype\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if(get_vars.empty()) {
+    if (get_vars.empty()) {
         request.reply(status_codes::BadRequest, "Query is null");
         return;
     }
 
     // Get vehicletype values from query
-    auto _id = get_vars.find("id")->second;
-    auto _name = get_vars.find("name")->second;
+    auto _id = string_helper::replace_space(get_vars.find("id")->second);
+    auto _name = string_helper::replace_space(get_vars.find("name")->second);
     VehicleType _vType(_id, _name);
 
     // Update VehicleType
@@ -71,14 +71,14 @@ void VehicleTypeHandler::handle_post(http_request request) {
     std::cout << "POST /api/vehicletype\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if(get_vars.empty()) {
+    if (get_vars.empty()) {
         request.reply(status_codes::BadRequest, "Query is null");
         return;
     }
 
     // Get vehicletype values from query
-    auto _id = get_vars.find("id")->second;
-    auto _name = get_vars.find("name")->second;
+    auto _id = string_helper::replace_space(get_vars.find("id")->second);
+    auto _name = string_helper::replace_space(get_vars.find("name")->second);
     VehicleType _vType(_id, _name);
 
     // Insert VehicleType
@@ -94,14 +94,14 @@ void VehicleTypeHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/vehicletype\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if(get_vars.empty()) {
+    if (get_vars.empty()) {
         request.reply(status_codes::BadRequest, "Query is null");
         return;
     }
 
     // Get vehicletype values from query
-    auto _id = get_vars.find("id")->second;
-    auto _name = get_vars.find("name")->second;
+    auto _id = string_helper::replace_space(get_vars.find("id")->second);
+    auto _name = string_helper::replace_space(get_vars.find("name")->second);
     VehicleType _vType(_id, _name);
 
     // Insert VehicleType
