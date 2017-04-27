@@ -20,6 +20,7 @@ std::unique_ptr<VehicleHandler> vehicleHandler;
 std::unique_ptr<VehicleTypeHandler> t_vehicleHandler;
 std::unique_ptr<CurrentTimeHandler> currentTime;
 std::unique_ptr<AllUserHandler> allUserHandler;
+std::unique_ptr<CurrentLocationHandler> curLocationHandler;
 
 int main()
 {
@@ -60,6 +61,10 @@ void RoutingHandler(http_request request) {
         case ROUTE_USER_ALL:
             allUserHandler = std::unique_ptr<AllUserHandler>(new AllUserHandler());
             allUserHandler->listener(request);
+            break;
+        case ROUTE_LOCATION_CURRENT:
+            curLocationHandler = std::unique_ptr<CurrentLocationHandler>(new CurrentLocationHandler());
+            curLocationHandler->listener(request);
             break;
         default:
             break;

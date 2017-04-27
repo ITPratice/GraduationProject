@@ -15,6 +15,7 @@
 #include "handler/user/user_handler.h"
 #include "handler/user/all_user_handler.h"
 #include "handler/location/location_handler.h"
+#include "handler/location/current_location_handler.h"
 #include "handler/branch/branch_handler.h"
 #include "handler/vehicle/vehicle_handler.h"
 #include "handler/vehicle_type/vehicle_type_handler.h"

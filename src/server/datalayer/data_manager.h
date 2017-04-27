@@ -59,6 +59,7 @@ public:
     ResponseCode UpdateLocation(Location &location);
     ResponseCode DeleteLocation(Location &location);
     ResponseCode GetLocationByDate(std::string plate, std::string date, std::vector<Location> &outLocation);
+    ResponseCode GetCurrentLocation(std::string nPlate, Location &outLocation);
 
 public:
     void setDbPath(std::string pathFile);

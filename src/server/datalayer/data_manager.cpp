@@ -693,6 +693,37 @@ ResponseCode DataManager::GetUserByEmail(std::string email, User &outUser) {
 	return DATA_SUCCESS;
 }
 
+ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM USER;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                User user;
+                user.setEmail((char*)sqlite3_column_text(stmt, 0));
+                user.setUsername((char*)sqlite3_column_text(stmt, 1));
+                user.setAddress((char*)sqlite3_column_text(stmt, 2));
+                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
+                user.setFullname((char*)sqlite3_column_text(stmt, 4));
+                user.setPassword((char*)sqlite3_column_text(stmt, 5));
+                user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
+                lstUser.push_back(user);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
 ResponseCode DataManager::GetBranchById(std::string id, Branch &outBranch) {
     std::stringstream strm;
     strm << "SELECT * FROM BRANCH WHERE ID = '" << id << "';";
@@ -803,7 +834,6 @@ ResponseCode DataManager::GetLocationByDate(std::string plate, std::string date,
             }
 
             if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
-                std::cout << "Get all user finish " << std::endl;
                 break;
             }
         }
@@ -814,30 +844,32 @@ ResponseCode DataManager::GetLocationByDate(std::string plate, std::string date,
     return DATA_SUCCESS;
 }
 
-ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
-    sqlite3_stmt *stmt;
-    const char* query = (char *)"SELECT * FROM USER;";
-    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+ResponseCode DataManager::GetCurrentLocation(std::string nPlate, Location &outLocation) {
+    /*SELECT * FROM Location WHERE Vehicle_Number_Plate = "3" ORDER BY Id DESC LIMIT 1*/
+    std::stringstream strm;
+    strm << "SELECT * FROM LOCATION WHERE VEHICLE_NUMBER_PLATE = '" 
+         << nPlate 
+         << "' ORDER BY ID DESC LIMIT 1;" ;
+
+    std::string s = strm.str();
+	char *str = &s[0];
+	sqlite3_stmt *stmt;
+	char *query = str;
+    
+    if (sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
-        while (true) {
-            res = sqlite3_step(stmt);
+        res = sqlite3_step(stmt);
+        if (res == SQLITE_ROW) {
+            outLocation.setLatitude((char*)sqlite3_column_text(stmt, 1));
+            outLocation.setLongititu((char*)sqlite3_column_text(stmt, 2));
+            outLocation.setNumberPlate((char*)sqlite3_column_text(stmt, 3));
+            outLocation.setDate((char*)sqlite3_column_text(stmt, 4));
+            outLocation.setStartTime((char*)sqlite3_column_text(stmt, 5));
+            outLocation.setEndTime((char*)sqlite3_column_text(stmt, 6));
+        }
 
-            if (res == SQLITE_ROW) {
-                User user;
-                user.setEmail((char*)sqlite3_column_text(stmt, 0));
-                user.setUsername((char*)sqlite3_column_text(stmt, 1));
-                user.setAddress((char*)sqlite3_column_text(stmt, 2));
-                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
-                user.setFullname((char*)sqlite3_column_text(stmt, 4));
-                user.setPassword((char*)sqlite3_column_text(stmt, 5));
-                user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
-                lstUser.push_back(user);
-            }
-
-            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
-                std::cout << "Get all user finish " << std::endl;
-                break;
-            }
+        if (res == SQLITE_DONE || res == SQLITE_ERROR) {
+            return DATA_ERROR_SELECT_DB;
         }
         sqlite3_finalize(stmt);
     } else {
