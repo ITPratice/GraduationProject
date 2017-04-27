@@ -8,6 +8,7 @@
 #define API_BRANCH "/api/branch"
 #define API_VEHICLE "/api/vehicle"
 #define API_VEHICLE_TYPE "/api/vehicletype"
+#define API_CURRENT_TIME "/api/time"
 
 class string_helper {
 public:
@@ -17,11 +18,12 @@ public:
 };
 
 inline RouteMapCode string_helper::hash_str(std::string &in_str) {
-    if(in_str == API_USER) return ROUTE_USER;
-    else if(in_str == API_LOCATION) return ROUTE_LOCATION;
-    else if(in_str == API_BRANCH) return ROUTE_BRANCH;
-    else if(in_str == API_VEHICLE) return ROUTE_VEHICLE;
-    else if(in_str == API_VEHICLE_TYPE) return ROUTE_VEHICLE_TYPE;
+    if (in_str == API_USER) return ROUTE_USER;
+    else if (in_str == API_LOCATION) return ROUTE_LOCATION;
+    else if (in_str == API_BRANCH) return ROUTE_BRANCH;
+    else if (in_str == API_VEHICLE) return ROUTE_VEHICLE;
+    else if (in_str == API_VEHICLE_TYPE) return ROUTE_VEHICLE_TYPE;
+    else if (in_str == API_CURRENT_TIME) return ROUTE_CURRENT_TIME;
     else return ROUTE_FAILED;
 }
 

@@ -7,7 +7,8 @@ enum RouteMapCode {
     ROUTE_BRANCH = 20,
     ROUTE_VEHICLE = 30,
     ROUTE_VEHICLE_TYPE = 40,
-    ROUTE_FAILED = 50
+    ROUTE_FAILED = 50,
+    ROUTE_CURRENT_TIME
 };
 
 #endif

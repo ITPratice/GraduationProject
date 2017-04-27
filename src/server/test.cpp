@@ -5,11 +5,6 @@
 #include <set>
 
 #include "stdafx.h"
-#include "handler/user/user_handler.h"
-#include "handler/location/location_handler.h"
-#include "handler/branch/branch_handler.h"
-#include "handler/vehicle/vehicle_handler.h"
-#include "handler/vehicle_type/vehicle_type_handler.h"
 #include "helper/string_helper.h"
 
 using namespace web;

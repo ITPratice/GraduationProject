@@ -11,4 +11,12 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/uri.h>
 
+#include "stdafx.h"
+#include "handler/user/user_handler.h"
+#include "handler/location/location_handler.h"
+#include "handler/branch/branch_handler.h"
+#include "handler/vehicle/vehicle_handler.h"
+#include "handler/vehicle_type/vehicle_type_handler.h"
+#include "handler/current_time/current_time_handler.h"
+
 #endif

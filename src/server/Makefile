@@ -9,13 +9,11 @@ SOURCES		= 	datalayer/data_manager.cpp datalayer/user.cpp datalayer/location.cpp
 			handler/location/location_handler.cpp \
 			handler/user/user_handler.cpp \
 			handler/vehicle/vehicle_handler.cpp \
-			handler/vehicle_type/vehicle_type_handler.cpp
+			handler/vehicle_type/vehicle_type_handler.cpp \
+			handler/current_time/current_time_handler.cpp
 
 all: $(SOURCES) main.cpp
-		$(CC) $(SOURCES) test.cpp $(EXFLAGS) -o test
+		$(CC) $(SOURCES) main.cpp $(EXFLAGS) -o main
 
 clean:
-	rm -rf test
-
-test: $(SOURCES) test.cpp
-		$(CC) $(SOURCES) test.cpp $(EXFLAGS) -o test
+	rm -rf main
