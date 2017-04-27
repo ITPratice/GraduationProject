@@ -58,6 +58,7 @@ public:
     ResponseCode InsertLocation(Location &location);
     ResponseCode UpdateLocation(Location &location);
     ResponseCode DeleteLocation(Location &location);
+    ResponseCode GetLocationByDate(std::string plate, std::string date, std::vector<Location> &outLocation);
 
 public:
     void setDbPath(std::string pathFile);

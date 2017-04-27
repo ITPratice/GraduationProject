@@ -22,8 +22,36 @@ void LocationHandler::listener(http_request request) {
 // GET api/location
 void LocationHandler::handle_get(http_request request) {
     std::cout << "LOCATION_HANDLER - GET /api/location\n";
+    auto get_vars = uri::split_query(request.request_uri().query());
+    if (get_vars.empty()) {
+        request.reply(status_codes::BadRequest, "Query null");
+        return;
+    }
 
-    request.reply(status_codes::BadRequest, "Not Support"); 
+    auto _plate = string_helper::replace_space(get_vars.find("plate")->second);
+    auto _date = string_helper::replace_space(get_vars.find("date")->second);
+    std::vector<Location> _lstLocation;
+    std::map<std::string, std::string> _dictionary;
+    std::vector<json::value> _jLocation;
+    if(data->GetLocationByDate(_plate, _date, _lstLocation) != DATA_SUCCESS) {
+        request.reply(status_codes::BadRequest, "ERROR");
+        return;
+    }
+
+    for(auto _location : _lstLocation) {
+        _dictionary = LocationToMap(_location);
+        json::value _jValue;
+        for(auto const& p : _dictionary) {
+            _jValue[p.first] = json::value::string(p.second);
+        }
+        _jLocation.push_back(_jValue);
+        _dictionary.clear();
+    }
+    
+    json::value _answer;
+    _answer["data"] = json::value::array(_jLocation);
+
+    request.reply(status_codes::OK, _answer); 
 }
 
 // POST /api/location
@@ -80,3 +108,15 @@ void LocationHandler::handle_delete(http_request request) {
 
     request.reply(status_codes::BadRequest, "Not Support"); 
 }
+
+std::map<utility::string_t, utility::string_t> LocationHandler::LocationToMap(Location &location) {
+    std::map<utility::string_t, utility::string_t> dictionary;
+    dictionary["Latitude"] = location.getLatitude();
+    dictionary["Longitude"] = location.getLongititu();
+    dictionary["NumberPlate"] = location.getNumberPlate();
+    dictionary["Date"] = location.getDate();
+    dictionary["StartTime"] = location.getStartTime();
+    dictionary["EndTime"] = location.getEndTime();
+    return dictionary;
+}
+ 

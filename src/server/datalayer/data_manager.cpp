@@ -193,40 +193,6 @@ ResponseCode DataManager::disconnectDb() {
     return DATA_SUCCESS;
 }
 
-ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
-    sqlite3_stmt *stmt;
-    const char* query = (char *)"SELECT * FROM USER;";
-    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
-        int res = 0;
-        while (true)
-        {
-            res = sqlite3_step(stmt);
-
-            if (res == SQLITE_ROW) {
-                User user;
-                user.setEmail((char*)sqlite3_column_text(stmt, 0));
-                user.setUsername((char*)sqlite3_column_text(stmt, 1));
-                user.setAddress((char*)sqlite3_column_text(stmt, 2));
-                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
-                user.setFullname((char*)sqlite3_column_text(stmt, 4));
-                user.setPassword((char*)sqlite3_column_text(stmt, 5));
-                user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
-                lstUser.push_back(user);
-            }
-
-            if ( res == SQLITE_DONE || res == SQLITE_ERROR)
-            {
-                std::cout << "Get all user finish " << std::endl;
-                break;
-            }
-        }
-        sqlite3_finalize(stmt);
-    } else {
-        return DATA_ERROR_SELECT_DB;
-    }
-    return DATA_SUCCESS;
-}
-
 ResponseCode DataManager::Login(std::string email, std::string password) {
     std::stringstream strm;
     strm << "SELECT * FROM USER WHERE EMAIL = '" << email << "' AND PASSWORD = '" << password << "';";
@@ -782,9 +748,6 @@ ResponseCode DataManager::GetVehicleByNumberPlate(std::string nPlate, Vehicle &o
 } 
 
 ResponseCode DataManager::GetVehicleTypeById(std::string id, VehicleType &outVehicleType) {
-    /*"CREATE TABLE VEHICLE_TYPE (" \
-            "ID             VARCHAR(10)         PRIMARY KEY         NOT NULL,"  \
-            "NAME           NVARCHAR(50)                            NOT NULL);"*/
     std::stringstream strm;
     strm << "SELECT * FROM VEHICLE_TYPE WHERE ID = '" << id << "';";
 
@@ -807,4 +770,78 @@ ResponseCode DataManager::GetVehicleTypeById(std::string id, VehicleType &outVeh
 		return DATA_ERROR_SELECT_DB;
 	}
 	return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetLocationByDate(std::string plate, std::string date, std::vector<Location> &outLocation) {
+    /* SELECT Latitude, Longitude, Start_Time, End_Time 
+        FROM Location 
+        WHERE vehicle_number_plate = "3" AND date = "4" AND Start_Time NOT NULL */
+    std::stringstream strm;
+    strm << "SELECT * FROM LOCATION WHERE VEHICLE_NUMBER_PLATE = '" 
+         << plate 
+         << "' AND [DATE] = '" 
+         << date << "' AND START_TIME != \"\";";
+
+    std::string s = strm.str();
+	char *str = &s[0];
+	sqlite3_stmt *stmt;
+	char *query = str;
+    
+    if (sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+            if (res == SQLITE_ROW) {
+                Location _location;
+                _location.setLatitude((char*)sqlite3_column_text(stmt, 1));
+                _location.setLongititu((char*)sqlite3_column_text(stmt, 2));
+                _location.setNumberPlate((char*)sqlite3_column_text(stmt, 3));
+                _location.setDate((char*)sqlite3_column_text(stmt, 4));
+                _location.setStartTime((char*)sqlite3_column_text(stmt, 5));
+                _location.setEndTime((char*)sqlite3_column_text(stmt, 6));
+                outLocation.push_back(_location);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                std::cout << "Get all user finish " << std::endl;
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM USER;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                User user;
+                user.setEmail((char*)sqlite3_column_text(stmt, 0));
+                user.setUsername((char*)sqlite3_column_text(stmt, 1));
+                user.setAddress((char*)sqlite3_column_text(stmt, 2));
+                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
+                user.setFullname((char*)sqlite3_column_text(stmt, 4));
+                user.setPassword((char*)sqlite3_column_text(stmt, 5));
+                user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
+                lstUser.push_back(user);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                std::cout << "Get all user finish " << std::endl;
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
 }

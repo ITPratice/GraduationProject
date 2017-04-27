@@ -27,12 +27,12 @@ void AllUserHandler::handle_get(http_request request) {
     std::vector<json::value> vUser;
 
     if (data->GetAllUser(lstUser) != DATA_SUCCESS) {
-        std::cout << "ERROR" << std::endl;
+        request.reply(status_codes::BadRequest, "ERROR");
         return;
     }
 
-    for(int i = 0; i < lstUser.size(); i++) {
-        dictionary = user_to_map(lstUser[i]);
+    for(auto _user : lstUser) {
+        dictionary = UserToMap(_user);
         json::value json;
         for(auto const& p : dictionary) {
             json[p.first] = json::value::string(p.second);
@@ -59,7 +59,7 @@ void AllUserHandler::handle_delete(http_request request) {
     request.reply(status_codes::BadRequest, "Not support");
 }
 
-std::map<utility::string_t,utility::string_t> AllUserHandler::user_to_map(User &user) {
+std::map<utility::string_t, utility::string_t> AllUserHandler::UserToMap(User &user) {
     std::map<utility::string_t, utility::string_t> dictionary;
     dictionary["Email"] = user.getEmail();
     dictionary["Username"] = user.getUsername();
