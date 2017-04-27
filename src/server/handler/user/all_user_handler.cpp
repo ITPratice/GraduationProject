@@ -1,10 +1,10 @@
-#include "get_all_handler.h"
+#include "all_user_handler.h"
 
-get_all_handler::get_all_handler() {
-    data = new DataManager("test.db");
+AllUserHandler::AllUserHandler() {
+    data = new DataManager("tracker.db");
 }
 
-void get_all_handler::listener(http_request request) {
+void AllUserHandler::listener(http_request request) {
     if (data->connectDb() != DATA_SUCCESS)
         return;
     if(request.method() == methods::GET) {
@@ -19,7 +19,7 @@ void get_all_handler::listener(http_request request) {
 }
 
 // GET /api/user/all
-void get_all_handler::handle_get(http_request request) {
+void AllUserHandler::handle_get(http_request request) {
     std::cout << "GET /api/user/all\n";
 
     std::vector<User> lstUser;
@@ -47,19 +47,19 @@ void get_all_handler::handle_get(http_request request) {
     request.reply(status_codes::OK, answer);
 }
 
-void get_all_handler::handle_put(http_request request) {
-    request.reply(status_codes::OK, "Not support");
+void AllUserHandler::handle_put(http_request request) {
+    request.reply(status_codes::BadRequest, "Not support");
 }
 
-void get_all_handler::handle_post(http_request request) {
-    request.reply(status_codes::OK, "Not support");
+void AllUserHandler::handle_post(http_request request) {
+    request.reply(status_codes::BadRequest, "Not support");
 }
 
-void get_all_handler::handle_delete(http_request request) {
-    request.reply(status_codes::OK, "Not support");
+void AllUserHandler::handle_delete(http_request request) {
+    request.reply(status_codes::BadRequest, "Not support");
 }
 
-std::map<utility::string_t,utility::string_t> get_all_handler::user_to_map(User &user) {
+std::map<utility::string_t,utility::string_t> AllUserHandler::user_to_map(User &user) {
     std::map<utility::string_t, utility::string_t> dictionary;
     dictionary["Email"] = user.getEmail();
     dictionary["Username"] = user.getUsername();
@@ -67,5 +67,6 @@ std::map<utility::string_t,utility::string_t> get_all_handler::user_to_map(User 
     dictionary["PhoneNumber"] = user.getPhoneNumber();
     dictionary["Password"] = user.getPassword();
     dictionary["Fullname"] = user.getFullname();
+    dictionary["Role"] = std::to_string(user.getRole());
     return dictionary;
 }

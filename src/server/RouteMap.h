@@ -3,6 +3,7 @@
 
 enum RouteMapCode {
     ROUTE_USER = 1,
+    ROUTE_USER_ALL,
     ROUTE_LOCATION = 10,
     ROUTE_BRANCH = 20,
     ROUTE_VEHICLE = 30,

@@ -1,0 +1,7 @@
+#define API_USER            "/api/user"
+#define API_USER_ALL        "/api/user/all"
+#define API_LOCATION        "/api/location"
+#define API_BRANCH          "/api/branch"
+#define API_VEHICLE         "/api/vehicle"
+#define API_VEHICLE_TYPE    "/api/vehicletype"
+#define API_CURRENT_TIME    "/api/time"

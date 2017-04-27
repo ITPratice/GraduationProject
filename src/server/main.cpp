@@ -19,6 +19,7 @@ std::unique_ptr<BranchHandler> branchHandler;
 std::unique_ptr<VehicleHandler> vehicleHandler;
 std::unique_ptr<VehicleTypeHandler> t_vehicleHandler;
 std::unique_ptr<CurrentTimeHandler> currentTime;
+std::unique_ptr<AllUserHandler> allUserHandler;
 
 int main()
 {
@@ -55,6 +56,10 @@ void RoutingHandler(http_request request) {
         case ROUTE_CURRENT_TIME:
             currentTime = std::unique_ptr<CurrentTimeHandler>(new CurrentTimeHandler());
             currentTime->listener(request);
+            break;
+        case ROUTE_USER_ALL:
+            allUserHandler = std::unique_ptr<AllUserHandler>(new AllUserHandler());
+            allUserHandler->listener(request);
             break;
         default:
             break;

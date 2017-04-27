@@ -204,12 +204,13 @@ ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
 
             if (res == SQLITE_ROW) {
                 User user;
-                user.setEmail((char*)sqlite3_column_text(stmt, 1));
-                user.setUsername((char*)sqlite3_column_text(stmt, 2));
-                user.setAddress((char*)sqlite3_column_text(stmt, 3));
-                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 4));
-                user.setFullname((char*)sqlite3_column_text(stmt, 5));
-                user.setPassword((char*)sqlite3_column_text(stmt, 6));
+                user.setEmail((char*)sqlite3_column_text(stmt, 0));
+                user.setUsername((char*)sqlite3_column_text(stmt, 1));
+                user.setAddress((char*)sqlite3_column_text(stmt, 2));
+                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
+                user.setFullname((char*)sqlite3_column_text(stmt, 4));
+                user.setPassword((char*)sqlite3_column_text(stmt, 5));
+                user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
                 lstUser.push_back(user);
             }
 
