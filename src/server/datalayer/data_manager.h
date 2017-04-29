@@ -33,6 +33,7 @@ public:
     ResponseCode UpdateUser(User &user);
     ResponseCode DeleteUser(User &user);
     ResponseCode Login(std::string email, std::string password);
+    ResponseCode LoginAdmin(std::string email, std::string password);
     ResponseCode GetAllUser(std::vector<User>& lstUser);
     ResponseCode GetUserByEmail(std::string email, User &outUser);
 

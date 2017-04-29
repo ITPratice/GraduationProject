@@ -22,6 +22,8 @@ std::unique_ptr<CurrentTimeHandler> currentTime;
 std::unique_ptr<AllUserHandler> allUserHandler;
 std::unique_ptr<CurrentLocationHandler> curLocationHandler;
 std::unique_ptr<ArduinoLocation> arLocationHandler;
+std::unique_ptr<LoginAdminHandler> aLoginHandler;
+std::unique_ptr<LoginHandler> uLoginHandler;
 
 int main()
 {
@@ -70,6 +72,14 @@ void RoutingHandler(http_request request) {
         case ROUTE_ARDUINO_LOCATION:
             arLocationHandler = std::unique_ptr<ArduinoLocation>(new ArduinoLocation());
             arLocationHandler->listener(request);
+            break;
+        case ROUTE_ADMIN_LOGIN:
+            aLoginHandler = std::unique_ptr<LoginAdminHandler>(new LoginAdminHandler());
+            aLoginHandler->listener(request);
+            break;
+        case ROUTE_USER_LOGIN:
+            uLoginHandler = std::unique_ptr<LoginHandler>(new LoginHandler());
+            uLoginHandler->listener(request);
             break;
         default:
             break;

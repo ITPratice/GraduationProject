@@ -14,6 +14,8 @@ public:
 inline RouteMapCode string_helper::hash_str(std::string &in_str) {
     if (in_str == API_USER) return ROUTE_USER;
     else if (in_str == API_USER_ALL) return ROUTE_USER_ALL;
+    else if (in_str == API_USER_LOGIN) return ROUTE_USER_LOGIN;
+    else if (in_str == API_ADMIN_LOGIN) return ROUTE_ADMIN_LOGIN;
     else if (in_str == API_LOCATION) return ROUTE_LOCATION;
     else if (in_str == API_LOCATION_CURRENT) return ROUTE_LOCATION_CURRENT;
     else if (in_str == API_BRANCH) return ROUTE_BRANCH;

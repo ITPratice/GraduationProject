@@ -29,7 +29,7 @@ void UserHandler::handle_get(http_request request) {
     }
 
     // Get user by email
-    auto _email = get_vars.find("email")->second;
+    auto _email = uri::decode(get_vars.find("email")->second);
     if (data->GetUserByEmail(_email, outUser) != DATA_SUCCESS) {
         request.reply(status_codes::BadRequest, json::value::string("Query Error"));
         return;

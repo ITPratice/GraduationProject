@@ -1,5 +1,7 @@
 #define API_USER                "/api/user"
 #define API_USER_ALL            "/api/user/all"
+#define API_USER_LOGIN          "/api/user/login"
+#define API_ADMIN_LOGIN         "/api/admin/login"
 #define API_LOCATION            "/api/location"
 #define API_LOCATION_CURRENT    "/api/location/current"
 #define API_BRANCH              "/api/branch"

@@ -216,6 +216,35 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     return DATA_SUCCESS;
 }
 
+
+ResponseCode DataManager::LoginAdmin(std::string email, std::string password) {
+    std::stringstream strm;
+    strm << "SELECT * FROM USER WHERE EMAIL = '" 
+         << email 
+         << "' AND PASSWORD = '" 
+         << password 
+         << "' AND ROLE = "
+         << "1;";
+    std::string s = strm.str();
+    char *str = &s[0];
+    sqlite3_stmt *statement;
+    char *query = str;
+    if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+        // int ctotal = sqlite3_column_count(statement);
+        int res;
+        while(true) {
+            res = sqlite3_step(statement);
+            if (res == SQLITE_ROW) {
+                break;
+            } 
+            return DATA_ERROR_SELECT_DB;
+        }
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
 // User manager - Test OK
 ResponseCode DataManager::InsertUser(User &user) {
    /* "CREATE TABLE USER   (" \
