@@ -28,8 +28,8 @@ void LocationHandler::handle_get(http_request request) {
         return;
     }
 
-    auto _plate = string_helper::replace_space(get_vars.find("plate")->second);
-    auto _date = string_helper::replace_space(get_vars.find("date")->second);
+    auto _plate = uri::decode(get_vars.find("plate")->second);
+    auto _date = uri::decode(get_vars.find("date")->second);
     std::vector<Location> _lstLocation;
     std::map<std::string, std::string> _dictionary;
     std::vector<json::value> _jLocation;

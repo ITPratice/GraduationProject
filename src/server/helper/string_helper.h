@@ -20,6 +20,7 @@ inline RouteMapCode string_helper::hash_str(std::string &in_str) {
     else if (in_str == API_VEHICLE) return ROUTE_VEHICLE;
     else if (in_str == API_VEHICLE_TYPE) return ROUTE_VEHICLE_TYPE;
     else if (in_str == API_CURRENT_TIME) return ROUTE_CURRENT_TIME;
+    else if (in_str == API_ARDUINO_LOCATION) return ROUTE_ARDUINO_LOCATION;
     else return ROUTE_FAILED;
 }
 

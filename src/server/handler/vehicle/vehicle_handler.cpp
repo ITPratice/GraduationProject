@@ -58,12 +58,12 @@ void VehicleHandler::handle_put(http_request request) {
     }
 
     // Get vehicle value from query
-    auto _plate = string_helper::replace_space(get_vars.find("plate")->second);
-    auto _bId = string_helper::replace_space(get_vars.find("brand")->second);
-    auto _hId = string_helper::replace_space(get_vars.find("hardware")->second);
-    auto _des = string_helper::replace_space(get_vars.find("description")->second);
-    auto _type = string_helper::replace_space(get_vars.find("type")->second);
-    auto _email = string_helper::replace_space(get_vars.find("email")->second);
+    auto _plate = uri::decode(get_vars.find("plate")->second);
+    auto _bId = uri::decode(get_vars.find("brand")->second);
+    auto _hId = uri::decode(get_vars.find("hardware")->second);
+    auto _des = uri::decode(get_vars.find("description")->second);
+    auto _type = uri::decode(get_vars.find("type")->second);
+    auto _email = uri::decode(get_vars.find("email")->second);
     Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
 
     // Update vehicle
@@ -84,12 +84,12 @@ void VehicleHandler::handle_post(http_request request) {
     }
 
     // Get vehicle value from query
-    auto _plate = string_helper::replace_space(get_vars.find("plate")->second);
-    auto _bId = string_helper::replace_space(get_vars.find("brand")->second);
-    auto _hId = string_helper::replace_space(get_vars.find("hardware")->second);
-    auto _des = string_helper::replace_space(get_vars.find("description")->second);
-    auto _type = string_helper::replace_space(get_vars.find("type")->second);
-    auto _email = string_helper::replace_space(get_vars.find("email")->second);
+    auto _plate = uri::decode(get_vars.find("plate")->second);
+    auto _bId = uri::decode(get_vars.find("brand")->second);
+    auto _hId = uri::decode(get_vars.find("hardware")->second);
+    auto _des = uri::decode(get_vars.find("description")->second);
+    auto _type = uri::decode(get_vars.find("type")->second);
+    auto _email = uri::decode(get_vars.find("email")->second);
     Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
 
     // Update vehicle
@@ -110,12 +110,12 @@ void VehicleHandler::handle_delete(http_request request) {
     }
 
     // Get vehicle value from query
-    auto _plate = string_helper::replace_space(get_vars.find("plate")->second);
-    auto _bId = string_helper::replace_space(get_vars.find("brand")->second);
-    auto _hId = string_helper::replace_space(get_vars.find("hardware")->second);
-    auto _des = string_helper::replace_space(get_vars.find("description")->second);
-    auto _type = string_helper::replace_space(get_vars.find("type")->second);
-    auto _email = string_helper::replace_space(get_vars.find("email")->second);
+    auto _plate = uri::decode(get_vars.find("plate")->second);
+    auto _bId = uri::decode(get_vars.find("brand")->second);
+    auto _hId = uri::decode(get_vars.find("hardware")->second);
+    auto _des = uri::decode(get_vars.find("description")->second);
+    auto _type = uri::decode(get_vars.find("type")->second);
+    auto _email = uri::decode(get_vars.find("email")->second);
     Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
 
     // Update vehicle

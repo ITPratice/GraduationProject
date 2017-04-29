@@ -54,8 +54,8 @@ void VehicleTypeHandler::handle_put(http_request request) {
     }
 
     // Get vehicletype values from query
-    auto _id = string_helper::replace_space(get_vars.find("id")->second);
-    auto _name = string_helper::replace_space(get_vars.find("name")->second);
+    auto _id = uri::decode(get_vars.find("id")->second);
+    auto _name = uri::decode(get_vars.find("name")->second);
     VehicleType _vType(_id, _name);
 
     // Update VehicleType
@@ -77,8 +77,8 @@ void VehicleTypeHandler::handle_post(http_request request) {
     }
 
     // Get vehicletype values from query
-    auto _id = string_helper::replace_space(get_vars.find("id")->second);
-    auto _name = string_helper::replace_space(get_vars.find("name")->second);
+    auto _id = uri::decode(get_vars.find("id")->second);
+    auto _name = uri::decode(get_vars.find("name")->second);
     VehicleType _vType(_id, _name);
 
     // Insert VehicleType
@@ -100,8 +100,8 @@ void VehicleTypeHandler::handle_delete(http_request request) {
     }
 
     // Get vehicletype values from query
-    auto _id = string_helper::replace_space(get_vars.find("id")->second);
-    auto _name = string_helper::replace_space(get_vars.find("name")->second);
+    auto _id = uri::decode(get_vars.find("id")->second);
+    auto _name = uri::decode(get_vars.find("name")->second);
     VehicleType _vType(_id, _name);
 
     // Insert VehicleType

@@ -20,5 +20,6 @@
 #include "handler/vehicle/vehicle_handler.h"
 #include "handler/vehicle_type/vehicle_type_handler.h"
 #include "handler/current_time/current_time_handler.h"
+#include "handler/arduino/location.h"
 
 #endif

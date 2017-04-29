@@ -55,8 +55,8 @@ void BranchHandler::handle_put(http_request request) {
     }
 
     // Get Branch value
-    auto _id = string_helper::replace_space(get_vars.find("id")->second);
-    auto _name = string_helper::replace_space(get_vars.find("name")->second);
+    auto _id = uri::decode(get_vars.find("id")->second);
+    auto _name = uri::decode(get_vars.find("name")->second);
     Branch _branch(_id, _name);
 
     // Update Branch
@@ -78,8 +78,8 @@ void BranchHandler::handle_post(http_request request) {
     }
 
     // Get Branch value
-    auto _id = string_helper::replace_space(get_vars.find("id")->second);
-    auto _name = string_helper::replace_space(get_vars.find("name")->second);
+    auto _id = uri::decode(get_vars.find("id")->second);
+    auto _name = uri::decode(get_vars.find("name")->second);
     Branch _branch(_id, _name);
 
     // Update Branch
@@ -101,8 +101,8 @@ void BranchHandler::handle_delete(http_request request) {
     }
 
     // Get Branch value
-    auto _id = string_helper::replace_space(get_vars.find("id")->second);
-    auto _name = string_helper::replace_space(get_vars.find("name")->second);
+    auto _id = uri::decode(get_vars.find("id")->second);
+    auto _name = uri::decode(get_vars.find("name")->second);
     Branch _branch(_id, _name);
 
     // Update Branch

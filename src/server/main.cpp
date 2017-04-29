@@ -21,6 +21,7 @@ std::unique_ptr<VehicleTypeHandler> t_vehicleHandler;
 std::unique_ptr<CurrentTimeHandler> currentTime;
 std::unique_ptr<AllUserHandler> allUserHandler;
 std::unique_ptr<CurrentLocationHandler> curLocationHandler;
+std::unique_ptr<ArduinoLocation> arLocationHandler;
 
 int main()
 {
@@ -65,6 +66,10 @@ void RoutingHandler(http_request request) {
         case ROUTE_LOCATION_CURRENT:
             curLocationHandler = std::unique_ptr<CurrentLocationHandler>(new CurrentLocationHandler());
             curLocationHandler->listener(request);
+            break;
+        case ROUTE_ARDUINO_LOCATION:
+            arLocationHandler = std::unique_ptr<ArduinoLocation>(new ArduinoLocation());
+            arLocationHandler->listener(request);
             break;
         default:
             break;
