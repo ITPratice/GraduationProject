@@ -9,11 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\admin\css\default.css" />
+    <Content Include="wwwroot\admin\css\edit.css" />
     <Content Include="wwwroot\css\default.css" />
+    <Content Include="wwwroot\css\login.css" />
+    <Content Include="wwwroot\css\style.css" />
     <Content Include="wwwroot\images\admin-ava\varun.jpg" />
     <Content Include="wwwroot\images\admin-logo\admin-logo-dark.png" />
     <Content Include="wwwroot\images\admin-logo\admin-text-dark.png" />
     <Content Include="wwwroot\js\default.js" />
+    <Content Include="wwwroot\js\login.js" />
     <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.css" />
     <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="wwwroot\lib\bootstrap\css\bootstrap-theme.min.css" />

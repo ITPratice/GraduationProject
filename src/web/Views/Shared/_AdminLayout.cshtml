@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin</title>
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/default.css" rel="stylesheet" />
     <link href="~/admin/css/index.css" rel="stylesheet" />
+    <link href="~/admin/css/edit.css" rel="stylesheet" />
+    <link href="~/admin/css/default.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="container-fluid display-table">
         <div class="row display-table-row">
             <!-- Side Menu-->
-            <div class="col-lg-2 col-xs-1 hidden-xs display-table-cell valign-top" id="side-menu">
+            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell valign-top" id="side-menu">
                 <h1 class="hidden-xs hidden-sm">Admin Panel</h1>
                 <ul>
                     <li class="link active">
@@ -52,7 +53,7 @@
                 </ul>
             </div>
             <!-- Main content area-->
-            <div class="col-lg-10 col-xs-11 display-table-cell valign-top">
+            <div class="col-md-10 col-sm-11 display-table-cell valign-top">
                 <div class="row">
                     <header id="nav-header" class="clearfix">
                         <!-- Search bar-->
@@ -94,9 +95,7 @@
                         </div>
                     </header>
                 </div>
-                <div class="row">
-                    @RenderBody()
-                </div>
+                @RenderBody()
                 <div class="row">
                     <footer id="admin-footer" class="clearfix">
                         <div class="pull-left"><b>Copyright </b>&copy; 2017</div>

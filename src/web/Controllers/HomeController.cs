@@ -48,5 +48,10 @@ namespace VehicleTracker.Controllers
                 }
             }
         }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }
