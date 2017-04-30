@@ -3,6 +3,7 @@ package self.yue.vehicletracker.ui.main.home;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,27 +24,36 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import self.yue.vehicletracker.R;
+import self.yue.vehicletracker.data.local.google.Step;
+import self.yue.vehicletracker.util.BitmapHelper;
 import self.yue.vehicletracker.util.PermissionChecker;
 
 /**
  * Created by dongc on 3/25/2017.
  */
 
-public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback,
+public class MapFragment extends com.google.android.gms.maps.MapFragment implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
     public static final int REQUEST_CODE_GPS = 1000;
 
     private static final int DEFAULT_ZOOM = 15;
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
-            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    private static final long UPDATE_INTERVAL = 10000;
+    private static final long FASTEST_UPDATE_INTERVAL =
+            UPDATE_INTERVAL / 2;
     private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 532;
-    private static final String TAG = CogiloMapFragment.class.getSimpleName();
+    private static final String TAG = MapFragment.class.getSimpleName();
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -52,13 +62,15 @@ public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest.Builder mLocationSettingBuilder;
     private LatLng mDefaultLocation;
+    private Marker mVehicleMarker;
+    private List<Polyline> mPolylines;
 
-    public CogiloMapFragment() {
+    public MapFragment() {
         mDefaultLocation = new LatLng(21.048647, 105.784634); // Military technical academy
     }
 
-    public static CogiloMapFragment newInstance() {
-        return new CogiloMapFragment();
+    public static MapFragment newInstance() {
+        return new MapFragment();
     }
 
     @Override
@@ -67,22 +79,15 @@ public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback
 
         getMapAsync(this);
 
-        // Setup google api client
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(this)
-                .addApi(LocationServices.API)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .build();
-        mGoogleApiClient.connect();
-
         createLocationRequest();
+
+        mPolylines = new ArrayList<>();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!mGoogleApiClient.isConnected())
+        if (mGoogleApiClient != null && !mGoogleApiClient.isConnected())
             mGoogleApiClient.connect();
     }
 
@@ -98,6 +103,16 @@ public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        // Setup google api client
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -171,9 +186,44 @@ public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback
         result.setResultCallback(callback);
     }
 
+    public void updateVehicleLocation(LatLng location) {
+        if (mVehicleMarker != null)
+            mVehicleMarker.remove();
+        mVehicleMarker = mMap.addMarker(new MarkerOptions().position(location).title("Your vehicle")
+                .icon(BitmapHelper.getBitmapDescriptor(getActivity(), R.drawable.ic_wheel)));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(location));
+    }
+
+    public LatLng getCurrentLocation() {
+        return mLastKnownLocation != null
+                ? new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude())
+                : mDefaultLocation;
+    }
+
+    public void drawPaths(List<Step> steps) {
+        if (steps.size() > 0) {
+            // Remove old lines
+            if (mPolylines.size() > 0) {
+                for (Polyline polyline : mPolylines) {
+                    polyline.remove();
+                }
+                mPolylines.clear();
+            }
+
+            for (Step step : steps) {
+                List<LatLng> points = decodePoints(step.polyline.points);
+                PolylineOptions polylineOptions = new PolylineOptions();
+                polylineOptions.addAll(points);
+                polylineOptions.width(1);
+                polylineOptions.color(Color.BLUE);
+
+                Polyline polyline = mMap.addPolyline(polylineOptions);
+                mPolylines.add(polyline);
+            }
+        }
+    }
+
     private void updateLocationUI() {
-        if (mMap == null)
-            return;
         if (PermissionChecker.checkLocationPermission(getActivity())) {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -197,7 +247,6 @@ public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback
             ));
         } else {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
     }
 
@@ -210,8 +259,41 @@ public class CogiloMapFragment extends MapFragment implements OnMapReadyCallback
 
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    private List<LatLng> decodePoints(String encodedPoints) {
+        List<LatLng> poly = new ArrayList<>();
+        int index = 0, len = encodedPoints.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encodedPoints.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encodedPoints.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
     }
 }

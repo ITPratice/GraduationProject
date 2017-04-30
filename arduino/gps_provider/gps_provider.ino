@@ -10,23 +10,43 @@
 #define INDEX_GPS_LATITUDE 3
 #define INDEX_GPS_LONGITUDE 4
 
+#define NUMBER_PLATE "29f111023"
+
 typedef struct {
   bool state;
   String latitude;
   String longitude;
 } GpsInformation;
 
+typedef struct {
+  String currentDate;
+  String currentTime;
+} DateTime;
+
 int powerKey = 9;
+int led = 2;
+int button = 11;
+
+unsigned long time1 = 0;
+unsigned long time2 = 0;
+unsigned long time3 = 0;
+
 String response = "";
 String baseUrl = "http://52.221.199.175:3000/api/";
 String hardwareId = "1";
+String startTime = "";
 bool isGpsAvailable;
 bool isArduinoOn;
 bool isGprsOpened;
+bool isMoving;
 GpsInformation gpsInfo = {false, "", ""};
+DateTime dateTime = {"", ""};
 
 void setup() {
   pinMode(powerKey, OUTPUT);
+  pinMode(led, OUTPUT);
+  pinMode(button, INPUT);
+
   Serial.begin(9600);
   powerOn();
   delay(1000);
@@ -35,47 +55,52 @@ void setup() {
   delay(1000);
 
   initGps();
+
+  delay(5000);
 }
 
 void loop() {
+  checkButtonState();
+
   if (isGpsAvailable) {
     // Get gps information
-    if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 500) != SUCCESS) {
-      delay(10000);
+    if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 5000) != SUCCESS) {
+      checkButtonState();
       return;
     }
     getGpsInfo(&gpsInfo, response);
+
     isGpsAvailable = gpsInfo.state;
 
     // If gps is not available then return
     if (!isGpsAvailable) {
-      delay(10000);
+      delayAndCheckButtonState(10000);
       return;
     }
 
-    // If gps is available, begin sending data process
-    openGprs2();
+    //    // If gps is available, begin sending data process
+    //    openGprs();
 
-    //    if (!isGprsOpened) {
-    //      delay(10000);
-    //      return;
-    //    }
+    while (!isGprsAvailable()) {
+      openGprs();
+    }
 
-    sendData("1", 0);
+    sendData("1");
   } else {
-    if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 500) != SUCCESS) {
-      delay(10000);
+    if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 5000) != SUCCESS) {
+      delayAndCheckButtonState(10000);
       return;
     }
 
     getGpsInfo(&gpsInfo, response);
     isGpsAvailable = gpsInfo.state;
     if (!isGpsAvailable) {
-      delay(10000);
+      delayAndCheckButtonState(10000);
       return;
     }
   }
-  delay(10000);
+
+  delayAndCheckButtonState(30000);
 }
 
 void powerOn() {
@@ -100,10 +125,10 @@ check_module:
 
 void initGps() {
   // open gps
-  while (sendATCommandWithoutResponse("AT+CGNSPWR=1", "OK", "OK", 200) != SUCCESS);
+  while (sendATCommandWithoutResponse("AT+CGNSPWR=1", "OK", "OK", 1000) != SUCCESS);
   delay(5000);
 try_gps:
-  if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 500) != SUCCESS) {
+  if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 2000) != SUCCESS) {
     delay(20000);
     goto try_gps;
   }
@@ -117,71 +142,70 @@ try_gps:
 
 void openGprs() {
   // Attach Gprs
-  if (sendATCommandWithoutResponse("AT+CGATT?", "1", "0", 500) != SUCCESS) {
-    sendATCommandWithoutResponse("AT+CGATT=1", "OK", "", 500);
-  }
-
-  // Reset connection
-  sendATCommandWithoutResponse("AT+CIPSHUT", "OK", "ERROR", 1000);
-  delay(1000);
-  // Select single connection mode
-  while (sendATCommandWithoutResponse("AT+CIPMUX=0", "OK", "ERROR", 1000) != SUCCESS) {
-    delay(500);
-  }
-  delay(1000);
-  // Set APN
-  while (sendATCommandWithoutResponse("AT+CSTT=\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
-  delay(2000);
-  // Bring up wireless connection
-  if (sendATCommandWithoutResponse("AT+CIICR", "OK", "ERROR", 30000) == SUCCESS) {
-    delay(5000);
-    // Get local IP address
-    if (sendATCommandWithoutResponse("AT+CIFSR", ".", "ERROR", 10000) == SUCCESS) {
-      isGprsOpened = true;
-    }
-  }
-}
-
-void openGprs2() {
-  // Attach Gprs
-  if (sendATCommandWithoutResponse("AT+CGATT?", "1", "0", 500) != SUCCESS) {
-    sendATCommandWithoutResponse("AT+CGATT=1", "OK", "", 500);
+  if (sendATCommandWithoutResponse("AT+CGATT?", "1", "0", 1000) != SUCCESS) {
+    sendATCommandWithoutResponse("AT+CGATT=1", "OK", "", 1000);
   }
 
   while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"", "OK", "ERROR", 1000) != SUCCESS) {
-    delay(500);
+    delayAndCheckButtonState(1000);
   }
-  delay(1000);
+  delayAndCheckButtonState(3000);
 
   // Set APN
   while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"APN\",\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
-  delay(4000);
+  delayAndCheckButtonState(4000);
 
   while (sendATCommandWithoutResponse("AT+SAPBR=1,1", "OK", "ERROR", 30000) != SUCCESS);
-  delay(2000);
+  delayAndCheckButtonState(2000);
 }
 
-void sendData(String data, int httpAction) {
-  if (sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 500) == SUCCESS) {
-    String command;
+bool isGprsAvailable() {
+  sendATCommandWithResponse("AT+SAPBR=2,1", &response, "OK", "ERROR", 5000);
+  return !(response.indexOf("0.0.0.0") >= 0);
+}
 
-    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "tracking?lat=" + gpsInfo.latitude + "&lon=" + gpsInfo.longitude + "&hId=" + hardwareId + "\"";
-    sendATCommandWithoutResponse(command, "OK", "ERROR", 500);
-    delay(1000);
-    // Set http action. Type: 0=GET, 1=POST, 2=HEAD
-    command = "AT+HTTPACTION=0";
-    sendATCommandWithoutResponse(command, "OK", "ERROR", 500);
-    delay(10000);
+void sendData(String data) {
+  getCurrentDateTime(&dateTime);
+  delayAndCheckButtonState(10000);
 
-    // Read data
-    sendATCommandWithoutResponse("AT+HTTPREAD", "OK", "ERROR", 500);
-    delay(2000);
-
-    // Terminate http
-    sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 500);
-    delay(1000);
-    sendATCommandWithoutResponse("AT+SAPBR=0,1", "OK", "ERROR", 500);
+  while (!isGprsAvailable()) {
+    openGprs();
   }
+
+  if (isMoving && startTime == "")
+    startTime = dateTime.currentTime;
+
+  sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 10000);
+
+  String command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "arduino/location?";
+
+  command += "lat=" + gpsInfo.latitude + "&lon=" + gpsInfo.longitude + "&plate=" + NUMBER_PLATE;
+
+  if (dateTime.currentDate.length() == 0) {
+    command += "&date=\"\"";
+  } else {
+    command += "&date=" + dateTime.currentDate;
+  }
+
+  if (startTime == "")
+    command += "&start=\"";
+  else
+    command += "&start=" + startTime + "\"";
+
+  sendATCommandWithoutResponse(command, "OK", "ERROR", 10000);
+
+  delayAndCheckButtonState(1000);
+  // Set http action. Type: 0=GET, 1=POST, 2=HEAD
+  sendATCommandWithoutResponse("AT+HTTPACTION=0", "OK", "ERROR", 1000);
+
+  delayAndCheckButtonState(10000);
+
+  // Read data
+  sendATCommandWithoutResponse("AT+HTTPREAD", "SUCCESS", "ERROR", 2000);
+
+  // Terminate http
+  sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 1000);
+  while (sendATCommandWithoutResponse("AT+SAPBR=0,1", "OK", "ERROR", 1000) != SUCCESS);
 }
 
 void split(String source, String dest[], char seperateCharacter) {
@@ -189,7 +213,8 @@ void split(String source, String dest[], char seperateCharacter) {
   for (int i = 0; i < source.length(); i++) {
     char tmp = source.charAt(i);
     if (tmp != seperateCharacter) {
-      dest[j] += tmp;
+      if (tmp != '\r')
+        dest[j] += tmp;
     } else {
       j++;
     }
@@ -214,6 +239,80 @@ void getGpsInfo(GpsInformation *gpsInfo, String data) {
     gpsInfo->state = info[INDEX_GPS_STATE].compareTo("1") == 0;
     gpsInfo->latitude = info[INDEX_GPS_LATITUDE];
     gpsInfo->longitude = info[INDEX_GPS_LONGITUDE];
+  }
+}
+
+void getCurrentDateTime(DateTime *dateTime) {
+  if (sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 1000) == SUCCESS) {
+
+    String command;
+
+    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "time\"";
+    sendATCommandWithoutResponse(command, "OK", "ERROR", 5000);
+
+    delayAndCheckButtonState(1000);
+
+    command = "AT+HTTPACTION=0";
+    sendATCommandWithoutResponse(command, "OK", "ERROR", 1000);
+
+    delayAndCheckButtonState(10000);
+
+    sendATCommandWithResponse("AT+HTTPREAD", &response, "OK", "OK", 5000);
+
+    String tmp = "";
+    int count = 0;
+
+    for (int i = 0; i < response.length(); i++) {
+      if (response[i] == '\r') {
+        if (count == 2)
+          break;
+        count++;
+        tmp = "";
+      } else {
+        if (response[i] != '\n')
+          tmp += response[i];
+      }
+    }
+
+    count = 0;
+    for (int i = 0; i < tmp.length(); i++) {
+      if (tmp.charAt(i) == ' ')
+        count++;
+    }
+
+    if (count != 0) {
+      String info[count + 1];
+      split(tmp, info, ' ');
+      dateTime->currentDate = info[0];
+      dateTime->currentTime = info[1];
+    }
+
+    delayAndCheckButtonState(2000);
+
+    sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 5000);
+  }
+}
+
+void delayAndCheckButtonState(int delayTime) {
+  time3 = millis();
+  while (millis() - time3 < delayTime) {
+    checkButtonState();
+  }
+}
+
+void checkButtonState() {
+  if (digitalRead(button) == HIGH) {
+    if (millis() - time1 >= 1000) {
+      if (isMoving) {
+        isMoving = false;
+        startTime = "";
+        digitalWrite(led, LOW);
+      } else {
+        isMoving = true;
+        digitalWrite(led, HIGH);
+      }
+      time1 = millis();
+    }
   }
 }
 

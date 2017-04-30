@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyADp7tEVLmI0vtQ6BFrScQJX7qwm9ZihT4"/>
+            android:value="@string/map_api_key"/>
 
         <activity android:name=".ui.login.LoginActivity">
             <intent-filter>

@@ -1,24 +1,41 @@
 package self.yue.vehicletracker.ui.main.history;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import self.yue.vehicletracker.R;
 import self.yue.vehicletracker.base.BasePage;
-import self.yue.vehicletracker.data.local.User;
-import self.yue.vehicletracker.data.server.ApiProvider;
 import self.yue.vehicletracker.util.CommonConstants;
-import self.yue.vehicletracker.util.OnServerResponseListener;
 
 /**
  * Created by dongc on 3/25/2017.
  */
 
 public class HistoryFragment extends BasePage {
+    private TextView mButtonDate;
+    private RecyclerView mRecyclerHistory;
+
+    private Calendar mCalendar;
+
+    private DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, month);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            updateDate();
+        }
+    };
 
     public static HistoryFragment newInstance(int page, String title) {
         Bundle args = new Bundle();
@@ -39,21 +56,29 @@ public class HistoryFragment extends BasePage {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.btn_get_data).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ApiProvider.getInstance().getAllUsers(new OnServerResponseListener<List<User>>() {
-                    @Override
-                    public void onSuccess(List<User> data) {
-                        Log.e("Ahihi", "" + data.size());
-                    }
+        initViews(view);
 
-                    @Override
-                    public void onFail(Throwable t) {
-                        Log.e("Ahihi", "" + t.getMessage());
-                    }
-                });
+        mCalendar = Calendar.getInstance();
+        updateDate();
+    }
+
+    private void initViews(View rootView) {
+        mButtonDate = (TextView) rootView.findViewById(R.id.btn_date);
+        mRecyclerHistory = (RecyclerView) rootView.findViewById(R.id.recycler_history);
+
+        mButtonDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date,
+                        mCalendar.get(Calendar.YEAR),
+                        mCalendar.get(Calendar.MONTH),
+                        mCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
+
+    private void updateDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        mButtonDate.setText(dateFormat.format(mCalendar.getTime()));
     }
 }
