@@ -13,7 +13,7 @@
     <Content Include="wwwroot\admin\css\edit.css" />
     <Content Include="wwwroot\css\default.css" />
     <Content Include="wwwroot\css\login.css" />
-    <Content Include="wwwroot\css\style.css" />
+    <Content Include="wwwroot\css\registration.css" />
     <Content Include="wwwroot\images\admin-ava\varun.jpg" />
     <Content Include="wwwroot\images\admin-logo\admin-logo-dark.png" />
     <Content Include="wwwroot\images\admin-logo\admin-text-dark.png" />

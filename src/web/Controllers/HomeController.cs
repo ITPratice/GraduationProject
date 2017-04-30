@@ -53,5 +53,17 @@ namespace VehicleTracker.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registration(User user)
+        {
+            return View();
+        }
     }
 }

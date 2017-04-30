@@ -1,0 +1,40 @@
+﻿body {
+    font-family: Montserrat;
+    background-color: #f3f3f4;
+}
+
+p {
+    color: #999;
+}
+
+/*.container {
+    padding-top: 2px;
+}*/
+
+.well-header {
+    border-radius: 5px;
+    border-top: 5px solid #1ab394;
+    background-color: #fff;
+}
+
+.well-content {
+    background-color: #fff;
+    border-radius: 5px;
+    border-bottom: 5px solid #1ab394;
+}
+
+    .well-content input#Submit {
+        background-color: #1ab394;
+    }
+
+        .well-content input#Submit:hover {
+            background-color: #1cc394;
+        }
+
+.well-content input:active, .well-content input:focus {
+    border: 1px solid #1cc394;
+}
+
+.well-content textarea:active, .container textarea:focus {
+    border: 1px solid #1cc394;
+}

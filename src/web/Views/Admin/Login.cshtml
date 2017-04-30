@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+    @using (Html.BeginForm())
     {
         @*<div class="logo"></div>*@
         <div class="login-block">
@@ -26,7 +26,5 @@
             <input type="submit" value="Đăng nhập" id="submit" />
         </div>
     }
-
 </body>
-
 </html>
