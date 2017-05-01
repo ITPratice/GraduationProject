@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_home.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_home.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_logout.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_logout.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_password.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_password.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_wheel.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_wheel.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_vehicle_location.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_vehicle_location.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_edit.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_edit.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_history.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_history.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_more.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_more.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ic_license_plate.png",
+        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_license_plate.png"
+    }
+]
