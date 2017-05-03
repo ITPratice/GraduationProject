@@ -9,9 +9,10 @@ User::User() {
     full_name = "";
     password = "";
     role = 1;
+    first = 1;
 }
 
-User::User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _role) {
+User::User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int _role, int _first) {
     email = _email;
     uName = _uName;
     address = _addr;
@@ -19,6 +20,7 @@ User::User(std::string _email, std::string _uName, std::string _addr, std::strin
     full_name = _fullName;
     password = _pass;
     role = _role;
+    first = _first;
 }
 
 User::~User() {}
@@ -77,4 +79,12 @@ void User::setRole(int _role) {
 
 int User::getRole() {
     return role;
+}
+
+void User::setFirst(int _first) {
+    first = _first;
+}
+
+int User::getFirst() {
+    return first;
 }

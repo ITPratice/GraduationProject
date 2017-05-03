@@ -43,6 +43,7 @@ void VehicleHandler::handle_get(http_request request) {
     _jValue["Description"] = json::value::string(_outVehicle.getDescription());
     _jValue["TypeId"] = json::value::string(_outVehicle.getTypeId());
     _jValue["UserEmail"] = json::value::string(_outVehicle.getUserEmail());
+    _jValue["Deleted"] = json::value::number(_outVehicle.getDeleted());
 
     // Reply to client
     request.reply(status_codes::OK, _jValue);
@@ -64,7 +65,8 @@ void VehicleHandler::handle_put(http_request request) {
     auto _des = uri::decode(get_vars.find("description")->second);
     auto _type = uri::decode(get_vars.find("type")->second);
     auto _email = uri::decode(get_vars.find("email")->second);
-    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
+    auto _deleted = uri::decode(get_vars.find("deleted")->second);
+    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted));
 
     // Update vehicle
     if (data->UpdateVehicle(_vehicle) == DATA_SUCCESS) {
@@ -90,7 +92,8 @@ void VehicleHandler::handle_post(http_request request) {
     auto _des = uri::decode(get_vars.find("description")->second);
     auto _type = uri::decode(get_vars.find("type")->second);
     auto _email = uri::decode(get_vars.find("email")->second);
-    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
+    auto _deleted = uri::decode(get_vars.find("deleted")->second);
+    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted));
 
     // Update vehicle
     if (data->InsertVehicle(_vehicle) == DATA_SUCCESS) {
@@ -116,7 +119,8 @@ void VehicleHandler::handle_delete(http_request request) {
     auto _des = uri::decode(get_vars.find("description")->second);
     auto _type = uri::decode(get_vars.find("type")->second);
     auto _email = uri::decode(get_vars.find("email")->second);
-    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email);
+    auto _deleted = uri::decode(get_vars.find("deleted")->second);
+    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted));
 
     // Update vehicle
     if (data->DeleteVehicle(_vehicle) == DATA_SUCCESS) {

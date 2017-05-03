@@ -50,7 +50,8 @@ ResponseCode DataManager::createDb() {
             "PHONE_NUMBER   VARCHAR(20)                                 NOT NULL,"  \
             "FULL_NAME      NVARCHAR(100)                               NOT NULL,"  \
             "PASSWORD       VARCHAR(20)                                 NOT NULL,"  \
-            "ROLE           INTEGER                                     NOT NULL);";
+            "ROLE           INTEGER                                     NOT NULL,"  \
+            "IS_FIRST       INTEGER                                     NOT NULL);";    // Updated 03/05/2017
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -97,6 +98,7 @@ ResponseCode DataManager::createDb() {
             "DESCRIPTION        NVARCHAR(200)                                   ,"  \
             "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
             "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
+            "IS_DELETED         INTEGER                                 NOT NULL,"  \
             "FOREIGN KEY (USER_EMAIL)   REFERENCES USER(EMAIL)          ON DELETE CASCADE, "
             "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE, "
             "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";
@@ -195,7 +197,9 @@ ResponseCode DataManager::disconnectDb() {
 
 ResponseCode DataManager::Login(std::string email, std::string password) {
     std::stringstream strm;
-    strm << "SELECT * FROM USER WHERE EMAIL = '" << email << "' AND PASSWORD = '" << password << "';";
+    strm << "SELECT * FROM USER WHERE EMAIL = '" << email 
+         << "' AND PASSWORD = '" << password 
+         << "' AND ROLE != 5; ";
     std::string s = strm.str();
     char *str = &s[0];
     sqlite3_stmt *statement;
@@ -254,9 +258,10 @@ ResponseCode DataManager::InsertUser(User &user) {
             "PHONE_NUMBER   VARCHAR(20)                                 NOT NULL,"  \
             "FULL_NAME      NVARCHAR(100)                               NOT NULL,"  \
             "PASSWORD       VARCHAR(20)                                 NOT NULL,"  \
+            "IS_FIRST       INTEGER                                     NOT NULL);"; 
             "ROLE           INTEGER                                     NOT NULL);"; */
     std::stringstream strm;
-    strm << "INSERT INTO USER (EMAIL, USERNAME, ADDRESS, PHONE_NUMBER, FULL_NAME, PASSWORD, ROLE) values ('"
+    strm << "INSERT INTO USER (EMAIL, USERNAME, ADDRESS, PHONE_NUMBER, FULL_NAME, PASSWORD, ROLE, IS_FIRST) values ('"
          << user.getEmail()
          << "','" << user.getUsername()
          << "','" << user.getAddress()
@@ -264,6 +269,7 @@ ResponseCode DataManager::InsertUser(User &user) {
          << "','" << user.getFullname()
          << "','" << user.getPassword()
          << "','" << user.getRole()
+         << "','" << user.getFirst()
          << "');";
          
     std::string temp = strm.str();
@@ -297,7 +303,8 @@ ResponseCode DataManager::UpdateUser(User &user) {
          << "PHONE_NUMBER = '" << user.getPhoneNumber() << "',"
          << "FULL_NAME = '" << user.getFullname() << "',"
          << "PASSWORD = '" << user.getPassword() << "',"
-         << "ROLE = '" << user.getRole() << "' "
+         << "ROLE = " << user.getRole() << ","
+         << "IS_FIRST = " << user.getFirst() << " "
          << "WHERE EMAIL = '" << user.getEmail() << "';";
          
     std::string temp = strm.str();
@@ -425,18 +432,20 @@ ResponseCode DataManager::InsertVehicle(Vehicle &vehicle) {
             "DESCRIPTION        NVARCHAR(200)                                   ,"  \
             "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
             "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
+            "IS_DELETED         INTEGER                                 NOT NULL,"  \
             "FOREIGN KEY (USER_EMAIL)   REFERENCES USER(EMAIL)         ON DELETE CASCADE "
             "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE "
             "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";*/
     std::stringstream strm;
-    strm << "INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID, USER_EMAIL) values ('"
+    strm << "INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID, USER_EMAIL, IS_DELETED) values ('"
          << vehicle.getNumberPlate()
          << "', '" << vehicle.getBranchId()
          << "', '" << vehicle.getHardwareId()
          << "', '" << vehicle.getDescription()
          << "', '" << vehicle.getTypeId()
          << "', '" << vehicle.getUserEmail()
-         << "');";
+         << "',  " << vehicle.getDeleted()
+         << ");";
          
     std::string temp = strm.str();
     std::cout << "DATA_MANAGER - Query Insert Vehicle: " << temp << std::endl;
@@ -471,6 +480,7 @@ ResponseCode DataManager::UpdateVehicle(Vehicle &vehicle) {
          << "DESCRIPTION = '" << vehicle.getDescription() << "', "
          << "TYPE_ID = '" << vehicle.getTypeId() << "', "
          << "USER_EMAIL = '" << vehicle.getUserEmail() << "' "
+         << "IS_DELETED = " << vehicle.getDeleted() << " "
          << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "';";
          
     std::string temp = strm.str();
@@ -712,6 +722,7 @@ ResponseCode DataManager::GetUserByEmail(std::string email, User &outUser) {
             outUser.setFullname((char*)sqlite3_column_text(statement, 4));
             outUser.setPassword((char*)sqlite3_column_text(statement, 5));
             outUser.setRole(atoi((char*)sqlite3_column_text(statement, 6)));
+            outUser.setFirst(atoi((char*)sqlite3_column_text(statement, 7)));
 		} else {
             return DATA_SELECT_EMPTY;
 		}
@@ -739,6 +750,7 @@ ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
                 user.setFullname((char*)sqlite3_column_text(stmt, 4));
                 user.setPassword((char*)sqlite3_column_text(stmt, 5));
                 user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
+                user.setFirst(atoi((char*)sqlite3_column_text(stmt, 7)));
                 lstUser.push_back(user);
             }
 
@@ -797,6 +809,7 @@ ResponseCode DataManager::GetVehicleByNumberPlate(std::string nPlate, Vehicle &o
             outVehicle.setDescription((char*)sqlite3_column_text(statement, 3));
             outVehicle.setTypeId((char*)sqlite3_column_text(statement, 4));
             outVehicle.setUserEmail((char*)sqlite3_column_text(statement, 5));
+            outVehicle.setDeleted(atoi((char*)sqlite3_column_text(statement, 6)));
 		} else {
             return DATA_SELECT_EMPTY;
 		}

@@ -44,6 +44,7 @@ void UserHandler::handle_get(http_request request) {
     _jValue["Password"] = json::value::string(outUser.getPassword());
     _jValue["Fullname"] = json::value::string(outUser.getFullname());
     _jValue["Role"] = json::value::number(outUser.getRole());
+    _jValue["First"] = json::value::number(outUser.getFirst());
 
     request.reply(status_codes::OK, _jValue);
 }
@@ -66,7 +67,8 @@ void UserHandler::handle_put(http_request request) {
     auto pass = uri::decode(get_vars.find("pass")->second);
     auto fname = uri::decode(get_vars.find("name")->second);
     auto role = uri::decode(get_vars.find("role")->second);
-    User _user(email, uname, addr, phone, fname, pass, stoi(role));
+    auto first = uri::decode(get_vars.find("first")->second);
+    User _user(email, uname, addr, phone, fname, pass, stoi(role), stoi(first));
 
     // Update User
     if (data->UpdateUser(_user) == DATA_SUCCESS) {
@@ -93,7 +95,8 @@ void UserHandler::handle_post(http_request request) {
     auto pass = uri::decode(get_vars.find("pass")->second);
     auto fname = uri::decode(get_vars.find("name")->second);
     auto role = uri::decode(get_vars.find("role")->second);
-    User _user(email, uname, addr, phone, fname, pass, stoi(role));
+    auto first = uri::decode(get_vars.find("first")->second);
+    User _user(email, uname, addr, phone, fname, pass, stoi(role), stoi(first));
 
     if (data->InsertUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));
@@ -120,7 +123,8 @@ void UserHandler::handle_delete(http_request request) {
     auto pass = uri::decode(get_vars.find("pass")->second);
     auto fname =  uri::decode(get_vars.find("name")->second);
     auto role = uri::decode(get_vars.find("role")->second);
-    User _user(email, uname, addr, phone, fname, pass, stoi(role));
+    auto first = uri::decode(get_vars.find("first")->second);    
+    User _user(email, uname, addr, phone, fname, pass, stoi(role), stoi(first));
 
     if (data->DeleteUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, json::value::string("OK"));

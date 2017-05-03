@@ -1,4 +1,5 @@
 #include "login_handler.h"
+#include <iostream>
 
 LoginHandler::LoginHandler() {
     data = new DataManager("tracker.db");
@@ -21,6 +22,7 @@ void LoginHandler::listener(http_request request) {
 // GET /api/user/login
 void LoginHandler::handle_get(http_request request) {
     std::cout << "GET /api/user/login\n";
+    User _outUser;
     auto get_vars = uri::split_query(request.request_uri().query());
     if (get_vars.empty()) {
         request.reply(status_codes::BadRequest, "Query is null");
@@ -29,9 +31,21 @@ void LoginHandler::handle_get(http_request request) {
     auto _email = uri::decode(get_vars.find("email")->second);
     auto _pass = uri::decode(get_vars.find("pass")->second);
     if(data->Login(_email, _pass) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, json::value::string("ERROR 1"));
+        return;
+    }
+
+    if(data->GetUserByEmail(_email, _outUser) == DATA_SUCCESS) {
+        // std::cout << "Email: " << _outUser.getEmail() << std::endl;
+        // std::cout << "Address: " << _outUser.getAddress() << std::endl;
+        // std::cout << "First: " << _outUser.getFirst() << std::endl;
+        if(_outUser.getFirst() == 1) {
+            request.reply(status_codes::OK, json::value::string("FIRST"));
+        } else {
+            request.reply(status_codes::OK, json::value::string("NOT FIRST"));
+        }
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("SUCCESS"));
+        request.reply(status_codes::BadRequest, json::value::string("ERROR 2"));
     }
 }
 

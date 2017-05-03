@@ -7,7 +7,7 @@
 class User {
 public:
     User();
-    User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int role);
+    User(std::string _email, std::string _uName, std::string _addr, std::string _phone, std::string _fullName, std::string _pass, int role, int first);
     ~User();
 private:
     std::string email;
@@ -17,6 +17,7 @@ private:
     std::string full_name;
     std::string password;
     int role;
+    int first;
 public:
     void setEmail(std::string email_str);
     std::string getEmail();
@@ -38,6 +39,9 @@ public:
 
     void setRole(int _role);
     int getRole();
+
+    void setFirst(int _first);
+    int getFirst();
 };
 
 #endif  //USER_H
