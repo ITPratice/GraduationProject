@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11 -fPIC -Wall -O3 -DNDEBUG   CMakeFiles/speed_test_async_multi.dir/examples/speed_test_async_multi.cpp.o  -o speed_test_async_multi -rdynamic libredox.so.0.3.0 -lhiredis -lev -lpthread -Wl,-rpath,/home/duvuthacu/Documents/test/Redox/build 

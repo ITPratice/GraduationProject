@@ -48,6 +48,7 @@ public:
     ResponseCode UpdateVehicle(Vehicle &vehicle);
     ResponseCode DeleteVehicle(Vehicle &vehicle);
     ResponseCode GetVehicleByNumberPlate(std::string nPlate, Vehicle &outVehicle);
+    ResponseCode GetVehicleNumberByUser(std::string email, std::vector<std::string> &outVehicleNumber);
 
     // Branch manager
     ResponseCode InsertBranch(Branch &branch);

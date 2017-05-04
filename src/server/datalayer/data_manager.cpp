@@ -919,3 +919,32 @@ ResponseCode DataManager::GetCurrentLocation(std::string nPlate, Location &outLo
     }
     return DATA_SUCCESS;
 }
+
+ResponseCode DataManager::GetVehicleNumberByUser(std::string email, std::vector<std::string> &outVehicleNumber) {
+    std::stringstream strm;
+    strm << "SELECT NUMBER_PLATE FROM VEHICLE WHERE USER_EMAIL = '" << email << "';";
+    std::string s = strm.str();
+    std::cout << "Query: " << s << std::endl;
+	char *str = &s[0];
+	sqlite3_stmt *statement;
+	char *query = str;
+
+    if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
+        while (true) {
+            int res = 0;
+            res = sqlite3_step(statement);
+
+            if (res == SQLITE_ROW) {
+                outVehicleNumber.push_back((char*)sqlite3_column_text(statement, 0));
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(statement);
+	} else {
+		return DATA_ERROR_SELECT_DB;
+	}
+	return DATA_SUCCESS;
+}

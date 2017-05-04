@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11 -fPIC -Wall -O3 -DNDEBUG   CMakeFiles/data_types.dir/examples/data_types.cpp.o  -o data_types -rdynamic libredox.so.0.3.0 -lhiredis -lev -lpthread -Wl,-rpath,/home/duvuthacu/Documents/test/Redox/build 

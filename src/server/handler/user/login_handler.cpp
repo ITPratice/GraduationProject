@@ -36,9 +36,6 @@ void LoginHandler::handle_get(http_request request) {
     }
 
     if(data->GetUserByEmail(_email, _outUser) == DATA_SUCCESS) {
-        // std::cout << "Email: " << _outUser.getEmail() << std::endl;
-        // std::cout << "Address: " << _outUser.getAddress() << std::endl;
-        // std::cout << "First: " << _outUser.getFirst() << std::endl;
         if(_outUser.getFirst() == 1) {
             request.reply(status_codes::OK, json::value::string("FIRST"));
         } else {

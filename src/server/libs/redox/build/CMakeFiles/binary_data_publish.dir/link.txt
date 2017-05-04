@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11 -fPIC -Wall -O3 -DNDEBUG   CMakeFiles/binary_data_publish.dir/examples/binary_data_publish.cpp.o  -o binary_data_publish -rdynamic libredox.so.0.3.0 -lhiredis -lev -lpthread -Wl,-rpath,/home/duvuthacu/Documents/test/Redox/build 
