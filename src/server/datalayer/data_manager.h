@@ -36,6 +36,9 @@ public:
     ResponseCode LoginAdmin(std::string email, std::string password);
     ResponseCode GetAllUser(std::vector<User>& lstUser);
     ResponseCode GetUserByEmail(std::string email, User &outUser);
+    ResponseCode DeActiveUser(std::string email);
+    ResponseCode ActiveUser(std::string email);
+    ResponseCode IsFirstChangePass(std::string newPass, std::string email);
 
     // VehicleType manager
     ResponseCode InsertVehicleType(VehicleType &vehicle_type);
@@ -49,7 +52,8 @@ public:
     ResponseCode DeleteVehicle(Vehicle &vehicle);
     ResponseCode GetVehicleByNumberPlate(std::string nPlate, Vehicle &outVehicle);
     ResponseCode GetVehicleNumberByUser(std::string email, std::vector<std::string> &outVehicleNumber);
-
+    ResponseCode BanVehicle(std::string nPlate);
+    
     // Branch manager
     ResponseCode InsertBranch(Branch &branch);
     ResponseCode UpdateBranch(Branch &branch);

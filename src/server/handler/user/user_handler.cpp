@@ -110,25 +110,17 @@ void UserHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/user\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if(get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if(get_vars.empty() && get_vars.size() != 1) {
+        request.reply(status_codes::BadRequest, URL_INVALID);
         return;
     }
 
     // Get user values from query
-    auto email = uri::decode(get_vars.find("email")->second);
-    auto uname = uri::decode(get_vars.find("username")->second);
-    auto addr = uri::decode(get_vars.find("address")->second);
-    auto phone = uri::decode(get_vars.find("phone")->second);
-    auto pass = uri::decode(get_vars.find("pass")->second);
-    auto fname =  uri::decode(get_vars.find("name")->second);
-    auto role = uri::decode(get_vars.find("role")->second);
-    auto first = uri::decode(get_vars.find("first")->second);    
-    User _user(email, uname, addr, phone, fname, pass, stoi(role), stoi(first));
+    auto _email = uri::decode(get_vars.find("email")->second);  
 
-    if (data->DeleteUser(_user) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+    if (data->DeActiveUser(_email) == DATA_SUCCESS) {
+        request.reply(status_codes::OK, DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ERROR);
     }
 }

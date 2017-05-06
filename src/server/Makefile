@@ -16,7 +16,8 @@ SOURCES		= 	datalayer/data_manager.cpp datalayer/user.cpp datalayer/location.cpp
 			handler/arduino/location.cpp \
 			handler/user/login_handler.cpp	\
 			handler/user/login_admin_handler.cpp \
-			handler/vehicle/vehicleplate_byuser_handler.cpp
+			handler/vehicle/vehicleplate_byuser_handler.cpp \
+			handler/user/active_user_handler.cpp
 
 all: $(SOURCES) main.cpp
 		$(CC) $(SOURCES) main.cpp $(EXFLAGS) -o main

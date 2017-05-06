@@ -7,9 +7,9 @@ p {
     color: #999;
 }
 
-/*.container {
-    padding-top: 2px;
-}*/
+.container {
+    padding-top: 20px;
+}
 
 .well-header {
     border-radius: 5px;
@@ -31,10 +31,77 @@ p {
             background-color: #1cc394;
         }
 
-.well-content input:active, .well-content input:focus {
-    border: 1px solid #1cc394;
+    .well-content input:active, .well-content input:focus {
+        border: 1px solid #1cc394;
+    }
+
+    .well-content textarea:active, .container textarea:focus {
+        border: 1px solid #1cc394;
+    }
+
+.panel-default {
+    border-radius: 5px;
 }
 
-.well-content textarea:active, .container textarea:focus {
-    border: 1px solid #1cc394;
+    .panel-default > .panel-heading {
+        background-color: #1ab394;
+        color: #fff;
+        font-size: xx-large;
+    }
+
+.wizard > .nice-tab {
+    background: #efefef;
+    display: inline-block;
+    margin-right: 5px;
+    min-width: 150px;
+    outline: none;
+    padding: 10px 40px 10px;
+    position: relative;
+    text-decoration: none;
+    margin-left: 10px;
+    color: #1cc394;
+    font-size: 15px;
+    font-weight: bold;
 }
+
+    .wizard > .nice-tab:before {
+        width: 0;
+        height: 0;
+        border-top: 20px inset transparent;
+        border-bottom: 20px inset transparent;
+        border-left: 20px solid #fff;
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+    }
+
+    .wizard > .nice-tab:after {
+        width: 0;
+        height: 0;
+        border-top: 20px inset transparent;
+        border-bottom: 20px inset transparent;
+        border-left: 21px solid #efefef;
+        position: absolute;
+        content: "";
+        top: 0;
+        right: -20px;
+        z-index: 2;
+    }
+
+    .wizard > .nice-tab:first-child:before,
+    .wizard > .nice-tab:last-child:after {
+        border: none;
+    }
+
+    .wizard > .nice-tab:first-child {
+        -webkit-border-radius: 8px 0 0 0px;
+        -moz-border-radius: 8px 0 0 0px;
+        border-radius: 8px 0 0 0px;
+    }
+
+    .wizard > .nice-tab:last-child {
+        -webkit-border-radius: 0 8px 0px 0;
+        -moz-border-radius: 0 8px 0px 0;
+        border-radius: 0 8px 0px 0;
+    }

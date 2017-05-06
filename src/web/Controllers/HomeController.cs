@@ -20,35 +20,6 @@ namespace VehicleTracker.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Test()
-        {
-            using(var client = new HttpClient())
-            {
-                try
-                {
-                    client.BaseAddress = new Uri(Constants.API_BASE_URL);
-                    var res = await client.GetAsync($"api/user/all");
-                    res.EnsureSuccessStatusCode();
-
-                    var strResult = await res.Content.ReadAsStringAsync();
-
-                    JObject _jObj = JObject.Parse(strResult);
-                    IList<JToken> results = _jObj["data"].Children().ToList();
-                    IList<User> lstUser = new List<User>();
-                    foreach(JToken result in results)
-                    {
-                        User _user = result.ToObject<User>();
-                        lstUser.Add(_user);
-                    }
-                    return View(lstUser);
-                }
-                catch (HttpRequestException ex)
-                {
-                    return (BadRequest($"Error getting: {ex.Message.ToString()}"));
-                }
-            }
-        }
-
         public IActionResult Error()
         {
             return View();
@@ -62,6 +33,12 @@ namespace VehicleTracker.Controllers
 
         [HttpPost]
         public IActionResult Registration(User user)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RegVehicle()
         {
             return View();
         }

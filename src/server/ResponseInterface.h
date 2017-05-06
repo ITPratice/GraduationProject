@@ -3,7 +3,6 @@
 
 enum ResponseCode {
     DATA_SUCCESS = 1,
-
     DATA_ERROR = 10,
     DATA_ERROR_OPEN_DB,
     DATA_ERROR_CLOSE_DB,
@@ -20,9 +19,11 @@ enum ResponseCode {
 };
 
 enum ResultCode {
-    SUCCESS = 1,
-    FAIL,
-    UNKNOW_FORMAT
+    DONE = 1,
+    URL_INVALID,
+    ERROR,
+    UNKNOWN,
+    NOT_SUPPORT
 };
 
 #endif

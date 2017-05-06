@@ -15,7 +15,13 @@
                 @using (Html.BeginForm())
                 {
                     @Html.HiddenFor(m => m.PassWord)
-                    @Html.HiddenFor(m => m.Email)
+                    <div class="edit-row">
+                        <h3>Email</h3>
+                        <p>Là chữ và số</p>
+                        <div class="form-group">
+                            <input type="text" id="FullName" name="FullName" class="form-control" title="" disabled value="@Model.Email">
+                        </div>
+                    </div>
                     <div class="edit-row">
                         <h3>Họ tên</h3>
                         <p>Họ và tên thành viên (là chữ)</p>
@@ -48,7 +54,7 @@
                         <h3>Role</h3>
                         <p>Quyền của thành viên (là số)</p>
                         <div class="form-group">
-                            <input type="number" id="Role" name="Role" class="form-control small-input" value="@Model.Role" min="1" max="4" step="1" required="required">
+                            <input type="number" id="Role" name="Role" class="form-control small-input" value="@Model.Role" min="1" max="5" step="1" required="required">
                         </div>
                     </div>
                     <div class="edit-row">

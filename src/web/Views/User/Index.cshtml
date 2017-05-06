@@ -15,13 +15,14 @@
                 <table class="table table-bordered" style="font-size: 15px;">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th></th>
                             <th>Email</th>
                             <th>Tên tài khoản</th>
                             <th>Quyền</th>
                             <th>Họ tên</th>
                             <th>Địa chỉ</th>
                             <th>Số điện thoại</th>
+                            <th>Kích hoạt</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -50,7 +51,10 @@
                                                     <span class="btn btn-xs btn-success">user</span>
                                                     break;
                                                 case 4:
-                                                    <span class="btn btn-xs btn-info">driver</span>
+                                                    <span class="btn btn-xs btn-info">staff</span>
+                                                    break;
+                                                case 5:
+                                                    <span class="btn btn-xs btn-default">deleted</span>
                                                     break;
                                                 default:
                                                     break;
@@ -61,12 +65,31 @@
                                     <td>@user.Address</td>
                                     <td>@user.PhoneNumber</td>
                                     <td>
+                                        @{
+                                            switch (user.First)
+                                            {
+                                                case 1:
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" value="" disabled checked /></label>
+                                                    </div>
+                                                    break;
+                                                case 2:
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" value="" disabled /></label>
+                                                    </div>
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    </td>
+                                    <td>
                                         <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "User", new { email = user.Email })" role="button">Edit</a>
                                         <a class="btn btn-xs btn-primary" href="@Url.Action()" role="button">View</a>
                                         <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
                                     </td>
                                 </tr>
-                            }
+                                            }
                         }
                     </tbody>
                 </table>

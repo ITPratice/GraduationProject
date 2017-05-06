@@ -14,6 +14,7 @@ namespace VehicleTracker.Models
         private String phoneNumber;
         private String userName;
         private int role;
+        private int first;
 
         public string Address { get => address; set => address = value; }
         public string Email { get => email; set => email = value; }
@@ -22,5 +23,6 @@ namespace VehicleTracker.Models
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string UserName { get => userName; set => userName = value; }
         public int Role { get => role; set => role = value; }
+        public int First { get => first; set => first = value; }
     }
 }

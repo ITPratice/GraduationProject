@@ -25,6 +25,7 @@ std::unique_ptr<ArduinoLocation> arLocationHandler;
 std::unique_ptr<LoginAdminHandler> aLoginHandler;
 std::unique_ptr<LoginHandler> uLoginHandler;
 std::unique_ptr<VehiclePlateByUserHandler> plateByUserHandler;
+std::unique_ptr<ActiveUserHandler> activeUserHandler;
 
 int main()
 {
@@ -85,6 +86,10 @@ void RoutingHandler(http_request request) {
         case ROUTE_VEHICLEPLATE_BYUSER:
             plateByUserHandler = std::unique_ptr<VehiclePlateByUserHandler>(new VehiclePlateByUserHandler());
             plateByUserHandler->listener(request);
+            break;
+        case ROUTE_ACTIVE_USER:
+            activeUserHandler = std::unique_ptr<ActiveUserHandler>(new ActiveUserHandler());
+            activeUserHandler->listener(request);
             break;
         default:
             break;
