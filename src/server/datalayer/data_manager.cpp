@@ -773,6 +773,38 @@ ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
     return DATA_SUCCESS;
 }
 
+ResponseCode DataManager::GetAllUserWaiting(std::vector<User>& lstUser) {
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM USER WHERE IS_FIRST = 1;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                User user;
+                user.setEmail((char*)sqlite3_column_text(stmt, 0));
+                user.setUsername((char*)sqlite3_column_text(stmt, 1));
+                user.setAddress((char*)sqlite3_column_text(stmt, 2));
+                user.setPhoneNumber((char*)sqlite3_column_text(stmt, 3));
+                user.setFullname((char*)sqlite3_column_text(stmt, 4));
+                user.setPassword((char*)sqlite3_column_text(stmt, 5));
+                user.setRole(atoi((char*)sqlite3_column_text(stmt, 6)));
+                user.setFirst(atoi((char*)sqlite3_column_text(stmt, 7)));
+                lstUser.push_back(user);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
 ResponseCode DataManager::GetBranchById(std::string id, Branch &outBranch) {
     std::stringstream strm;
     strm << "SELECT * FROM BRANCH WHERE ID = '" << id << "';";
@@ -854,9 +886,6 @@ ResponseCode DataManager::GetVehicleTypeById(std::string id, VehicleType &outVeh
 }
 
 ResponseCode DataManager::GetLocationByDate(std::string plate, std::string date, std::vector<Location> &outLocation) {
-    /* SELECT Latitude, Longitude, Start_Time, End_Time 
-        FROM Location 
-        WHERE vehicle_number_plate = "3" AND date = "4" AND Start_Time NOT NULL */
     std::stringstream strm;
     strm << "SELECT * FROM LOCATION WHERE VEHICLE_NUMBER_PLATE = '" 
          << plate 

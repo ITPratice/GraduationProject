@@ -57,5 +57,17 @@ namespace VehicleTracker.ViewModel
                 return strResult;
             }
         }
+
+        public static async Task<String> Registration(User user)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Constants.API_BASE_URL);
+                var res = await client.PostAsync($"api/user?email={user.Email}&username={user.UserName}&address={user.Address}&phone={user.PhoneNumber}&pass={user.PassWord}&name={user.FullName}&role={user.Role}&first={user.First}", null);
+                res.EnsureSuccessStatusCode();
+                var strResult = await res.Content.ReadAsStringAsync();
+                return strResult;
+            }
+        }
     }
 }

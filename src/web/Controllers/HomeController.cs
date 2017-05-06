@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VehicleTracker.Models;
 using VehicleTracker.Helper;
+using VehicleTracker.ViewModel;
 
 namespace VehicleTracker.Controllers
 {
@@ -32,9 +33,19 @@ namespace VehicleTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(User user)
+        public async Task<IActionResult> Registration(User user)
         {
-            return View();
+            user.Role = 2;
+            user.First = 1;
+            String _result = await UserVM.Registration(user);
+            if(_result.Equals("\"OK\""))
+            {
+                return RedirectToAction("RegVehicle", "Home");
+            }
+            else
+            {
+                return (BadRequest("Fail"));
+            }
         }
 
         [HttpGet]

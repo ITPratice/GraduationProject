@@ -22,6 +22,7 @@ private:
     void handle_post(http_request request);
     void handle_delete(http_request request);
 private:
+    std::map<utility::string_t, utility::string_t> UserToMap(User &user);
     DataManager *data;
 };
 
