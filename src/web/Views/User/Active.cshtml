@@ -1,0 +1,95 @@
+﻿@using VehicleTracker.Models
+@model List<User>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/lib/bootstrap/jquery/jquery-3.2.1.min.js"></script>
+<div class="dashboard-con">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="admin-content-con clearfix">
+                <header>
+                    <h5><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Danh sách thành viên chờ kích hoạt</h5>
+                </header>
+
+                <table class="table table-bordered" style="font-size: 15px;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Tên tài khoản</th>
+                            <th>
+                                <center>Quyền</center>
+                            </th>
+                            <th>Họ tên</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>
+                                <center>Kích hoạt</center>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                <tbody>
+                    @{
+                        foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Email</td>
+                                <td>@user.UserName</td>
+                                <td>
+                                    @{
+                                        switch (user.Role)
+                                        {
+                                            case 1:
+                                                <center><span class="btn btn-xs btn-danger">admin</span></center>
+                                                break;
+                                            case 2:
+                                                <center><span class="btn btn-xs btn-warning">waiting</span></center>
+                                                break;
+                                            case 3:
+                                                <center><span class="btn btn-xs btn-success">user</span></center>
+                                                break;
+                                            case 4:
+                                                <center><span class="btn btn-xs btn-info">staff</span></center>
+                                                break;
+                                            case 5:
+                                                <center><span class="btn btn-xs btn-default">deleted</span></center>
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                </td>
+                                <td>@user.FullName</td>
+                                <td>@user.Address</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>
+                                    @{
+                                        switch (user.First)
+                                        {
+                                            case 1:
+                                                <center><label><input type="checkbox" value="" disabled /></label></center>
+                                                break;
+                                            case 2:
+                                                <center><label><input type="checkbox" value="" disabled checked /></label></center>
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <center>
+                                        <a class="btn btn-xs btn-success" role="button" href="@Url.Action("Test", "User", new { email = user.Email })" id="Active">Active</a>
+                                    </center>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

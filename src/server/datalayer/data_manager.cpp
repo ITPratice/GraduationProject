@@ -775,7 +775,7 @@ ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
 
 ResponseCode DataManager::GetAllUserWaiting(std::vector<User>& lstUser) {
     sqlite3_stmt *stmt;
-    const char* query = (char *)"SELECT * FROM USER WHERE IS_FIRST = 1;";
+    const char* query = (char *)"SELECT * FROM USER WHERE ROLE = 2;";
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
         while (true) {
