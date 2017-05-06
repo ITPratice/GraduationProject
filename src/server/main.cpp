@@ -26,6 +26,7 @@ std::unique_ptr<LoginAdminHandler> aLoginHandler;
 std::unique_ptr<LoginHandler> uLoginHandler;
 std::unique_ptr<VehiclePlateByUserHandler> plateByUserHandler;
 std::unique_ptr<ActiveUserHandler> activeUserHandler;
+std::unique_ptr<FirstHandler> firstHandler;
 
 int main()
 {
@@ -90,6 +91,10 @@ void RoutingHandler(http_request request) {
         case ROUTE_ACTIVE_USER:
             activeUserHandler = std::unique_ptr<ActiveUserHandler>(new ActiveUserHandler());
             activeUserHandler->listener(request);
+            break;
+        case ROUTE_CHANGE_PASS_IF_FIRST:
+            firstHandler = std::unique_ptr<FirstHandler>(new FirstHandler());
+            firstHandler->listener(request);
             break;
         default:
             break;

@@ -345,13 +345,14 @@ ResponseCode DataManager::DeActiveUser(std::string email) {
     return DATA_SUCCESS;
 }
 
-ResponseCode DataManager::IsFirstChangePass(std::string newPass, std::string email) {
+ResponseCode DataManager::ChangePassIfFirst(std::string newPass, std::string email) {
     User _user;
     if(GetUserByEmail(email, _user) == DATA_SUCCESS) {
         if(_user.getFirst() == 1) {
             std::stringstream strm;
             strm << "UPDATE USER SET "
-                 << "PASSWORD = '" << newPass << "' "
+                 << "PASSWORD = '" << newPass << "', "
+                 << "IS_FIRST = 0 "
                  << "WHERE EMAIL = '" << email << "';";
          
             std::string temp = strm.str();

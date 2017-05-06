@@ -18,6 +18,7 @@
 #include "handler/user/login_handler.h"
 #include "handler/user/login_admin_handler.h"
 #include "handler/user/active_user_handler.h"
+#include "handler/user/first_handler.h"
 
 #include "handler/location/location_handler.h"
 #include "handler/location/current_location_handler.h"

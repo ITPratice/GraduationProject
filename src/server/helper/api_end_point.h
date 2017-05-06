@@ -10,4 +10,5 @@
 #define API_CURRENT_TIME            "/api/time"
 #define API_ARDUINO_LOCATION        "/api/arduino/location"
 #define API_VEHICLEPLATE_BYUSER     "/api/vehicle/user"
-#define API_ACTIVE_USER             "/api/user/active"    
+#define API_ACTIVE_USER             "/api/user/active"
+#define API_CHANGE_PASS_IF_FIRST    "/api/user/first"

@@ -38,7 +38,7 @@ public:
     ResponseCode GetUserByEmail(std::string email, User &outUser);
     ResponseCode DeActiveUser(std::string email);
     ResponseCode ActiveUser(std::string email);
-    ResponseCode IsFirstChangePass(std::string newPass, std::string email);
+    ResponseCode ChangePassIfFirst(std::string newPass, std::string email);
 
     // VehicleType manager
     ResponseCode InsertVehicleType(VehicleType &vehicle_type);

@@ -68,5 +68,6 @@ std::map<utility::string_t, utility::string_t> AllUserHandler::UserToMap(User &u
     dictionary["Password"] = user.getPassword();
     dictionary["Fullname"] = user.getFullname();
     dictionary["Role"] = std::to_string(user.getRole());
+    dictionary["First"] = std::to_string(user.getFirst());
     return dictionary;
 }
