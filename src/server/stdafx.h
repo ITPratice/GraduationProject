@@ -24,13 +24,16 @@
 #include "handler/location/current_location_handler.h"
 
 #include "handler/branch/branch_handler.h"
+#include "handler/branch/all_branch_handler.h"
 
 #include "handler/vehicle/vehicle_handler.h"
 #include "handler/vehicle/vehicleplate_byuser_handler.h"
+#include "handler/vehicle/all_vehicle_handler.h"
+
 #include "handler/vehicle_type/vehicle_type_handler.h"
+#include "handler/vehicle_type/all_vehicle_type_handler.h"
 
 #include "handler/current_time/current_time_handler.h"
 #include "handler/arduino/location.h"
-
 
 #endif

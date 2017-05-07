@@ -23,15 +23,15 @@ void BranchHandler::handle_get(http_request request) {
     std::cout << "GET /api/branch\n";
     Branch _outBranch;
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 1) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
     // Get Branch By Id
     auto _id = get_vars.find("id")->second;
     if (data->GetBranchById(_id, _outBranch) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, json::value::string("Query Error"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -50,7 +50,7 @@ void BranchHandler::handle_put(http_request request) {
 
     auto get_vars = uri::split_query(request.request_uri().query());
     if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -61,9 +61,9 @@ void BranchHandler::handle_put(http_request request) {
 
     // Update Branch
     if (data->UpdateBranch(_branch) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
@@ -73,7 +73,7 @@ void BranchHandler::handle_post(http_request request) {
 
     auto get_vars = uri::split_query(request.request_uri().query());
     if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -84,9 +84,9 @@ void BranchHandler::handle_post(http_request request) {
 
     // Update Branch
     if (data->InsertBranch(_branch) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
@@ -95,8 +95,8 @@ void BranchHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/branch\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 2) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -107,8 +107,8 @@ void BranchHandler::handle_delete(http_request request) {
 
     // Update Branch
     if (data->DeleteBranch(_branch) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }

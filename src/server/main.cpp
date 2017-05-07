@@ -27,6 +27,9 @@ std::unique_ptr<LoginHandler> uLoginHandler;
 std::unique_ptr<VehiclePlateByUserHandler> plateByUserHandler;
 std::unique_ptr<ActiveUserHandler> activeUserHandler;
 std::unique_ptr<FirstHandler> firstHandler;
+std::unique_ptr<GetAllBranchHandler> allBranchHandler;
+std::unique_ptr<GetAllVehicleHandler> allVehiclehandler;
+std::unique_ptr<GetAllVehicleTypeHandler> allVehicleTypeHandler;
 
 int main()
 {
@@ -95,6 +98,18 @@ void RoutingHandler(http_request request) {
         case ROUTE_CHANGE_PASS_IF_FIRST:
             firstHandler = std::unique_ptr<FirstHandler>(new FirstHandler());
             firstHandler->listener(request);
+            break;
+        case ROUTE_VEHICLE_ALL:
+            allVehiclehandler = std::unique_ptr<GetAllVehicleHandler>(new GetAllVehicleHandler());
+            allVehiclehandler->listener(request);
+            break;
+        case ROUTE_VEHICLE_TYPE_ALL:
+            allVehicleTypeHandler = std::unique_ptr<GetAllVehicleTypeHandler>(new GetAllVehicleTypeHandler());
+            allVehicleTypeHandler->listener(request);
+            break;
+        case ROUTE_BRANCH_ALL:
+            allBranchHandler = std::unique_ptr<GetAllBranchHandler>(new GetAllBranchHandler());
+            allBranchHandler->listener(request);
             break;
         default:
             break;

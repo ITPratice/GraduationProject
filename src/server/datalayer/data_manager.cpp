@@ -985,3 +985,88 @@ ResponseCode DataManager::GetVehicleNumberByUser(std::string email, std::vector<
 	}
 	return DATA_SUCCESS;
 }
+
+ResponseCode DataManager::GetAllVehicleType(std::vector<VehicleType> &lstVehicleType) {
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM VEHICLE_TYPE;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                VehicleType _vehicleType;
+                _vehicleType.setId((char*)sqlite3_column_text(stmt, 0));
+                _vehicleType.setName((char*)sqlite3_column_text(stmt, 1));
+                lstVehicleType.push_back(_vehicleType);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetAllVehicle(std::vector<Vehicle> &lstVehicle) {
+    // INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID, USER_EMAIL, IS_DELETED)
+    // std::string _nPlate, std::string _branch_id, std::string _hId, std::string _des, std::string _tId, std::string _uEmail, int _deleted
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM VEHICLE;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                Vehicle _vehicle;
+                _vehicle.setNumberPlate((char*)sqlite3_column_text(stmt, 0));
+                _vehicle.setBranchId((char*)sqlite3_column_text(stmt, 1));
+                _vehicle.setHardwareId((char*)sqlite3_column_text(stmt, 2));
+                _vehicle.setDescription((char*)sqlite3_column_text(stmt, 3));
+                _vehicle.setTypeId((char*)sqlite3_column_text(stmt, 4));
+                _vehicle.setUserEmail((char*)sqlite3_column_text(stmt, 5));
+                _vehicle.setDeleted(atoi((char*)sqlite3_column_text(stmt, 6)));
+                lstVehicle.push_back(_vehicle);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetAllBranch(std::vector<Branch> &lstBranch) {
+    sqlite3_stmt *stmt;
+    const char* query = (char *)"SELECT * FROM BRANCH;";
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                Branch _branch;
+                _branch.setId((char*)sqlite3_column_text(stmt, 0));
+                _branch.setName((char*)sqlite3_column_text(stmt, 1));
+                lstBranch.push_back(_branch);
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
+    }
+    return DATA_SUCCESS;
+}

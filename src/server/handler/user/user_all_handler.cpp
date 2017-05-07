@@ -1,19 +1,19 @@
-#include "get_all_handler.h"
+#include "user_all_handler.h"
 
 get_all_handler::get_all_handler() {
-    data = new DataManager("test.db");
+    data = new DataManager("tracker.db");
 }
 
 void get_all_handler::listener(http_request request) {
     if (data->connectDb() != DATA_SUCCESS)
         return;
-    if(request.method() == methods::GET) {
+    if (request.method() == methods::GET) {
         handle_get(request);
-    } else if(request.method() == methods::PUT) {
+    } else if (request.method() == methods::PUT) {
         handle_put(request);
-    } else if(request.method() == methods::POST) {
+    } else if request.method() == methods::POST) {
         handle_post(request);
-    } else if(request.method() == methods::DEL) {
+    } else if (request.method() == methods::DEL) {
         handle_delete(request);
     }
 }
@@ -27,7 +27,7 @@ void get_all_handler::handle_get(http_request request) {
     std::vector<json::value> vUser;
 
     if (data->GetAllUser(lstUser) != DATA_SUCCESS) {
-        std::cout << "ERROR" << std::endl;
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -48,15 +48,15 @@ void get_all_handler::handle_get(http_request request) {
 }
 
 void get_all_handler::handle_put(http_request request) {
-    request.reply(status_codes::OK, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 void get_all_handler::handle_post(http_request request) {
-    request.reply(status_codes::OK, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 void get_all_handler::handle_delete(http_request request) {
-    request.reply(status_codes::OK, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 std::map<utility::string_t,utility::string_t> get_all_handler::user_to_map(User &user) {

@@ -46,6 +46,7 @@ public:
     ResponseCode UpdateVehicleType(VehicleType &vehicle_type);
     ResponseCode DeleteVehicleType(VehicleType &vehicle_type);
     ResponseCode GetVehicleTypeById(std::string id, VehicleType &outVehicleType);
+    ResponseCode GetAllVehicleType(std::vector<VehicleType> &lstVehicleType);
 
     // Vehicle manager
     ResponseCode InsertVehicle(Vehicle &vehicle);
@@ -54,12 +55,14 @@ public:
     ResponseCode GetVehicleByNumberPlate(std::string nPlate, Vehicle &outVehicle);
     ResponseCode GetVehicleNumberByUser(std::string email, std::vector<std::string> &outVehicleNumber);
     ResponseCode BanVehicle(std::string nPlate);
+    ResponseCode GetAllVehicle(std::vector<Vehicle> &lstVehicle);
     
     // Branch manager
     ResponseCode InsertBranch(Branch &branch);
     ResponseCode UpdateBranch(Branch &branch);
     ResponseCode DeleteBranch(Branch &branch);
     ResponseCode GetBranchById(std::string id, Branch &outBranch);
+    ResponseCode GetAllBranch(std::vector<Branch> &lstBranch);
 
     // Location manager
     ResponseCode InsertLocation(Location &location);

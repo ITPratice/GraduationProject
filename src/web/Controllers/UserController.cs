@@ -11,15 +11,6 @@ using VehicleTracker.ViewModel;
 
 namespace VehicleTracker.Controllers
 {
-    enum ResultCode
-    {
-        DONE = 1,
-        URL_INVALID,
-        ERROR,
-        UNKNOWN,
-        NOT_SUPPORT
-    }
-
     public class UserController : Controller
     {
         public async Task<IActionResult> Index()

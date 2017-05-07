@@ -26,6 +26,9 @@ inline RouteMapCode string_helper::hash_str(std::string &in_str) {
     else if (in_str == API_ARDUINO_LOCATION) return ROUTE_ARDUINO_LOCATION;
     else if (in_str == API_ACTIVE_USER) return ROUTE_ACTIVE_USER;
     else if (in_str == API_CHANGE_PASS_IF_FIRST) return ROUTE_CHANGE_PASS_IF_FIRST;
+    else if (in_str == API_VEHICLE_ALL) return ROUTE_VEHICLE_ALL;
+    else if (in_str == API_VEHICLE_TYPE_ALL) return ROUTE_VEHICLE_TYPE_ALL;
+    else if (in_str == API_BRANCH_ALL) return ROUTE_BRANCH_ALL;
     else return ROUTE_FAILED;
 }
 

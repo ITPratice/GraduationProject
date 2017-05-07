@@ -27,7 +27,7 @@ void AllUserHandler::handle_get(http_request request) {
     std::vector<json::value> vUser;
 
     if (data->GetAllUser(lstUser) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, "ERROR");
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -48,15 +48,15 @@ void AllUserHandler::handle_get(http_request request) {
 }
 
 void AllUserHandler::handle_put(http_request request) {
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 void AllUserHandler::handle_post(http_request request) {
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 void AllUserHandler::handle_delete(http_request request) {
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 std::map<utility::string_t, utility::string_t> AllUserHandler::UserToMap(User &user) {
