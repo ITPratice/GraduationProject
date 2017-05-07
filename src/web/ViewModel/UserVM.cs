@@ -9,15 +9,6 @@ using VehicleTracker.Models;
 
 namespace VehicleTracker.ViewModel
 {
-    enum ResultCode
-    {
-        DONE,
-        URL_INVALID,
-        ERROR,
-        UNKNOWN,
-        NOT_SUPPORT
-    }
-
     public class UserVM
     {
         public static async Task<IList<User>> GetAllUser()

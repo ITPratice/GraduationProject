@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Insert";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <header class="clearfix">
+        <h2 class="page-title">
+            Thêm thông tin hãng xe mới
+        </h2>
+    </header>
+    <div class="content-inner">
+        <div class="row">
+            <div class="col-md-8">
+                @using (Html.BeginForm())
+                {
+                    <div class="edit-row">
+                        <h3>Email</h3>
+                        <p>Là chữ và số</p>
+                        <div class="form-group">
+                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" />
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <h3>Họ tên</h3>
+                        <p>La chu</p>
+                        <div class="form-group">
+                            <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Thêm" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

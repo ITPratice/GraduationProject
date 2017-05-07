@@ -1,0 +1,44 @@
+﻿@using VehicleTracker.Models
+@model Branch
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<div id="content">
+    <header class="clearfix">
+        <h2 class="page-title">
+            Sửa thông tin thành viên
+        </h2>
+    </header>
+    <div class="content-inner">
+        <div class="row">
+            <div class="col-md-8">
+                @using (Html.BeginForm())
+                {
+                    <div class="edit-row">
+                        <h3>Email</h3>
+                        <p>Là chữ và số</p>
+                        <div class="form-group">
+                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" value="@Model.Id">
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <h3>Họ tên</h3>
+                        <p>La chu</p>
+                        <div class="form-group">
+                            <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" value="@Model.Name">
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Lưu thông tin" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -35,15 +35,22 @@ void LoginHandler::handle_get(http_request request) {
         return;
     }
 
-    if(data->GetUserByEmail(_email, _outUser) == DATA_SUCCESS) {
-        if(_outUser.getFirst() == 1) {
-            request.reply(status_codes::OK, ResultCode::FIRST_LOGIN);
-        } else {
-            request.reply(status_codes::OK, ResultCode::NOT_FIRST_LOGIN);
-        }
-    } else {
+    if(data->GetUserByEmail(_email, _outUser) != DATA_SUCCESS) {
         request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        return;
     }
+
+    json::value _jValue;
+    _jValue["Email"] = json::value::string(_outUser.getEmail());
+    _jValue["Username"] = json::value::string(_outUser.getUsername());
+    _jValue["Address"] = json::value::string(_outUser.getAddress());
+    _jValue["PhoneNumber"] = json::value::string(_outUser.getPhoneNumber());
+    _jValue["Password"] = json::value::string(_outUser.getPassword());
+    _jValue["Fullname"] = json::value::string(_outUser.getFullname());
+    _jValue["Role"] = json::value::number(_outUser.getRole());
+    _jValue["First"] = json::value::number(_outUser.getFirst());
+
+    request.reply(status_codes::OK, _jValue);
 }
 
 // PUT /api/user/login
