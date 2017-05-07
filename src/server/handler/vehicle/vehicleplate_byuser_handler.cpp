@@ -20,7 +20,7 @@ void VehiclePlateByUserHandler::listener(http_request request) {
 
 // GET /api/vehicle?email=
 void VehiclePlateByUserHandler::handle_get(http_request request) {
-    std::cout << "GET /api/vehicle?email={email}\n";
+    std::cout << "GET /api/vehicle/user?email={email}\n";
     std::vector<std::string> lstPlate;
     std::vector<json::value> vPlate;
 

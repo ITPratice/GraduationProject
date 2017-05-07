@@ -29,6 +29,7 @@
 #include "handler/vehicle/vehicle_handler.h"
 #include "handler/vehicle/vehicleplate_byuser_handler.h"
 #include "handler/vehicle/all_vehicle_handler.h"
+#include "handler/vehicle/write_history_handler.h"
 
 #include "handler/vehicle_type/vehicle_type_handler.h"
 #include "handler/vehicle_type/all_vehicle_type_handler.h"

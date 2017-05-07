@@ -21,7 +21,8 @@ SOURCES		= 	datalayer/data_manager.cpp datalayer/user.cpp datalayer/location.cpp
 			handler/user/first_handler.cpp \
 			handler/vehicle_type/all_vehicle_type_handler.cpp \
 			handler/vehicle/all_vehicle_handler.cpp \
-			handler/branch/all_branch_handler.cpp 
+			handler/branch/all_branch_handler.cpp \
+			handler/vehicle/write_history_handler.cpp
 
 all: $(SOURCES) main.cpp
 		$(CC) $(SOURCES) main.cpp $(EXFLAGS) -o main

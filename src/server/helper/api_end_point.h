@@ -15,3 +15,4 @@
 #define API_VEHICLE_ALL             "/api/vehicle/all"
 #define API_VEHICLE_TYPE_ALL        "/api/vehicletype/all"
 #define API_BRANCH_ALL              "/api/branch/all"
+#define API_WRITE_HISTORY           "/api/vehicle/write"

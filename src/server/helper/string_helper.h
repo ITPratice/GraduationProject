@@ -29,6 +29,7 @@ inline RouteMapCode string_helper::hash_str(std::string &in_str) {
     else if (in_str == API_VEHICLE_ALL) return ROUTE_VEHICLE_ALL;
     else if (in_str == API_VEHICLE_TYPE_ALL) return ROUTE_VEHICLE_TYPE_ALL;
     else if (in_str == API_BRANCH_ALL) return ROUTE_BRANCH_ALL;
+    else if (in_str == API_WRITE_HISTORY) return ROUTE_WRITE_HISTORY;
     else return ROUTE_FAILED;
 }
 

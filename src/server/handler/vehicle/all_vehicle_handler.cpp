@@ -74,5 +74,6 @@ std::map<utility::string_t,utility::string_t> GetAllVehicleHandler::vehicle_to_m
     dictionary["TypeId"] = vehicle.getTypeId();
     dictionary["UserEmail"] = vehicle.getUserEmail();
     dictionary["Deleted"] = std::to_string(vehicle.getDeleted());
+    dictionary["WriteHistory"] = std::to_string(vehicle.getWriteHistory());
     return dictionary;
 }

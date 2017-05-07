@@ -8,9 +8,10 @@
     type_id = "";
     user_email = "";
     deleted = 0;
+    write_history = 0;
  }
     
-Vehicle::Vehicle(std::string _nPlate, std::string _branch_id, std::string _hId, std::string _des, std::string _tId, std::string _uEmail, int _deleted) {
+Vehicle::Vehicle(std::string _nPlate, std::string _branch_id, std::string _hId, std::string _des, std::string _tId, std::string _uEmail, int _deleted, int _wHistory) {
     number_plate = _nPlate;
     branch_id = _branch_id;
     hardware_id = _hId;
@@ -18,6 +19,7 @@ Vehicle::Vehicle(std::string _nPlate, std::string _branch_id, std::string _hId, 
     type_id = _tId;
     user_email = _uEmail;
     deleted = _deleted;
+    write_history = _wHistory;
 }
 
 Vehicle::~Vehicle() { }
@@ -76,4 +78,12 @@ void Vehicle::setDeleted(int _deleted) {
 
 int Vehicle::getDeleted() {
     return deleted;
+}
+
+void Vehicle::setWriteHistory(int _wHistory) {
+    write_history = _wHistory;
+}
+
+int Vehicle::getWriteHistory() {
+    return write_history;
 }

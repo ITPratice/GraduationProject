@@ -44,6 +44,7 @@ void VehicleHandler::handle_get(http_request request) {
     _jValue["TypeId"] = json::value::string(_outVehicle.getTypeId());
     _jValue["UserEmail"] = json::value::string(_outVehicle.getUserEmail());
     _jValue["Deleted"] = json::value::number(_outVehicle.getDeleted());
+    _jValue["WriteHistory"] = json::value::number(_outVehicle.getWriteHistory());
 
     // Reply to client
     request.reply(status_codes::OK, _jValue);
@@ -53,7 +54,7 @@ void VehicleHandler::handle_get(http_request request) {
 void VehicleHandler::handle_put(http_request request) {
     std::cout << "PUT /api/vehicle\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.size() != 7) {
+    if (get_vars.size() != 8) {
         request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
@@ -66,7 +67,8 @@ void VehicleHandler::handle_put(http_request request) {
     auto _type = uri::decode(get_vars.find("type")->second);
     auto _email = uri::decode(get_vars.find("email")->second);
     auto _deleted = uri::decode(get_vars.find("deleted")->second);
-    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted));
+    auto _write = uri::decode(get_vars.find("write")->second);
+    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted), stoi(_write));
 
     // Update vehicle
     if (data->UpdateVehicle(_vehicle) == DATA_SUCCESS) {
@@ -80,8 +82,8 @@ void VehicleHandler::handle_put(http_request request) {
 void VehicleHandler::handle_post(http_request request) {
     std::cout << "POST /api/vehicle\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.size() != 7) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 8) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -93,7 +95,8 @@ void VehicleHandler::handle_post(http_request request) {
     auto _type = uri::decode(get_vars.find("type")->second);
     auto _email = uri::decode(get_vars.find("email")->second);
     auto _deleted = uri::decode(get_vars.find("deleted")->second);
-    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted));
+    auto _write = uri::decode(get_vars.find("write")->second);
+    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted), stoi(_write));
 
     // Update vehicle
     if (data->InsertVehicle(_vehicle) == DATA_SUCCESS) {
@@ -107,7 +110,7 @@ void VehicleHandler::handle_post(http_request request) {
 void VehicleHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/vehicle\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.size() != 7) {
+    if (get_vars.size() != 8) {
         request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
@@ -120,7 +123,8 @@ void VehicleHandler::handle_delete(http_request request) {
     auto _type = uri::decode(get_vars.find("type")->second);
     auto _email = uri::decode(get_vars.find("email")->second);
     auto _deleted = uri::decode(get_vars.find("deleted")->second);
-    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted));
+    auto _write = uri::decode(get_vars.find("write")->second);
+    Vehicle _vehicle(_plate, _bId, _hId, _des, _type, _email, stoi(_deleted), stoi(_write));
 
     // Update vehicle
     if (data->DeleteVehicle(_vehicle) == DATA_SUCCESS) {

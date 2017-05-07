@@ -56,6 +56,8 @@ public:
     ResponseCode GetVehicleNumberByUser(std::string email, std::vector<std::string> &outVehicleNumber);
     ResponseCode BanVehicle(std::string nPlate);
     ResponseCode GetAllVehicle(std::vector<Vehicle> &lstVehicle);
+    ResponseCode UpdateWriteHistory(std::string nPlate);
+    ResponseCode GetWriteHistory(std::string nPlate, int &wHistory);
     
     // Branch manager
     ResponseCode InsertBranch(Branch &branch);

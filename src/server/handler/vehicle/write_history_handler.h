@@ -1,9 +1,10 @@
 #include "../stdafx.h"
 #include "../../datalayer/data_manager.h"
+#include "../../datalayer/vehicle.h"
 #include "../../ResponseInterface.h"
 
-#ifndef CURRENT_TIME_HANDLER_H
-#define CURRENT_TIME_HANDLER_H
+#ifndef WRITE_HISTORY_HANDLER_H
+#define WRITE_HISTORY_HANDLER_H
 
 using namespace std;
 using namespace web;
@@ -11,9 +12,9 @@ using namespace http;
 using namespace utility;
 using namespace http::experimental::listener;
 
-class CurrentTimeHandler {
+class WriteHistoryHandler {
 public:
-    CurrentTimeHandler();
+    WriteHistoryHandler();
     void listener(http_request request);
 private:
     void handle_get(http_request request);
@@ -24,4 +25,4 @@ private:
     DataManager *data;
 };
 
-#endif  // CURRENT_TIME_HANDLER_H
+#endif  // WRITE_HISTORY_HANDLER_H

@@ -59,7 +59,7 @@ ResponseCode DataManager::createDb() {
         sqlite3_close(db);
         return DATA_ERROR_CREATE_TB;
     } else {
-        fprintf(stdout, "DATA_MANAGER - Table USERS created successfully\n");
+        fprintf(stdout, "DATA_MANAGER - Table USER created successfully\n");
     }
 
     // Cretae Vehicle_type table - OK
@@ -99,9 +99,7 @@ ResponseCode DataManager::createDb() {
             "TYPE_ID            VARCHAR(10)                             NOT NULL,"  \
             "USER_EMAIL         VARCHAR(80)                             NOT NULL,"  \
             "IS_DELETED         INTEGER                                 NOT NULL,"  \
-            "FOREIGN KEY (USER_EMAIL)   REFERENCES USER(EMAIL)          ON DELETE CASCADE, "
-            "FOREIGN KEY (BRANCH_ID)    REFERENCES BRANCH(ID)           ON DELETE CASCADE, "
-            "FOREIGN KEY (TYPE_ID)      REFERENCES VEHICLE_TYPE(ID)     ON DELETE CASCADE);";
+            "WRITE_HISTORY      INTEGER                                 NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
     if(rc != SQLITE_OK) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -481,7 +479,7 @@ ResponseCode DataManager::DeleteVehicleType(VehicleType &vehicle_type) {
 // Vehicle manager - Test OK
 ResponseCode DataManager::InsertVehicle(Vehicle &vehicle) {
     std::stringstream strm;
-    strm << "INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID, USER_EMAIL, IS_DELETED) values ('"
+    strm << "INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID, USER_EMAIL, IS_DELETED, WRITE_HISTORY) values ('"
          << vehicle.getNumberPlate()
          << "', '" << vehicle.getBranchId()
          << "', '" << vehicle.getHardwareId()
@@ -489,6 +487,7 @@ ResponseCode DataManager::InsertVehicle(Vehicle &vehicle) {
          << "', '" << vehicle.getTypeId()
          << "', '" << vehicle.getUserEmail()
          << "',  " << vehicle.getDeleted()
+         << ",   " << vehicle.getWriteHistory()
          << ");";
          
     std::string temp = strm.str();
@@ -513,8 +512,9 @@ ResponseCode DataManager::UpdateVehicle(Vehicle &vehicle) {
          << "HARDWARE_ID = '" << vehicle.getHardwareId() << "', "
          << "DESCRIPTION = '" << vehicle.getDescription() << "', "
          << "TYPE_ID = '" << vehicle.getTypeId() << "', "
-         << "USER_EMAIL = '" << vehicle.getUserEmail() << "' "
-         << "IS_DELETED = " << vehicle.getDeleted() << " "
+         << "USER_EMAIL = '" << vehicle.getUserEmail() << "', "
+         << "IS_DELETED = " << vehicle.getDeleted() << ", "
+         << "WRITE_HISTORY = " << vehicle.getWriteHistory() << " "
          << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "';";
          
     std::string temp = strm.str();
@@ -534,7 +534,7 @@ ResponseCode DataManager::UpdateVehicle(Vehicle &vehicle) {
 
 ResponseCode DataManager::DeleteVehicle(Vehicle &vehicle) {
     std::stringstream strm;
-    strm << "DELETE FROM VEHICLE "
+    strm << "UPDATE FROM VEHICLE "
          << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "';";
          
     std::string temp = strm.str();
@@ -568,6 +568,56 @@ ResponseCode DataManager::BanVehicle(std::string nPlate) {
         return DATA_ERROR_UPDATE_DB;
     } else {
         std::cout << "DATA_MANAGER - BanVehicle successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::UpdateWriteHistory(std::string nPlate) {
+    std::stringstream strm;
+    strm << "UPDATE VEHICLE SET WRITE_HISTORY = 1 "
+         << "WHERE NUMBER_PLATE = '" << nPlate << "';";
+         
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Update History: " << temp << std::endl;
+
+    char *query = &temp[0];
+    char *zErrMsg = 0;
+    int rc = sqlite3_exec(db, query, callback, 0, &zErrMsg);
+    if(rc != SQLITE_OK) {
+        fprintf(stderr, "DATA_MANAGER - SQL error: %s\n", zErrMsg);
+        return DATA_ERROR_UPDATE_DB;
+    } else {
+        std::cout << "DATA_MANAGER - BanVehicle successfully" << std::endl;
+    }
+    return DATA_SUCCESS;
+}
+
+ResponseCode DataManager::GetWriteHistory(std::string nPlate, int &wHistory) {
+    std::stringstream strm;
+    strm << "SELECT WRITE_HISTORY FROM VEHICLE "
+         << "WHERE NUMBER_PLATE = '" << nPlate << "';";
+
+    std::string temp = strm.str();
+    std::cout << "DATA_MANAGER - Query Update History: " << temp << std::endl;
+
+    char *query = &temp[0];
+    sqlite3_stmt *stmt;
+    if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
+        int res = 0;
+        while (true) {
+            res = sqlite3_step(stmt);
+
+            if (res == SQLITE_ROW) {
+                wHistory = atoi((char*)sqlite3_column_text(stmt, 0));
+            }
+
+            if ( res == SQLITE_DONE || res == SQLITE_ERROR) {
+                break;
+            }
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        return DATA_ERROR_SELECT_DB;
     }
     return DATA_SUCCESS;
 }
@@ -924,7 +974,6 @@ ResponseCode DataManager::GetLocationByDate(std::string plate, std::string date,
 }
 
 ResponseCode DataManager::GetCurrentLocation(std::string nPlate, Location &outLocation) {
-    /*SELECT * FROM Location WHERE Vehicle_Number_Plate = "3" ORDER BY Id DESC LIMIT 1*/
     std::stringstream strm;
     strm << "SELECT * FROM LOCATION WHERE VEHICLE_NUMBER_PLATE = '" 
          << nPlate 
@@ -1013,8 +1062,6 @@ ResponseCode DataManager::GetAllVehicleType(std::vector<VehicleType> &lstVehicle
 }
 
 ResponseCode DataManager::GetAllVehicle(std::vector<Vehicle> &lstVehicle) {
-    // INSERT INTO VEHICLE (NUMBER_PLATE, BRANCH_ID, HARDWARE_ID, DESCRIPTION, TYPE_ID, USER_EMAIL, IS_DELETED)
-    // std::string _nPlate, std::string _branch_id, std::string _hId, std::string _des, std::string _tId, std::string _uEmail, int _deleted
     sqlite3_stmt *stmt;
     const char* query = (char *)"SELECT * FROM VEHICLE;";
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {

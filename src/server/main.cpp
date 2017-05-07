@@ -30,6 +30,7 @@ std::unique_ptr<FirstHandler> firstHandler;
 std::unique_ptr<GetAllBranchHandler> allBranchHandler;
 std::unique_ptr<GetAllVehicleHandler> allVehiclehandler;
 std::unique_ptr<GetAllVehicleTypeHandler> allVehicleTypeHandler;
+std::unique_ptr<WriteHistoryHandler> writeHistoryHandler;
 
 int main()
 {
@@ -110,6 +111,10 @@ void RoutingHandler(http_request request) {
         case ROUTE_BRANCH_ALL:
             allBranchHandler = std::unique_ptr<GetAllBranchHandler>(new GetAllBranchHandler());
             allBranchHandler->listener(request);
+            break;
+        case ROUTE_WRITE_HISTORY:
+            writeHistoryHandler = std::unique_ptr<WriteHistoryHandler>(new WriteHistoryHandler());
+            writeHistoryHandler->listener(request);
             break;
         default:
             break;
