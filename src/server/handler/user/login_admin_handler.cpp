@@ -22,8 +22,8 @@ void LoginAdminHandler::listener(http_request request) {
 void LoginAdminHandler::handle_get(http_request request) {
     std::cout << "GET /api/admin/login\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 2) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
     auto _email = uri::decode(get_vars.find("email")->second);
@@ -39,17 +39,17 @@ void LoginAdminHandler::handle_get(http_request request) {
 // PUT /api/admin/login
 void LoginAdminHandler::handle_put(http_request request) {
     std::cout << "PUT /api/admin/login\n";
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 // POST /api/admin/login
 void LoginAdminHandler::handle_post(http_request request) {
     std::cout << "POST /api/admin/login\n";
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 // DELETE /api/admin/login
 void LoginAdminHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/user/login\n";
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }

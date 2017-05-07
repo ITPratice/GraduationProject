@@ -49,7 +49,7 @@ void BranchHandler::handle_put(http_request request) {
     std::cout << "PUT /api/branch\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
+    if (get_vars.size() != 2) {
         request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
@@ -72,7 +72,7 @@ void BranchHandler::handle_post(http_request request) {
     std::cout << "POST /api/branch\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
+    if (get_vars.size() != 2) {
         request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }

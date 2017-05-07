@@ -23,8 +23,8 @@ void LocationHandler::listener(http_request request) {
 void LocationHandler::handle_get(http_request request) {
     std::cout << "LOCATION_HANDLER - GET /api/location\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query null");
+    if (get_vars.size() != 2) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -34,7 +34,7 @@ void LocationHandler::handle_get(http_request request) {
     std::map<std::string, std::string> _dictionary;
     std::vector<json::value> _jLocation;
     if(data->GetLocationByDate(_plate, _date, _lstLocation) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, "ERROR");
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -59,8 +59,8 @@ void LocationHandler::handle_post(http_request request) {
     std::cout << "LOCATION_HANDLER - POST /api/location\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query null");
+    if (get_vars.size() != 5) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -89,24 +89,23 @@ void LocationHandler::handle_post(http_request request) {
     _location.setEndTime(c_time);
 
     if (data->InsertLocation(_location) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("SUCCESS"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
 // PUT api/location
 void LocationHandler::handle_put(http_request request) {
     std::cout << "LOCATION_HANDLER - PUT /api/location\n";
-
-    request.reply(status_codes::BadRequest, "Not Support"); 
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT); 
 }
 
 // DELETE api/location
 void LocationHandler::handle_delete(http_request request) {
     std::cout << "LOCATION_HANDLER - DELETE /api/location\n";
 
-    request.reply(status_codes::BadRequest, "Not Support"); 
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT); 
 }
 
 std::map<utility::string_t, utility::string_t> LocationHandler::LocationToMap(Location &location) {

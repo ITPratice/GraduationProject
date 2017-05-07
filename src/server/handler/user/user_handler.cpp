@@ -23,15 +23,15 @@ void UserHandler::handle_get(http_request request) {
     std::cout << "GET /api/user?email\n";
     User outUser;
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 1) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
     // Get user by email
     auto _email = uri::decode(get_vars.find("email")->second);
     if (data->GetUserByEmail(_email, outUser) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, json::value::string("Query Error"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -54,8 +54,8 @@ void UserHandler::handle_put(http_request request) {
     std::cout << "PUT /api/user\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 8) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -72,9 +72,9 @@ void UserHandler::handle_put(http_request request) {
 
     // Update User
     if (data->UpdateUser(_user) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
@@ -82,8 +82,8 @@ void UserHandler::handle_post(http_request request) {
     std::cout << "POST /api/user\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 8) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -99,9 +99,9 @@ void UserHandler::handle_post(http_request request) {
     User _user(email, uname, addr, phone, fname, pass, stoi(role), stoi(first));
 
     if (data->InsertUser(_user) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
@@ -110,8 +110,8 @@ void UserHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/user\n";
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if(get_vars.empty() && get_vars.size() != 1) {
-        request.reply(status_codes::BadRequest, URL_INVALID);
+    if(get_vars.size() != 1) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -119,8 +119,8 @@ void UserHandler::handle_delete(http_request request) {
     auto _email = uri::decode(get_vars.find("email")->second);  
 
     if (data->DeActiveUser(_email) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, DONE);
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ERROR);
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }

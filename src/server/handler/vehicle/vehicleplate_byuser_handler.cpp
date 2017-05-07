@@ -25,15 +25,15 @@ void VehiclePlateByUserHandler::handle_get(http_request request) {
     std::vector<json::value> vPlate;
 
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 1) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
     // Get Email value
     auto _email = uri::decode(get_vars.find("email")->second);
     if(data->GetVehicleNumberByUser(_email, lstPlate) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, "ERROR");
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -50,14 +50,14 @@ void VehiclePlateByUserHandler::handle_get(http_request request) {
 }
 
 void VehiclePlateByUserHandler::handle_put(http_request request) {
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 void VehiclePlateByUserHandler::handle_post(http_request request) {
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 void VehiclePlateByUserHandler::handle_delete(http_request request) {
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 

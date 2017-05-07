@@ -24,42 +24,42 @@ void LoginHandler::handle_get(http_request request) {
     std::cout << "GET /api/user/login\n";
     User _outUser;
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 2) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
     auto _email = uri::decode(get_vars.find("email")->second);
     auto _pass = uri::decode(get_vars.find("pass")->second);
     if(data->Login(_email, _pass) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR 1"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
     if(data->GetUserByEmail(_email, _outUser) == DATA_SUCCESS) {
         if(_outUser.getFirst() == 1) {
-            request.reply(status_codes::OK, json::value::string("FIRST"));
+            request.reply(status_codes::OK, ResultCode::FIRST_LOGIN);
         } else {
-            request.reply(status_codes::OK, json::value::string("NOT FIRST"));
+            request.reply(status_codes::OK, ResultCode::NOT_FIRST_LOGIN);
         }
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR 2"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
 // PUT /api/user/login
 void LoginHandler::handle_put(http_request request) {
     std::cout << "PUT /api/user/login\n";
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 // POST /api/user/login
 void LoginHandler::handle_post(http_request request) {
     std::cout << "POST /api/user/login\n";
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }
 
 // DELETE /api/user/login
 void LoginHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/user/login\n";
-    request.reply(status_codes::BadRequest, "Not support");
+    request.reply(status_codes::BadRequest, ResultCode::NOT_SUPPORT);
 }

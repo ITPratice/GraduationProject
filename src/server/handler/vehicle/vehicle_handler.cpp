@@ -23,15 +23,15 @@ void VehicleHandler::handle_get(http_request request) {
     std::cout << "GET /api/vehicle\n";
     Vehicle _outVehicle;
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 1) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
     // Get vehicle by NumberPlate
     auto _plate = get_vars.find("plate")->second;
     if (data->GetVehicleByNumberPlate(_plate, _outVehicle) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, json::value::string("Query Error"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;
     }
 
@@ -53,8 +53,8 @@ void VehicleHandler::handle_get(http_request request) {
 void VehicleHandler::handle_put(http_request request) {
     std::cout << "PUT /api/vehicle\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 7) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -70,9 +70,9 @@ void VehicleHandler::handle_put(http_request request) {
 
     // Update vehicle
     if (data->UpdateVehicle(_vehicle) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
@@ -80,7 +80,7 @@ void VehicleHandler::handle_put(http_request request) {
 void VehicleHandler::handle_post(http_request request) {
     std::cout << "POST /api/vehicle\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
+    if (get_vars.size() != 7) {
         request.reply(status_codes::BadRequest, "Query is null");
         return;
     }
@@ -97,9 +97,9 @@ void VehicleHandler::handle_post(http_request request) {
 
     // Update vehicle
     if (data->InsertVehicle(_vehicle) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }
 
@@ -107,8 +107,8 @@ void VehicleHandler::handle_post(http_request request) {
 void VehicleHandler::handle_delete(http_request request) {
     std::cout << "DELETE /api/vehicle\n";
     auto get_vars = uri::split_query(request.request_uri().query());
-    if (get_vars.empty()) {
-        request.reply(status_codes::BadRequest, "Query is null");
+    if (get_vars.size() != 7) {
+        request.reply(status_codes::BadRequest, ResultCode::URL_INVALID);
         return;
     }
 
@@ -124,8 +124,8 @@ void VehicleHandler::handle_delete(http_request request) {
 
     // Update vehicle
     if (data->DeleteVehicle(_vehicle) == DATA_SUCCESS) {
-        request.reply(status_codes::OK, json::value::string("OK"));
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, json::value::string("ERROR"));
+        request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
 }

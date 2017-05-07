@@ -23,7 +23,9 @@ enum ResultCode {
     URL_INVALID,
     ERROR,
     UNKNOWN,
-    NOT_SUPPORT
+    NOT_SUPPORT,
+    FIRST_LOGIN,
+    NOT_FIRST_LOGIN
 };
 
 #endif
