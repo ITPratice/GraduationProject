@@ -18,7 +18,7 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Vehicle");
         }
 
         public IActionResult Error()
@@ -37,14 +37,24 @@ namespace VehicleTracker.Controllers
         {
             user.Role = 2;
             user.First = 1;
-            String _result = await UserVM.Registration(user);
-            if(_result.Equals("\"OK\""))
+            using (var client = new HttpClient())
             {
-                return RedirectToAction("RegVehicle", "Home");
-            }
-            else
-            {
-                return (BadRequest("Fail"));
+                try
+                {
+                    String _result = await UserVM.RegistrationAsync(client, user);
+                    if (_result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("RegVehicle", "Home");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_SELECT_PROBLEM);
+                    }
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
             }
         }
 
@@ -52,6 +62,32 @@ namespace VehicleTracker.Controllers
         public IActionResult RegVehicle()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegVehicle(Vehicle vehicle)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    vehicle.Deleted = 0;
+                    vehicle.WriteHistory = 0;
+                    String _result = await VehicleVM.InsertVehicleAsync(client, vehicle);
+                    if (_result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("RegVehicle", "Home");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_SELECT_PROBLEM);
+                    }
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
         }
     }
 }

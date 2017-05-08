@@ -48,5 +48,14 @@ namespace VehicleTracker.ViewModel
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;
         }
+
+        public static async Task<String> InsertVehicleAsync(HttpClient client, Vehicle vehicle)
+        {
+            client.BaseAddress = new Uri(Constants.API_BASE_URL);
+            var res = await client.PostAsync($"api/vehicle?plate={vehicle.NumberPlate}&brand={vehicle.BranchId}&hardware={vehicle.HardwareId}&description={vehicle.Description}&type={vehicle.TypeId}&email={vehicle.UserEmail}&deleted={vehicle.Deleted}&write={vehicle.WriteHistory}", null);
+            res.EnsureSuccessStatusCode();
+            var strResult = await res.Content.ReadAsStringAsync();
+            return strResult;
+        }
     }
 }
