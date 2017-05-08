@@ -900,6 +900,7 @@ ResponseCode DataManager::GetVehicleByNumberPlate(std::string nPlate, Vehicle &o
             outVehicle.setTypeId((char*)sqlite3_column_text(statement, 4));
             outVehicle.setUserEmail((char*)sqlite3_column_text(statement, 5));
             outVehicle.setDeleted(atoi((char*)sqlite3_column_text(statement, 6)));
+            outVehicle.setWriteHistory(atoi((char*)sqlite3_column_text(statement, 7)));
 		} else {
             return DATA_SELECT_EMPTY;
 		}
@@ -1078,6 +1079,7 @@ ResponseCode DataManager::GetAllVehicle(std::vector<Vehicle> &lstVehicle) {
                 _vehicle.setTypeId((char*)sqlite3_column_text(stmt, 4));
                 _vehicle.setUserEmail((char*)sqlite3_column_text(stmt, 5));
                 _vehicle.setDeleted(atoi((char*)sqlite3_column_text(stmt, 6)));
+                _vehicle.setWriteHistory(atoi((char*)sqlite3_column_text(stmt, 7)));
                 lstVehicle.push_back(_vehicle);
             }
 
