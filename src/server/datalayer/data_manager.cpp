@@ -286,7 +286,7 @@ ResponseCode DataManager::UpdateUser(User &user) {
          << "PASSWORD = '" << user.getPassword() << "',"
          << "ROLE = " << user.getRole() << ","
          << "IS_FIRST = " << user.getFirst() << " "
-         << "WHERE EMAIL = '" << user.getEmail() << "';";
+         << "WHERE EMAIL = '" << user.getEmail() << "'";
          
     std::string temp = strm.str();
     std::cout << "DATA_MANAGER - Query UpdateUser: " << temp << std::endl;
@@ -515,7 +515,7 @@ ResponseCode DataManager::UpdateVehicle(Vehicle &vehicle) {
          << "USER_EMAIL = '" << vehicle.getUserEmail() << "', "
          << "IS_DELETED = " << vehicle.getDeleted() << ", "
          << "WRITE_HISTORY = " << vehicle.getWriteHistory() << " "
-         << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "';";
+         << "WHERE NUMBER_PLATE = '" << vehicle.getNumberPlate() << "'";
          
     std::string temp = strm.str();
     std::cout << "DATA_MANAGER - Query UpdateVehicle: " << temp << std::endl;
