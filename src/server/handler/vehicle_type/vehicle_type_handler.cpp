@@ -29,7 +29,7 @@ void VehicleTypeHandler::handle_get(http_request request) {
     }
 
     // Get vehicle type by id
-    auto _id = get_vars.find("id")->second;
+    auto _id = uri::decode(get_vars.find("id")->second);
     if (data->GetVehicleTypeById(_id, _outVehicleType) != DATA_SUCCESS) {
         request.reply(status_codes::BadRequest, ResultCode::ERROR);
         return;

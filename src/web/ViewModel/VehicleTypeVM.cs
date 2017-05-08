@@ -9,50 +9,50 @@ using VehicleTracker.Models;
 
 namespace VehicleTracker.ViewModel
 {
-    public class BranchVM
+    public class VehicleTypeVM
     {
-        public static async Task<IList<Branch>> GetAllBranchAsync(HttpClient client)
+        public static async Task<IList<VehicleType>> GetAllVehicleTypeAsync(HttpClient client)
         {
             client.BaseAddress = new Uri(Constants.API_BASE_URL);
-            var res = await client.GetAsync(Constants.API_GET_ALL_BRANCH);
+            var res = await client.GetAsync(Constants.API_GET_ALL_VEHICLE_TYPE);
             res.EnsureSuccessStatusCode();
 
             var strResult = await res.Content.ReadAsStringAsync();
 
             JObject _jObj = JObject.Parse(strResult);
             IList<JToken> results = _jObj["data"].Children().ToList();
-            IList<Branch> _lstBranch = new List<Branch>();
+            IList<VehicleType> _lstVehicleType = new List<VehicleType>();
             foreach (JToken result in results)
             {
-                Branch _branch = result.ToObject<Branch>();
-                _lstBranch.Add(_branch);
+                VehicleType _vehicleType = result.ToObject<VehicleType>();
+                _lstVehicleType.Add(_vehicleType);
             }
-            return _lstBranch;
+            return _lstVehicleType;
         }
 
-        public static async Task<Branch> GetBranchByIdAsync(HttpClient client, String Id)
+        public static async Task<VehicleType> GetVehicleTypeByIdAsync(HttpClient client, String Id)
         {
             client.BaseAddress = new Uri(Constants.API_BASE_URL);
-            var res = await client.GetAsync($"api/branch?id={Id}");
+            var res = await client.GetAsync($"api/vehicletype?id={Id}");
             res.EnsureSuccessStatusCode();
             var strResult = await res.Content.ReadAsStringAsync();
             JObject _jObj = JObject.Parse(strResult);
-            return _jObj.ToObject<Branch>();
+            return _jObj.ToObject<VehicleType>();
         }
 
-        public static async Task<String> UpdateBranchAsyn(HttpClient client, Branch branch)
+        public static async Task<String> UpdateVehicleTypeAsync(HttpClient client, VehicleType vehicleType)
         {
             client.BaseAddress = new Uri(Constants.API_BASE_URL);
-            var res = await client.PutAsync($"api/branch?id={branch.Id}&name={branch.Name}", null);
+            var res = await client.PutAsync($"api/vehicletype?id={vehicleType.Id}&name={vehicleType.Name}", null);
             res.EnsureSuccessStatusCode();
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;
         }
 
-        public static async Task<String> InsertBranchAsync(HttpClient client, Branch branch)
+        public static async Task<String> InsertVehicleTypeAsync(HttpClient client, VehicleType vehicleType)
         {
             client.BaseAddress = new Uri(Constants.API_BASE_URL);
-            var res = await client.PostAsync($"api/branch?id={branch.Id}&name={branch.Name}", null);
+            var res = await client.PostAsync($"api/vehicletype?id={vehicleType.Id}&name={vehicleType.Name}", null);
             res.EnsureSuccessStatusCode();
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;

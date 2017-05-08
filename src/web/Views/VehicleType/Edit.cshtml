@@ -1,14 +1,13 @@
 ﻿@using VehicleTracker.Models
-@model Branch
+@model VehicleType
 @{
-    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div id="content">
     <header class="clearfix">
         <h2 class="page-title">
-            Sửa thông tin thành viên
+            Sửa thông tin loại xe
         </h2>
     </header>
     <div class="content-inner">
@@ -17,15 +16,15 @@
                 @using (Html.BeginForm())
                 {
                     <div class="edit-row">
-                        <h3>Email</h3>
-                        <p>Là chữ và số</p>
+                        <h3>ID</h3>
+                        <p>Là chữ và số, tối đa 10 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" value="@Model.Id">
+                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" disabled value="@Model.Id">
                         </div>
                     </div>
                     <div class="edit-row">
-                        <h3>Họ tên</h3>
-                        <p>La chu</p>
+                        <h3>Tên loại xe</h3>
+                        <p>Là chữ và số, tối đa 50 ký tự</p>
                         <div class="form-group">
                             <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" value="@Model.Name">
                         </div>
@@ -40,3 +39,4 @@
         </div>
     </div>
 </div>
+

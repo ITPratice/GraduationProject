@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Branch\" />
+    <Folder Include="Views\VehicleType\" />
     <Folder Include="wwwroot\lib\jquery\" />
   </ItemGroup>
 

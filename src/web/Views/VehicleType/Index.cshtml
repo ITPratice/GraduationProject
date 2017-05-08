@@ -1,0 +1,52 @@
+﻿@using VehicleTracker.Models
+@model List<VehicleType>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-con">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="admin-content-con clearfix">
+                <header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>Danh sách các loại xe</h5>
+                        </div>
+                        <div class="col-md-offset-4 col-md-4">
+                            <a class="btn btn-xs btn-primary pull-right" href="@Url.Action("Insert")" role="button">Loại xe mới</a>
+                        </div>
+                    </div>
+                </header>
+
+                <table class="table table-bordered" style="font-size: 15px;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            foreach (var vehicleType in Model)
+                            {
+                                <tr>
+                                    <td>@vehicleType.Id</td>
+                                    <td>@vehicleType.Name</td>
+                                    <td>
+                                        <center>
+                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "VehicleType", new { Id = vehicleType.Id })" role="button">Edit</a>
+                                            <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

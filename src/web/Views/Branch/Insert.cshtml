@@ -1,6 +1,5 @@
 ﻿
 @{
-    ViewData["Title"] = "Insert";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -16,15 +15,15 @@
                 @using (Html.BeginForm())
                 {
                     <div class="edit-row">
-                        <h3>Email</h3>
-                        <p>Là chữ và số</p>
+                        <h3>ID</h3>
+                        <p>Là chữ và số, tối đa 10 ký tự</p>
                         <div class="form-group">
                             <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" />
                         </div>
                     </div>
                     <div class="edit-row">
-                        <h3>Họ tên</h3>
-                        <p>La chu</p>
+                        <h3>Tên hãng xe</h3>
+                        <p>Là chữ và số, tối đa 50 ký tự</p>
                         <div class="form-group">
                             <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" />
                         </div>

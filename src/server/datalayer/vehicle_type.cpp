@@ -5,7 +5,7 @@ VehicleType::VehicleType() {
     id = "";
 }
 
-VehicleType::VehicleType(std::string _name, std::string _id) {
+VehicleType::VehicleType(std::string _id, std::string _name) {
     name = _name;
     id = _id;
 }
