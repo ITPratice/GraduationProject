@@ -6,6 +6,4 @@ package self.yue.vehicletracker.base;
 
 public interface ShowableContent {
     void showToast(String message);
-
-    void showSnackbar(String message);
 }

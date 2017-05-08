@@ -1,6 +1,14 @@
 [
     {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\menu\\bottom_bar.xml",
-        "source": "F:\\git\\GraduationProject\\VehicleTracker\\app\\src\\main\\res\\menu\\bottom_bar.xml"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_default.xml",
+        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\menu\\menu_default.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\menu\\bottom_bar.xml",
+        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\menu\\bottom_bar.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\menu\\menu_main.xml"
     }
 ]

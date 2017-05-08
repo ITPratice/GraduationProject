@@ -17,6 +17,7 @@ import self.yue.vehicletracker.util.CommonConstants;
 public abstract class BasePage extends Fragment {
     protected int page;
     protected String title;
+    protected String licensePlate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public abstract class BasePage extends Fragment {
         if (data != null) {
             page = data.getInt(CommonConstants.PAGE, 0);
             title = data.getString(CommonConstants.TITLE, "");
-            Log.e("BasePage", title);
         }
     }
 
@@ -35,5 +35,18 @@ public abstract class BasePage extends Fragment {
         return inflater.inflate(getLayoutResId(), container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
     protected abstract int getLayoutResId();
+
+    public BaseFragmentActivity getBaseFragmentActivity() {
+        return (BaseFragmentActivity) getActivity();
+    }
+
+    public void onLicensePlateChange(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
 }

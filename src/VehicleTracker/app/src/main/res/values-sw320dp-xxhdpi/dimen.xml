@@ -2,4 +2,6 @@
 <resources>
     <!--More Fragment-->
     <dimen name="more_fragment_item_height">43dp</dimen>
+
+    <dimen name="default_dialog_width">300dp</dimen>
 </resources>

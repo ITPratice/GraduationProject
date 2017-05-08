@@ -1,46 +1,46 @@
 [
     {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_spinner.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_spinner.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_edittext.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\design_tint_password_toggle.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\f9103528f74887d18ba9a6f783eaa3bdaaca57dd\\output\\res\\color-v23\\design_tint_password_toggle.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_track.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_switch_track.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_borderless_text_material.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_color_highlight_material.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_default.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_default.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_thumb.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_switch_thumb.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_text_material.xml",
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_text_material.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_btn_colored_text_material.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_seek_thumb.xml",
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\f9103528f74887d18ba9a6f783eaa3bdaaca57dd\\output\\res\\color-v23\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_seek_thumb.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_default.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\07f8a1abd9699b743941f616a3499083f8d8cf68\\output\\res\\color-v23\\abc_tint_default.xml"
     }
 ]

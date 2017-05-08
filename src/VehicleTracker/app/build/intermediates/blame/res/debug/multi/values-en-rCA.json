@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
+        "outputFile": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 154
                 },
                 "from": {
-                    "file": "C:\\Users\\dongc\\.android\\build-cache\\2f9ce0473792b50fc8e72c377a422923b7bda264\\output\\res\\values-en-rCA\\values.xml",
+                    "file": "C:\\Users\\dongc\\.android\\build-cache\\e2a3fc17c1503e6a71debb10bc18e9c13fc05343\\output\\res\\values-en-rCA\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 0,

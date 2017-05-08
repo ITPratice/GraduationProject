@@ -2,10 +2,12 @@
 <resources>
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00695c</color>
-    <color name="colorAccent">#fff154</color>
+    <color name="colorAccent">#03e190</color>
 
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+
+    <color name="default_background_dark_color">#747474</color>
 
     <color name="default_background_color">#e0f2f1</color>
     <color name="default_button_highlight_color">#32000000</color>
@@ -18,4 +20,10 @@
     <!--More Fragment-->
     <color name="more_actions_background_color">#421e1e1e</color>
     <color name="logout_color">#DE3131</color>
+
+    <color name="item_history_normal_color">#292929</color>
+    <color name="cancel_color">#DE3131</color>
+    <color name="text_state_color">#606060</color>
+
+    <color name="switch_activated_color">#01be33</color>
 </resources>

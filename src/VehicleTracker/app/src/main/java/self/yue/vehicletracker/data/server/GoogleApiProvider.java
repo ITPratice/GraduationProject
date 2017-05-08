@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import self.yue.vehicletracker.data.local.google.GoogleServerResponse;
 import self.yue.vehicletracker.data.local.google.Route;
-import self.yue.vehicletracker.util.OnServerResponseListener;
+import self.yue.vehicletracker.util.interfaces.OnServerResponseListener;
 
 /**
  * Created by dongc on 4/20/2017.

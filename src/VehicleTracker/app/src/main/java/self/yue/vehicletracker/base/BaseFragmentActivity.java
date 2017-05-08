@@ -2,6 +2,7 @@ package self.yue.vehicletracker.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 
 import self.yue.vehicletracker.R;
@@ -20,6 +21,8 @@ public abstract class BaseFragmentActivity extends BaseActivity {
         // Setup toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
 
         // Add fragment
         getFragmentManager().beginTransaction().add(R.id.fragment_container, getFirstFragment()).commit();
@@ -34,5 +37,9 @@ public abstract class BaseFragmentActivity extends BaseActivity {
 
     public BaseFragment getCurrentFragment() {
         return (BaseFragment) getFragmentManager().findFragmentById(R.id.fragment_container);
+    }
+
+    public Toolbar getToolbar() {
+        return mToolbar;
     }
 }

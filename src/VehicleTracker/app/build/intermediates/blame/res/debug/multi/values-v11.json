@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
+        "outputFile": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
         "map": [
             {
                 "to": {
@@ -504,7 +504,7 @@
                     "endOffset": 14198
                 },
                 "from": {
-                    "file": "C:\\Users\\dongc\\.android\\build-cache\\c56a0ce3dbcfeb7e3496420d65c1c63b610961d2\\output\\res\\values-v11\\values.xml",
+                    "file": "C:\\Users\\dongc\\.android\\build-cache\\aa27ce50c9d8b5a0a28b166dcc00201bbe377386\\output\\res\\values-v11\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 0,

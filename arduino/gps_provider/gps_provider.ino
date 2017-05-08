@@ -10,7 +10,7 @@
 #define INDEX_GPS_LATITUDE 3
 #define INDEX_GPS_LONGITUDE 4
 
-#define NUMBER_PLATE "29f111023"
+#define LICENSE_PLATE "29F1-11023"
 
 typedef struct {
   bool state;
@@ -24,8 +24,6 @@ typedef struct {
 } DateTime;
 
 int powerKey = 9;
-int led = 2;
-int button = 11;
 
 unsigned long time1 = 0;
 unsigned long time2 = 0;
@@ -44,8 +42,6 @@ DateTime dateTime = {"", ""};
 
 void setup() {
   pinMode(powerKey, OUTPUT);
-  pinMode(led, OUTPUT);
-  pinMode(button, INPUT);
 
   Serial.begin(9600);
   powerOn();
@@ -60,12 +56,9 @@ void setup() {
 }
 
 void loop() {
-  checkButtonState();
-
   if (isGpsAvailable) {
     // Get gps information
     if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 5000) != SUCCESS) {
-      checkButtonState();
       return;
     }
     getGpsInfo(&gpsInfo, response);
@@ -74,33 +67,28 @@ void loop() {
 
     // If gps is not available then return
     if (!isGpsAvailable) {
-      delayAndCheckButtonState(10000);
+      delay(10000);
       return;
     }
-
-    //    // If gps is available, begin sending data process
-    //    openGprs();
 
     while (!isGprsAvailable()) {
       openGprs();
     }
 
-    sendData("1");
+    sendData();
   } else {
     if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 5000) != SUCCESS) {
-      delayAndCheckButtonState(10000);
+      delay(10000);
       return;
     }
 
     getGpsInfo(&gpsInfo, response);
     isGpsAvailable = gpsInfo.state;
     if (!isGpsAvailable) {
-      delayAndCheckButtonState(10000);
+      delay(10000);
       return;
     }
   }
-
-  delayAndCheckButtonState(30000);
 }
 
 void powerOn() {
@@ -147,16 +135,16 @@ void openGprs() {
   }
 
   while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"", "OK", "ERROR", 1000) != SUCCESS) {
-    delayAndCheckButtonState(1000);
+    delay(1000);
   }
-  delayAndCheckButtonState(3000);
+  delay(3000);
 
   // Set APN
   while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"APN\",\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
-  delayAndCheckButtonState(4000);
+  delay(4000);
 
   while (sendATCommandWithoutResponse("AT+SAPBR=1,1", "OK", "ERROR", 30000) != SUCCESS);
-  delayAndCheckButtonState(2000);
+  delay(2000);
 }
 
 bool isGprsAvailable() {
@@ -164,22 +152,26 @@ bool isGprsAvailable() {
   return !(response.indexOf("0.0.0.0") >= 0);
 }
 
-void sendData(String data) {
+void sendData() {
   getCurrentDateTime(&dateTime);
-  delayAndCheckButtonState(10000);
+  delay(10000);
 
   while (!isGprsAvailable()) {
     openGprs();
   }
 
-  if (isMoving && startTime == "")
-    startTime = dateTime.currentTime;
+  if (isMoving) {
+    if (startTime == "")
+      startTime = dateTime.currentTime;
+  } else {
+    startTime = "";
+  }
 
   sendATCommandWithoutResponse("AT+HTTPINIT", "OK", "ERROR", 10000);
 
   String command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "arduino/location?";
 
-  command += "lat=" + gpsInfo.latitude + "&lon=" + gpsInfo.longitude + "&plate=" + NUMBER_PLATE;
+  command += "lat=" + gpsInfo.latitude + "&lon=" + gpsInfo.longitude + "&plate=" + LICENSE_PLATE;
 
   if (dateTime.currentDate.length() == 0) {
     command += "&date=\"\"";
@@ -194,11 +186,11 @@ void sendData(String data) {
 
   sendATCommandWithoutResponse(command, "OK", "ERROR", 10000);
 
-  delayAndCheckButtonState(1000);
+  delay(1000);
   // Set http action. Type: 0=GET, 1=POST, 2=HEAD
   sendATCommandWithoutResponse("AT+HTTPACTION=0", "OK", "ERROR", 1000);
 
-  delayAndCheckButtonState(10000);
+  delay(10000);
 
   // Read data
   sendATCommandWithoutResponse("AT+HTTPREAD", "SUCCESS", "ERROR", 2000);
@@ -247,15 +239,15 @@ void getCurrentDateTime(DateTime *dateTime) {
 
     String command;
 
-    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "time\"";
+    command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "time?plate=" + LICENSE_PLATE + "\"";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 5000);
 
-    delayAndCheckButtonState(1000);
+    delay(1000);
 
     command = "AT+HTTPACTION=0";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 1000);
 
-    delayAndCheckButtonState(10000);
+    delay(10000);
 
     sendATCommandWithResponse("AT+HTTPREAD", &response, "OK", "OK", 5000);
 
@@ -285,34 +277,12 @@ void getCurrentDateTime(DateTime *dateTime) {
       split(tmp, info, ' ');
       dateTime->currentDate = info[0];
       dateTime->currentTime = info[1];
+      isMoving = info[2] == "1";
     }
 
-    delayAndCheckButtonState(2000);
+    delay(1000);
 
     sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 5000);
-  }
-}
-
-void delayAndCheckButtonState(int delayTime) {
-  time3 = millis();
-  while (millis() - time3 < delayTime) {
-    checkButtonState();
-  }
-}
-
-void checkButtonState() {
-  if (digitalRead(button) == HIGH) {
-    if (millis() - time1 >= 1000) {
-      if (isMoving) {
-        isMoving = false;
-        startTime = "";
-        digitalWrite(led, LOW);
-      } else {
-        isMoving = true;
-        digitalWrite(led, HIGH);
-      }
-      time1 = millis();
-    }
   }
 }
 

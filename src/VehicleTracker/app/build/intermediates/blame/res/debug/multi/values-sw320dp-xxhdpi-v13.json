@@ -1,17 +1,36 @@
 [
     {
-        "outputFile": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw320dp-xxhdpi-v13\\values-sw320dp-xxhdpi-v13.xml",
+        "outputFile": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw320dp-xxhdpi-v13\\values-sw320dp-xxhdpi-v13.xml",
         "map": [
             {
                 "to": {
                     "startLine": 2,
                     "startColumn": 4,
                     "startOffset": 55,
-                    "endColumn": 56,
-                    "endOffset": 107
+                    "endColumn": 52,
+                    "endOffset": 103
                 },
                 "from": {
-                    "file": "F:\\git\\GraduationProject\\VehicleTracker\\app\\src\\main\\res\\values-sw320dp-xxhdpi\\dimen.xml",
+                    "file": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\values-sw320dp-xxhdpi\\dimen.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 143,
+                        "endColumn": 52,
+                        "endOffset": 191
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 108,
+                    "endColumn": 56,
+                    "endOffset": 160
+                },
+                "from": {
+                    "file": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\values-sw320dp-xxhdpi\\dimen.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,

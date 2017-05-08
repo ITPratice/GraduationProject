@@ -1,10 +1,10 @@
 [
     {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\f9103528f74887d18ba9a6f783eaa3bdaaca57dd\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\f9103528f74887d18ba9a6f783eaa3bdaaca57dd\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\f9103528f74887d18ba9a6f783eaa3bdaaca57dd\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\f9103528f74887d18ba9a6f783eaa3bdaaca57dd\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
     }
 ]
