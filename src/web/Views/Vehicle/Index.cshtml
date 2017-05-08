@@ -1,0 +1,110 @@
+﻿@using VehicleTracker.Models
+@using System.Net.Http
+@using VehicleTracker.ViewModel
+@model List<Vehicle>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dashboard-con">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="admin-content-con clearfix">
+                <header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>Danh sách các xe đã đăng ký</h5>
+                        </div>
+                        <div class="col-md-offset-4 col-md-4">
+                            <a class="btn btn-primary pull-right" href="@Url.Action("Insert")" role="button">Đăng ký xe mới</a>
+                        </div>
+                    </div>
+                </header>
+
+                <table class="table table-bordered" style="font-size: 15px;">
+                    <thead>
+                        <tr>
+                            <th>Biển số xe</th>
+                            <th>Hãng xe</th>
+                            <th>Mã thiết bị</th>
+                            <th>Loại xe</th>
+                            <th>Mô tả</th>
+                            <th>Email chủ xe</th>
+                            <th><center>Xóa?</center></th>
+                            <th><center>Trạng thái</center></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            foreach (var vehicle in Model)
+                            {
+                                <tr>
+                                    <td>@vehicle.NumberPlate</td>
+                                    <td>
+                                        @{
+                                            using (var client = new HttpClient())
+                                            {
+                                                Branch _branch = await BranchVM.GetBranchByIdAsync(client, vehicle.BranchId);
+                                                <span>@_branch.Name</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td>@vehicle.HardwareId</td>
+                                    <td>
+                                        @{
+                                            using (var client = new HttpClient())
+                                            {
+                                                VehicleType _type = await VehicleTypeVM.GetVehicleTypeByIdAsync(client, vehicle.TypeId);
+                                                <span>@_type.Name</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td>@vehicle.Description</td>
+                                    <td>@vehicle.UserEmail</td>
+                                    <td>
+                                        @{
+                                            switch (vehicle.Deleted)
+                                            {
+                                                case 0:
+                                                    <center><span class="btn btn-xs btn-success">active</span></center>
+                                                    break;
+                                                case 1:
+                                                    <center><span class="btn btn-xs btn-default">deleted</span></center>
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            switch (vehicle.WriteHistory)
+                                            {
+                                                case 0:
+                                                    <center><span class="btn btn-xs btn-danger">running</span></center>
+                                                    break;
+                                                case 1:
+                                                    <center><span class="btn btn-xs btn-info">not run</span></center>
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "Vehicle", new { numberPlate = vehicle.NumberPlate })" role="button">Edit</a>
+                                            <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

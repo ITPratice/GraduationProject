@@ -1,7 +1,6 @@
 ﻿@using VehicleTracker.Models
 @model Branch
 @{
-    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -20,7 +19,7 @@
                         <h3>Email</h3>
                         <p>Là chữ và số</p>
                         <div class="form-group">
-                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" value="@Model.Id">
+                            <input type="text" id="Id" name="Id" class="form-control" title="" disabled placeholder="Id" value="@Model.Id">
                         </div>
                     </div>
                     <div class="edit-row">

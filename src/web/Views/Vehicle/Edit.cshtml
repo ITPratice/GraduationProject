@@ -1,0 +1,149 @@
+﻿@using VehicleTracker.Models
+@using System.Net.Http
+@using VehicleTracker.ViewModel
+@model Vehicle
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <header class="clearfix">
+        <h2 class="page-title">
+            Sửa thông tin xe đăng kí
+        </h2>
+    </header>
+    <div class="content-inner">
+        <div class="row">
+            <div class="col-md-8">
+                @using (Html.BeginForm())
+                {
+                    @Html.HiddenFor(model => model.WriteHistory)
+                    <div class="edit-row">
+                        <h3>Biển số xe</h3>
+                        <p>Là chữ và số, tối đa 20 ký tự</p>
+                        <div class="form-group">
+                            <input type="text" id="NumberPlate" name="NumberPlate" class="form-control" title="" disabled placeholder="Id" value="@Model.NumberPlate">
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <h3>Hãng xe</h3>
+                        <p>Lựa chọn hãng xe</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @{
+                                        List<SelectListItem> lstItems = new List<SelectListItem>();
+                                        using (var client = new HttpClient())
+                                        {
+                                            IList<Branch> _branchs = await BranchVM.GetAllBranchAsync(client);
+                                            foreach(var branch in _branchs)
+                                            {
+                                                if(Model.BranchId == branch.Id)
+                                                {
+                                                    lstItems.Add(new SelectListItem
+                                                    {
+                                                        Text = branch.Name,
+                                                        Value = branch.Id,
+                                                        Selected = true
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    lstItems.Add(new SelectListItem
+                                                    {
+                                                        Text = branch.Name,
+                                                        Value = branch.Id
+                                                    });
+                                                }
+                                            }
+                                        }
+                                        @Html.DropDownListFor(model => model.BranchId, lstItems, new { @class = "form-control" })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="edit-row">
+                        <h3>Mã thiết bị</h3>
+                        <p>Là chữ và số, tối đa 10 ký tự</p>
+                        <div class="form-group">
+                            <input type="text" id="HardwareId" name="HardwareId" class="form-control" title="" placeholder="Id" value="@Model.HardwareId">
+                        </div>
+                    </div>
+
+                    <div class="edit-row">
+                        <h3>Mô tả</h3>
+                        <p>Là chữ và số, tối đa 200 ký tự</p>
+                        <div class="form-group">
+                            <input type="text" id="Description" name="Description" class="form-control" title="" placeholder="Id" value="@Model.Description">
+                        </div>
+                    </div>
+
+                    <div class="edit-row">
+                        <div class="edit-row">
+                            <h3>Loại xe</h3>
+                            <p>Lựa chọn loại xe</p>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @{
+                                            List<SelectListItem> lstItemsType = new List<SelectListItem>();
+                                            using (var client = new HttpClient())
+                                            {
+                                                IList<VehicleType> _types = await VehicleTypeVM.GetAllVehicleTypeAsync(client);
+                                                foreach(var type in _types)
+                                                {
+                                                    if(Model.TypeId == type.Id)
+                                                    {
+                                                        lstItemsType.Add(new SelectListItem
+                                                        {
+                                                            Text = type.Name,
+                                                            Value = type.Id,
+                                                            Selected = true
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        lstItemsType.Add(new SelectListItem
+                                                        {
+                                                            Text = type.Name,
+                                                            Value = type.Id
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                            @Html.DropDownListFor(model => model.TypeId, lstItemsType, new { @class = "form-control" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="edit-row">
+                        <h3>Email người dùng</h3>
+                        <p>Là chữ và số, tối đa 80 ký tự</p>
+                        <div class="form-group">
+                            <input type="text" id="UserEmail" name="UserEmail" class="form-control" title="" placeholder="Id" value="@Model.UserEmail">
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <h3>Xóa?</h3>
+                        <p>Chọn 1 nếu muốn xóa</p>
+                        <div class="form-group">
+                            <input type="number" id="Deleted" name="Deleted" class="form-control small-input" value="@Model.Deleted" min="0" max="1" step="1" required="required">
+                        </div>
+                    </div>
+                    <div class="edit-row">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Lưu thông tin" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
