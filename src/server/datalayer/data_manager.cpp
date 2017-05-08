@@ -205,13 +205,14 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
         // int ctotal = sqlite3_column_count(statement);
         int res;
-        while(true) {
+        while (true) {
             res = sqlite3_step(statement);
             if (res == SQLITE_ROW) {
                 break;
             } 
             return DATA_ERROR_SELECT_DB;
         }
+        sqlite3_finalize(statement);
     } else {
         return DATA_ERROR_SELECT_DB;
     }
@@ -241,6 +242,7 @@ ResponseCode DataManager::LoginAdmin(std::string email, std::string password) {
             } 
             return DATA_ERROR_SELECT_DB;
         }
+        sqlite3_finalize(statement);
     } else {
         return DATA_ERROR_SELECT_DB;
     }
