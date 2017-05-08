@@ -39,7 +39,7 @@ void VehiclePlateByUserHandler::handle_get(http_request request) {
 
     for(auto _plate : lstPlate) {
         json::value json;
-        json["Plate"] = json::value::string(_plate);
+        json["NumberPlate"] = json::value::string(_plate);
         vPlate.push_back(json);
     }
 
