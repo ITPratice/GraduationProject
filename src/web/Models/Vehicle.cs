@@ -14,6 +14,7 @@ namespace VehicleTracker.Models
         private String typeId;
         private String userEmail;
         private int deleted;
+        private int writeHistory;
 
         public string NumberPlate { get => numberPlate; set => numberPlate = value; }
         public string BranchId { get => branchId; set => branchId = value; }
@@ -22,5 +23,6 @@ namespace VehicleTracker.Models
         public string TypeId { get => typeId; set => typeId = value; }
         public string UserEmail { get => userEmail; set => userEmail = value; }
         public int Deleted { get => deleted; set => deleted = value; }
+        public int WriteHistory { get => writeHistory; set => writeHistory = value; }
     }
 }

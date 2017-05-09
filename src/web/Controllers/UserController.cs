@@ -15,45 +15,96 @@ namespace VehicleTracker.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            return View(await UserVM.GetAllUser());
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    return View(await UserVM.GetAllUserAsync(client));
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(string email)
         {
-            return View(await UserVM.GetUserByEmail(email));
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    return View(await UserVM.GetUserByEmailAsync(client, email));
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([Bind("Address", "Email", "FullName", "PassWord", "PhoneNumber", "UserName", "Role")] User user)
+        public async Task<IActionResult> Edit(User user)
         {
-            String strResult = await UserVM.UpdateUser(user);
-            if (strResult.Equals("\"OK\""))
+            using (var client = new HttpClient())
             {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return (BadRequest("Fail"));
+                try
+                {
+                    String strResult = await UserVM.UpdateUserAsync(client, user);
+                    if (strResult.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                    }
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
             }
         }
 
         public async Task<IActionResult> Active()
         {
-            return View(await UserVM.GetAllUserActive());
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    return View(await UserVM.GetAllUserActiveAsync(client));
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
         }
 
         public async Task<IActionResult> Test(String email)
         {
-            String _result = await UserVM.ActiveUserAsync(email);
-            if(_result.Equals("1"))
+            using (var client = new HttpClient())
             {
-                return RedirectToAction("Active", "User");
+                try
+                {
+                    String _result = await UserVM.ActiveUserAsync(client, email);
+                    if (_result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("Active", "User");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                    }
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
             }
-            else
-            {
-                return (BadRequest("Fail"));
-            }
+                
         }
     }
 }
