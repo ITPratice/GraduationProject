@@ -12,6 +12,8 @@
 
 #define LICENSE_PLATE "29F1-11023"
 
+#define DEBUG false
+
 typedef struct {
   bool state;
   String latitude;
@@ -113,9 +115,9 @@ check_module:
 
 void initGps() {
   // open gps
-  while (sendATCommandWithoutResponse("AT+CGNSPWR=1", "OK", "OK", 1000) != SUCCESS);
-  delay(5000);
 try_gps:
+  while (sendATCommandWithoutResponse("AT+CGNSPWR=1", "OK", "OK", 2000) != SUCCESS);
+  delay(2000);
   if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 2000) != SUCCESS) {
     delay(20000);
     goto try_gps;
@@ -249,7 +251,7 @@ void getCurrentDateTime(DateTime *dateTime) {
 
     delay(10000);
 
-    sendATCommandWithResponse("AT+HTTPREAD", &response, "OK", "OK", 5000);
+    sendATCommandWithResponse("AT+HTTPREAD", &response, "OK", "OK", 10000);
 
     String tmp = "";
     int count = 0;
@@ -313,7 +315,8 @@ int8_t sendATCommandWithoutResponse(String atCommand, String successExpectedResp
     }
   } while ((answer == NO_RESPONSE) && ((millis() - previousTime) < timeout));
 
-  Serial.println(response);
+  if (DEBUG)
+    Serial.println(response);
   return answer;
 }
 
@@ -343,8 +346,9 @@ int8_t sendATCommandWithResponse(String atCommand, String *response, String succ
       }
     }
   } while ((answer == NO_RESPONSE) && ((millis() - previousTime) < timeout));
-
-  Serial.println(*response);
+  
+  if (DEBUG)
+    Serial.println(*response);
   return answer;
 }
 

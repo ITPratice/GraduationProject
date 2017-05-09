@@ -84,11 +84,6 @@ public class HomeFragment extends BasePage {
     @Override
     public void onResume() {
         super.onResume();
-        // Start update vehicle location service
-        Intent intent = new Intent(getActivity(), VehicleLocationUpdateService.class);
-        intent.setAction(CommonConstants.ACTION_UPDATE_VEHICLE_LOCATION);
-        getActivity().startService(intent);
-
         // Register vehicle location receiver
         getActivity().registerReceiver(mVehicleReceiver,
                 new IntentFilter(CommonConstants.ACTION_RECEIVE_VEHICLE_LOCATION));
@@ -137,7 +132,7 @@ public class HomeFragment extends BasePage {
             @Override
             public void onClick(View v) {
                 String origin = mMapFragment.getCurrentLocation().latitude + "," + mMapFragment.getCurrentLocation().longitude;
-                String destination = "21.048647,105.784634";
+                String destination = mCurrentVehicleLocation.latitude + "," + mCurrentVehicleLocation.longitude;
                 GoogleApiProvider.getInstance().getDirection(origin, destination,
                         getString(R.string.server_api_key), new OnServerResponseListener<Route>() {
                             @Override

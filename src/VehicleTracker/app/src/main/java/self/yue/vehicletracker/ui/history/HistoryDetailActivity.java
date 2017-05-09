@@ -1,6 +1,9 @@
 package self.yue.vehicletracker.ui.history;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -11,11 +14,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import self.yue.vehicletracker.R;
 import self.yue.vehicletracker.base.BaseActivity;
-import self.yue.vehicletracker.data.local.ServerHistory;
+import self.yue.vehicletracker.data.local.History;
 import self.yue.vehicletracker.data.local.google.Route;
 import self.yue.vehicletracker.data.server.GoogleApiProvider;
 import self.yue.vehicletracker.ui.map.MapFragment;
@@ -40,8 +47,10 @@ public class HistoryDetailActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    private Geocoder mGeocoder;
+
     private MapFragment mMapFragment;
-    private ServerHistory mServerHistory;
+    private History mHistory;
 
     private String mDate;
     private String mLicensePlate;
@@ -62,6 +71,10 @@ public class HistoryDetailActivity extends BaseActivity {
         setupToolbar();
 
         showPath();
+
+        mGeocoder = new Geocoder(this, Locale.getDefault());
+        getLocationAddress(21.087058, 105.804273, true);
+        getLocationAddress(21.048165, 105.786281, false);
     }
 
     @Override
@@ -77,7 +90,7 @@ public class HistoryDetailActivity extends BaseActivity {
         if (intent != null) {
             Bundle data = intent.getBundleExtra(CommonConstants.EXTRA_BUNDLE);
             if (data != null) {
-                mServerHistory = data.getParcelable(CommonConstants.BUNDLE_HISTORY);
+                mHistory = data.getParcelable(CommonConstants.BUNDLE_HISTORY);
                 mDate = data.getString(CommonConstants.BUNDLE_DATE);
                 mLicensePlate = data.getString(CommonConstants.BUNDLE_LICENSE_PLATE);
             }
@@ -91,13 +104,13 @@ public class HistoryDetailActivity extends BaseActivity {
         mTextEndLocation.setSelected(true);
         mTextEndLocation.setHorizontallyScrolling(true);
 
-        mTextStartTime.setText(TextUtils.isEmpty(mServerHistory.startTime) ?
+        mTextStartTime.setText(TextUtils.isEmpty(mHistory.startTime) ?
                 getString(R.string.unknown) :
-                mServerHistory.startTime);
+                mHistory.startTime);
 
-        mTextEndTime.setText(TextUtils.isEmpty(mServerHistory.endTime) ?
+        mTextEndTime.setText(TextUtils.isEmpty(mHistory.endTime) ?
                 getString(R.string.unknown) :
-                mServerHistory.endTime);
+                mHistory.endTime);
 
         mTextDate.setText(mDate);
     }
@@ -137,5 +150,43 @@ public class HistoryDetailActivity extends BaseActivity {
                     public void onFail(Throwable t) {
                     }
                 });
+    }
+
+    private void getLocationAddress(double latitude, double longitude, final boolean isStartLocation) {
+        new AsyncTask<LatLng, Void, Address>() {
+
+            @Override
+            protected Address doInBackground(LatLng... params) {
+                try {
+                    List<Address> addresses = mGeocoder
+                            .getFromLocation(params[0].latitude, params[0].longitude, 1);
+                    if (addresses != null && addresses.size() > 0)
+                        return addresses.get(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Address address) {
+                if (address != null) {
+                    String addressText = String.format("%s",
+                            address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) :
+                                    getString(R.string.unknown_location));
+                    if (isStartLocation) {
+                        mTextStartLocation.setText(addressText);
+                    } else {
+                        mTextEndLocation.setText(addressText);
+                    }
+                } else {
+                    if (isStartLocation) {
+                        mTextStartLocation.setText("Unknown location");
+                    } else {
+                        mTextEndLocation.setText("Unknown location");
+                    }
+                }
+            }
+        }.execute(new LatLng(latitude, longitude));
     }
 }

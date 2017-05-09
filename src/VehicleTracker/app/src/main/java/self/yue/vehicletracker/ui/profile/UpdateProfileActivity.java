@@ -9,10 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import self.yue.vehicletracker.R;
 import self.yue.vehicletracker.base.BaseActivity;
 import self.yue.vehicletracker.base.ShowableContent;
@@ -43,6 +47,8 @@ public class UpdateProfileActivity extends BaseActivity implements ShowableConte
     Button mButtonUpdate;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.img_avatar)
+    ImageView mImageAvatar;
 
     private User mUser;
 
@@ -85,6 +91,8 @@ public class UpdateProfileActivity extends BaseActivity implements ShowableConte
         mEditName.setText(mUser.getName());
         mEditAddress.setText(mUser.getAddress());
         mEditPhone.setText(mUser.getPhoneNumber());
+        Glide.with(this).fromResource().load(R.drawable.img_default_avatar)
+                .bitmapTransform(new CropCircleTransformation(this)).into(mImageAvatar);
 
         mButtonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -118,6 +118,7 @@ public class MainFragment extends BaseFragment {
         // Init view pager and it's adapter
         mPager = (ViewPager) rootView.findViewById(R.id.view_pager);
         mAdapter = new MainPagerAdapter(getFragmentManager());
+        mPager.setOffscreenPageLimit(0);
         mPager.setAdapter(mAdapter);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -134,13 +135,11 @@ public class MainFragment extends BaseFragment {
                         mBottomBar.setSelectedItemId(R.id.action_home);
                         getBaseFragmentActivity().getToolbar().setTitle("Home");
                         mSpinnerItem.setVisible(true);
-                        transferDataToPage();
                         break;
                     case CommonConstants.INDEX_HISTORY_PAGE:
                         mBottomBar.setSelectedItemId(R.id.action_history);
                         getBaseFragmentActivity().getToolbar().setTitle("ServerHistory");
                         mSpinnerItem.setVisible(true);
-                        transferDataToPage();
                         break;
                     case CommonConstants.INDEX_MORE_PAGE:
                         mBottomBar.setSelectedItemId(R.id.action_more);

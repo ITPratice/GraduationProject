@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +49,11 @@ public class MoreFragment extends BasePage implements ShowableContent {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mTextName.setText(CacheHelper.getInstance().getCurrentUser().getName());
     }
 
@@ -83,7 +87,8 @@ public class MoreFragment extends BasePage implements ShowableContent {
         rootView.findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
             }
         });
 
@@ -109,10 +114,10 @@ public class MoreFragment extends BasePage implements ShowableContent {
             }
         });
 
-        mSwitchWriteHistory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mSwitchWriteHistory.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mCurrentVehicle.writeHistory = isChecked ? 1 : 0;
+            public void onClick(View v) {
+                mCurrentVehicle.writeHistory = mSwitchWriteHistory.isChecked() ? 1 : 0;
                 ApiProvider.getInstance().updateVehicleState(mCurrentVehicle,
                         new OnServerResponseListener<String>() {
                             @Override

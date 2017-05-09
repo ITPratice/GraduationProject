@@ -1,6 +1,7 @@
 package self.yue.vehicletracker.ui.main.history;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +42,7 @@ public class HistoryFragment extends BasePage implements ShowableContent {
     private HistoryAdapter mAdapter;
 
     private Calendar mCalendar;
+    private ProgressDialog mProgressDialog;
 
     private DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -63,6 +65,15 @@ public class HistoryFragment extends BasePage implements ShowableContent {
         HistoryFragment fragment = new HistoryFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage(getString(R.string.please_wait));
+        mProgressDialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -98,14 +109,14 @@ public class HistoryFragment extends BasePage implements ShowableContent {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        fetchData();
+    public void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    public void onLicensePlateChange(String licensePlate) {
+        super.onLicensePlateChange(licensePlate);
+        fetchData();
     }
 
     private void initViews(View rootView) {
@@ -132,15 +143,18 @@ public class HistoryFragment extends BasePage implements ShowableContent {
     }
 
     private void fetchData() {
+        mProgressDialog.show();
         ApiProvider.getInstance().getVehicleHistory(licensePlate, mButtonDate.getText().toString(),
                 new OnServerResponseListener<List<History>>() {
                     @Override
                     public void onSuccess(List<History> data) {
+                        mProgressDialog.dismiss();
                         refreshList(data);
                     }
 
                     @Override
                     public void onFail(Throwable t) {
+                        mProgressDialog.dismiss();
                         showToast(t.getMessage());
                         showData(mHistories.size() > 0);
                     }
@@ -149,6 +163,7 @@ public class HistoryFragment extends BasePage implements ShowableContent {
 
     private void refreshList(List<History> histories) {
         if (histories != null && histories.size() > 0) {
+            showData(true);
             mHistories.clear();
             mHistories.addAll(histories);
             mAdapter.notifyDataSetChanged();

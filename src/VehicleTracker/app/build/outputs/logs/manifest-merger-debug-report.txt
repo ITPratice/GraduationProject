@@ -226,6 +226,7 @@ MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\dongc\.andr
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\dongc\.android\build-cache\3e86e5442086641cbbefed2d437c3bfad479567c\output\AndroidManifest.xml:5:5-7:41
 MERGED from [com.jakewharton:butterknife:8.5.1] C:\Users\dongc\.android\build-cache\c815354ab01130a3d1147b0f8bce9dbe8730ce15\output\AndroidManifest.xml:5:5-43
 MERGED from [com.android.support:support-compat:25.3.1] C:\Users\dongc\.android\build-cache\2f8383d5e783227fe3b35d400197760cd542c15f\output\AndroidManifest.xml:21:5-23:58
+MERGED from [jp.wasabeef:glide-transformations:2.0.2] C:\Users\dongc\.android\build-cache\30c9d54949cc97cab0ad9c779eb4584f9ec0fc99\output\AndroidManifest.xml:8:5-10:41
 MERGED from [com.android.support:cardview-v7:25.3.1] C:\Users\dongc\.android\build-cache\96c131c5ee6c3c3c0cea7905efa1b87189194941\output\AndroidManifest.xml:20:5-43
 	tools:overrideLibrary
 		ADDED from [com.android.support:support-v13:25.3.1] C:\Users\dongc\.android\build-cache\41f6915b919a44d0fbe3bf5f1ab97258b992b2b0\output\AndroidManifest.xml:23:9-52

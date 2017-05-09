@@ -201,7 +201,7 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
             mVehicleMarker.remove();
         mVehicleMarker = mMap.addMarker(new MarkerOptions().position(position).title("Your vehicle")
                 .icon(BitmapHelper.getBitmapDescriptor(getActivity(), R.drawable.ic_wheel)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(position));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
     }
 
     public LatLng getCurrentLocation() {

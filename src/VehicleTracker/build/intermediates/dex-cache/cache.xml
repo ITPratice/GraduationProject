@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_0345c8667c2b63a6a1a185d9fd9663994247b6b7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="3183850534f4b76bb4eba381baf8528b88dc8c54">
         <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_de1a6f620a8793eb84053094ac14d4db2fdfe77a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_0345c8667c2b63a6a1a185d9fd9663994247b6b7\classes.dex" />
     </item>
 
 </items>

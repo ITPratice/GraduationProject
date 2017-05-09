@@ -40,8 +40,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemHold
     public void onBindViewHolder(ItemHolder holder, int position) {
         History serverHistory = mHistories.get(position);
 
-//        holder.textStartLocation.setText(TextUtils.isEmpty(serverHistory.stat));
-
         holder.textStartTime.setText(serverHistory.startTime);
         holder.textEndTime.setText(serverHistory.endTime);
 

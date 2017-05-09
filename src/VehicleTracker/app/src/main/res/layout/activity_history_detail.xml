@@ -81,7 +81,7 @@
                     android:lines="1"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:padding="@dimen/common_size_5"
-                    android:text="Start location"/>
+                    android:text="@string/unknown_location"/>
 
                 <TextView
                     android:id="@+id/text_end_location"
@@ -95,7 +95,7 @@
                     android:lines="1"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:padding="@dimen/common_size_5"
-                    android:text="End location"/>
+                    android:text="@string/unknown_location"/>
             </LinearLayout>
 
             <LinearLayout

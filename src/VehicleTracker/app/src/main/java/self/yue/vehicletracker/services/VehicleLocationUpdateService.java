@@ -81,6 +81,10 @@ public class VehicleLocationUpdateService extends Service {
                     break;
                 case CommonConstants.ACTION_UPDATE_LICENSE_PLATE:
                     mLicensePlate = intent.getStringExtra(CommonConstants.EXTRA_LICENSE_PLATE);
+                    if (!mIsTimerRunning) {
+                        mTimer.start();
+                        mIsTimerRunning = true;
+                    }
                     break;
                 case CommonConstants.ACTION_GET_CURRENT_VEHICLE_LOCATION:
                     if (mCurrentLocation != null) {
