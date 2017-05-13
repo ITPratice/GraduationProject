@@ -1,6 +1,7 @@
 ﻿@using System.Net.Http
 @using VehicleTracker.ViewModel
 @using VehicleTracker.Models
+@model Vehicle
 @{
     Layout = null;
 }
@@ -20,7 +21,7 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Đăng kí thành viên
+                Đăng kí xe sử dụng
             </div>
             <div class="panel-body">
                 <div class="row wizard">
@@ -33,21 +34,20 @@
 
         <div class="col-lg-12 well well-content">
             <div class="row">
-                @*public string  { get => numberPlate; set => numberPlate = value; }
-                public string BranchId { get => branchId; set => branchId = value; }
-                public string  { get => hardwareId; set => hardwareId = value; }
-                public string  { get => description; set => description = value; }
-                public string TypeId { get => typeId; set => typeId = value; }
-                public string  { get => userEmail; set => userEmail = value; }
-                public int Deleted { get => deleted; set => deleted = value; }
-                public int WriteHistory { get => writeHistory; set => writeHistory = value; }*@
                 @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <label>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </label>
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Biển số xe</label>
                             <p>Bao gồm chữ và số, tối đa 20 kí tự</p>
-                            <input type="text" placeholder="Enter Vehicle Plate Here.." class="form-control" name="NumberPlate" id="NumberPlate" />
+                            @Html.TextBoxFor(model => model.NumberPlate, new { @class = "form-control", @placeholder = "Enter Vehicle Plate Here..", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.NumberPlate, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
@@ -78,16 +78,17 @@
                         <div class="form-group">
                             <label>Mã thiết bị</label>
                             <p>Bao gồm chữ và số, tối đa 10 kí tự</p>
-                            <input type="text" placeholder="Enter Hardware Id Here.." rows="3" class="form-control" name="HardwareId" id="HardwareId" />
+                            @Html.TextBoxFor(model => model.HardwareId, new { @class = "form-control", @placeholder = "Enter Hardware Id Here..", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.HardwareId, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Mô tả</label>
                             <p>Bao gồm chữ và số, tối đa 200 kí tự</p>
-                            <textarea placeholder="Enter Description Here.." rows="3" class="form-control" name="Description" id="Description"></textarea>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Enter Description Here..", @type = "text", @row = "3" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
 
-                        
                         <div class="form-group">
                             <label>Loại xe</label>
                             <p>Lựa chọn loại xe</p>
@@ -116,7 +117,8 @@
                         <div class="form-group">
                             <label>Email người dùng</label>
                             <p>Bao gồm chữ và số, tối đa 80 kí tự</p>
-                            <input type="text" placeholder="Enter User Email Here.." class="form-control" name="UserEmail" id="UserEmail" />
+                            @Html.TextBoxFor(model => model.UserEmail, new { @class = "form-control", @placeholder = "Enter User Email Here..", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "text-danger" })
                         </div>
 
                         <input type="button" class="btn btn-lg btn-info col-lg-offset-6 col-lg-2" value="Nhập lại" style="margin-right: 5px;" />

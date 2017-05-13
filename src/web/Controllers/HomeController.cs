@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using VehicleTracker.Models;
 using VehicleTracker.Helper;
 using VehicleTracker.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleTracker.Controllers
 {
@@ -18,7 +19,14 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Vehicle");
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Vehicle");
+            }
         }
 
         public IActionResult Error()
@@ -33,29 +41,34 @@ namespace VehicleTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(User user)
         {
-            user.Role = 2;
-            user.First = 1;
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                user.Role = 2;
+                user.First = 1;
+                using (var client = new HttpClient())
                 {
-                    String _result = await UserVM.RegistrationAsync(client, user);
-                    if (_result.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("RegVehicle", "Home");
+                        String _result = await UserVM.RegistrationAsync(client, user);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("RegVehicle", "Home");
+                        }
+                        else
+                        {
+                            return BadRequest(Lang.LANG_SELECT_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest(Lang.LANG_SELECT_PROBLEM);
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch(Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
         }
 
         [HttpGet]
@@ -65,29 +78,34 @@ namespace VehicleTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegVehicle(Vehicle vehicle)
         {
-            using (var client = new HttpClient())
+            if(ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    vehicle.Deleted = 0;
-                    vehicle.WriteHistory = 0;
-                    String _result = await VehicleVM.InsertVehicleAsync(client, vehicle);
-                    if (_result.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("RegVehicle", "Home");
+                        vehicle.Deleted = 0;
+                        vehicle.WriteHistory = 0;
+                        String _result = await VehicleVM.InsertVehicleAsync(client, vehicle);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("RegVehicle", "Home");
+                        }
+                        else
+                        {
+                            return BadRequest(Lang.LANG_SELECT_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest(Lang.LANG_SELECT_PROBLEM);
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch(Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
         }
     }
 }

@@ -222,12 +222,9 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
 
 ResponseCode DataManager::LoginAdmin(std::string email, std::string password) {
     std::stringstream strm;
-    strm << "SELECT * FROM USER WHERE EMAIL = '" 
-         << email 
-         << "' AND PASSWORD = '" 
-         << password 
-         << "' AND ROLE = "
-         << "1;";
+    strm << "SELECT * FROM USER WHERE EMAIL = '" << email 
+         << "' AND PASSWORD = '" << password 
+         << "' AND ROLE = 1;";
     std::string s = strm.str();
     char *str = &s[0];
     sqlite3_stmt *statement;

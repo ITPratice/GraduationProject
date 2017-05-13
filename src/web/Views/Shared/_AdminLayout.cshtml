@@ -1,4 +1,5 @@
-﻿<html>
+﻿@using Microsoft.AspNetCore.Http
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +28,7 @@
                     </li>
                     <li class="link">
                         <a href="#collapse-post-user" data-toggle="collapse" aria-controls="collapse-post">
-                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             <span class="hidden-xs hidden-sm font-16">Thành viên</span>
                         </a>
                         <ul class="collapse collapseable" id="collapse-post-user">
@@ -50,16 +51,17 @@
                     </li>
                     <li class="link">
                         <a href="#collapse-post-vehicle" data-toggle="collapse" aria-controls="collapse-post-branch">
-                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon glyphicon-plane" aria-hidden="true"></span>
                             <span class="hidden-xs hidden-sm font-16">Xe đăng kí</span>
                         </a>
                         <ul class="collapse collapseable" id="collapse-post-vehicle">
+                            <li><a href="@Url.Action("Index", "Vehicle")">Xe đăng kí</a></li>
                             <li><a href="#">Thêm mới</a></li>
                         </ul>
                     </li>
                     <li class="link">
                         <a href="#collapse-post-type" data-toggle="collapse" aria-controls="collapse-post">
-                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
                             <span class="hidden-xs hidden-sm font-16">Loại xe</span>
                         </a>
                         <ul class="collapse collapseable" id="collapse-post-type">
@@ -88,24 +90,13 @@
                         </div>
                         <div class="col-md-7">
                             <ul class="pull-right">
-                                <li id="welcome" class="hidden-xs">Welcome to Admin</li>
-                                <li class="fixed-width hidden-xs">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-                                        <span class="label label-warning">3</span>
-                                    </a>
-                                </li>
-
-                                <li class="fixed-width hidden-xs">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                        <span class="label label-message">3</span>
-                                    </a>
+                                <li id="welcome" class="hidden-xs">
+                                    <span>Xin chào</span>, <b>@Context.Session.GetString("Admin")</b>
                                 </li>
 
                                 <li>
                                     <a href="#" class="logout">
-                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> log out
+                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Đăng xuất
                                     </a>
                                 </li>
                             </ul>

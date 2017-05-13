@@ -20,7 +20,7 @@ namespace VehicleTracker.Controllers
                 {
                     return View(await VehicleVM.GetAllVehicleAsync(client));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -36,7 +36,7 @@ namespace VehicleTracker.Controllers
                 {
                     return View(await VehicleVM.GetVehicleByNumberPlateAsync(client, numberPlate));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -44,27 +44,32 @@ namespace VehicleTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Vehicle vehicle)
         {
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    String _result = await VehicleVM.UpdateVehicleAsync(client, vehicle);
-                    if (_result.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("Index");
+                        String _result = await VehicleVM.UpdateVehicleAsync(client, vehicle);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch(Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
         }
     }
 }

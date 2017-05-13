@@ -29,6 +29,12 @@ namespace VehicleTracker
         {
             // Add framework services.
             services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options=>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.CookieHttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +54,7 @@ namespace VehicleTracker
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using VehicleTracker.Helper;
+using VehicleTracker.ViewModel;
 
 namespace VehicleTracker.Controllers
 {
@@ -11,7 +12,14 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Vehicle");
+            if (HttpContext.Session.GetString("Admin") == String.Empty)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Vehicle");
+            }
         }
 
         [HttpGet]
@@ -30,12 +38,10 @@ namespace VehicleTracker.Controllers
             {
                 try
                 {
-                    client.BaseAddress = new Uri(Constants.API_BASE_URL);
-                    var res = await client.GetAsync($"api/admin/login?email={_email}&pass={_pass}");
-                    //res.EnsureSuccessStatusCode();
-                    var strResult = await res.Content.ReadAsStringAsync();
-                    if (strResult.Equals("\"SUCCESS\""))
+                    var result = await UserVM.LoginAdminAsync(client, _email, _pass);
+                    if (result.Equals("\"SUCCESS\""))
                     {
+                        HttpContext.Session.SetString("Admin", _email);
                         return RedirectToAction("Index");
                     }
                     else

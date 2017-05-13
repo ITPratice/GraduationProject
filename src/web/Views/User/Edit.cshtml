@@ -12,49 +12,56 @@
     <div class="content-inner">
         <div class="row">
             <div class="col-md-8">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm(FormMethod.Post))
                 {
-                    @Html.HiddenFor(m => m.PassWord)
+                    @Html.HiddenFor(model => model.PassWord)
+                    @Html.HiddenFor(model => model.First)
+                    @Html.AntiForgeryToken()
                     <div class="edit-row">
                         <h3>Email</h3>
                         <p>Là chữ và số</p>
                         <div class="form-group">
-                            <input type="text" id="FullName" name="FullName" class="form-control" title="" disabled value="@Model.Email">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Enter Email Here..", @value = "@Model.Email", @disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Họ tên</h3>
                         <p>Họ và tên thành viên (là chữ)</p>
                         <div class="form-group">
-                            <input type="text" id="FullName" name="FullName" class="form-control" title="" placeholder="Fullname" value="@Model.FullName">
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @placeholder = "Enter Full Name Here..", @value = "@Model.Fullname" })
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Địa chỉ</h3>
                         <p>Địa chỉ của thành viên (là số và chữ)</p>
                         <div class="form-group">
-                            <input type="text" id="Address" name="Address" class="form-control" title="" placeholder="Address" value="@Model.Address">
+                            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @row = "3", @placeholder = "Enter Address Here..", @value = "@Model.Address" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Số điện thoại</h3>
                         <p>Số điện thoại của thành viên (là số)</p>
                         <div class="form-group">
-                            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" title="" placeholder="PhoneNumber" value="@Model.PhoneNumber">
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", @placeholder = "Enter Phone Number Here..", @type = "text", @value = "@Model.PhoneNumber" })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Tên hiển thị</h3>
                         <p>Biệt danh của thành viên (là số hoặc chữ)</p>
                         <div class="form-group">
-                            <input type="text" id="UserName" class="form-control" required="required" name="UserName" placeholder="Username" value="@Model.UserName">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Enter Username Here..", @type = "text", @value = "@Model.UserName" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Role</h3>
                         <p>1 - Admin, 2 - Waiting, 3 - User, 4 - Staff, 5 - Deleted</p>
                         <div class="form-group">
-                            <input type="number" id="Role" name="Role" class="form-control small-input" value="@Model.Role" min="1" max="5" step="1" required="required">
+                            @Html.TextBoxFor(model => model.Role, new { @class = "form-control small-input", @min = "1", @max = "5", @step = "1", @type = "number", @value = "@Model.Role" })
                         </div>
                     </div>
                     <div class="edit-row">

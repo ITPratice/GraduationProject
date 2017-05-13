@@ -45,27 +45,32 @@ namespace VehicleTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(User user)
         {
-            using (var client = new HttpClient())
+            if(ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    String strResult = await UserVM.UpdateUserAsync(client, user);
-                    if (strResult.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("Index");
+                        String strResult = await UserVM.UpdateUserAsync(client, user);
+                        if (strResult.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch(Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
         }
 
         public async Task<IActionResult> Active()

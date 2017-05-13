@@ -1,6 +1,7 @@
 ﻿body {
     font-family: Montserrat;
     background-color: #f3f3f4;
+    background-image: url('../images/background.jpg');
 }
 
 p {

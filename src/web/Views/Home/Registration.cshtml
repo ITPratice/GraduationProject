@@ -1,4 +1,5 @@
-﻿
+﻿@using VehicleTracker.Models
+@model User
 @{
     Layout = null;
 }
@@ -13,6 +14,18 @@
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/registration.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/jquery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#confirm").on("keyup", function () {
+                if ($(this).val() != $("#PassWord").val()) {
+                    $("#error").html("Không chính xác");
+                } else {
+                    $("#error").html("");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -32,47 +45,60 @@
             <div class="row">
                 @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <label>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </label>
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Email</label>
                             <p>Bao gồm chữ và số, tối đa 80 kí tự</p>
-                            <input type="text" placeholder="Enter Email Here.." class="form-control" name="Email" />
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Enter Email Here..", @type = "email" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Mật khẩu</label>
                             <p>Bao gồm chữ và số, tối đa 20 kí tự</p>
-                            <input type="password" placeholder="Enter Password Here.." class="form-control" name="PassWord" />
+                            @Html.TextBoxFor(model => model.PassWord, new { @class = "form-control", @placeholder = "Enter Password Here..", @type = "password" })
+                            @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Nhập lại mật khẩu</label>
                             <p>Giống với mật khẩu đã nhập</p>
-                            <input type="password" placeholder="Enter Confirm Password Here.." class="form-control" />
+                            <input type="password" id="confirm" class="form-control" placeholder="Enter Confirm Password Here.." />
+                            <span class="field-validation-valid text-danger" id="error"></span>
                         </div>
 
                         <div class="form-group">
                             <label>Họ và tên</label>
                             <p>Bao gồm chữ, tối đa 100 kí tự</p>
-                            <input type="text" placeholder="Enter Full Name Here.." class="form-control" name="FullName" />
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @placeholder = "Enter Full Name Here..", @type = "password" })
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Tên hiển thị</label>
                             <p>Bao gồm chữ và số, tối đa 20 kí tự</p>
-                            <input type="text" placeholder="Enter Username Here.." class="form-control" name="UserName" />
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Enter Username Here..", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Địa chỉ</label>
                             <p>Bao gồm chữ và số, tối đa 100 kí tự</p>
-                            <textarea placeholder="Enter Address Here.." rows="3" class="form-control" name="Address"></textarea>
+                            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @row = "3", @placeholder = "Enter Address Here.." })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Số điện thoại</label>
                             <p>Bao gồm số, tối đa 20 kí tự</p>
-                            <input type="text" placeholder="Enter Phone Number Here.." class="form-control" name="PhoneNumber" />
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", @placeholder = "Enter Phone Number Here..", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
 
                         <input type="button" class="btn btn-lg btn-info col-lg-offset-6 col-lg-2" value="Nhập lại" style="margin-right: 5px;" />

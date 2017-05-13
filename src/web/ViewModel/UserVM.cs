@@ -85,5 +85,14 @@ namespace VehicleTracker.ViewModel
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;
         }
+
+        public static async Task<String> LoginAdminAsync(HttpClient client, String _email, String _pass)
+        {
+            client.BaseAddress = new Uri(Constants.API_BASE_URL);
+            var res = await client.GetAsync($"api/admin/login?email={_email}&pass={_pass}");
+            //res.EnsureSuccessStatusCode();
+            var strResult = await res.Content.ReadAsStringAsync();
+            return strResult;
+        }
     }
 }
