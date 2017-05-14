@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@*<script src="~/lib/bootstrap/jquery/jquery-3.2.1.min.js"></script>*@
 <div class="dashboard-con">
     <div class="row">
         <div class="col-md-12">
@@ -30,15 +30,15 @@
 
                     <tbody>
                         @{
-                            foreach (var branch in Model)
+                            foreach (var _branch in Model)
                             {
                                 <tr>
-                                    <td>@branch.Id</td>
-                                    <td>@branch.Name</td>
+                                    <td>@_branch.Id</td>
+                                    <td>@_branch.Name</td>
                                     <td>
                                         <center>
-                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "Branch", new { Id = branch.Id })" role="button">Edit</a>
-                                            <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
+                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "Branch", new { Id = _branch.Id })" role="button">Sửa</a>
+                                            <a class="btn btn-xs btn-danger" href="@Url.Action("Delete", "Branch", new { Id = _branch.Id, Name = _branch.Name })" role="button" id="delete" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
                                         </center>
                                     </td>
                                 </tr>

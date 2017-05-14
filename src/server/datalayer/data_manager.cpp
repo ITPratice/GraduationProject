@@ -324,7 +324,7 @@ ResponseCode DataManager::DeleteUser(User &user) {
 
 ResponseCode DataManager::DeActiveUser(std::string email) {
     std::stringstream strm;
-    strm << "UPDATE USER SET IS_FIRST = 5 "
+    strm << "UPDATE USER SET ROLE = 5 "
          << "WHERE EMAIL = '" << email << "';";
          
     std::string temp = strm.str();

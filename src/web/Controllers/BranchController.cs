@@ -22,7 +22,7 @@ namespace VehicleTracker.Controllers
                 }
                 catch(Exception)
                 {
-                    return BadRequest("Connection has broken");
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace VehicleTracker.Controllers
                 }
                 catch
                 {
-                    return BadRequest("Connection Has Broken");
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace VehicleTracker.Controllers
                 }
                 catch(Exception)
                 {
-                    return BadRequest("Connection Has Broken");
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
         }
@@ -80,12 +80,35 @@ namespace VehicleTracker.Controllers
                     }
                     else
                     {
-                        return BadRequest("Fail");
+                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
                     }
                 }
                 catch(Exception)
                 {
-                    return BadRequest("Connection Has Broken");
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
+        }
+
+        public async Task<IActionResult> Delete(String Id, String Name)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    String _result = await BranchVM.DeleteBranchAsync(client, Id, Name);
+                    if(_result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_DELETE_PROBLEM);
+                    }
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
         }

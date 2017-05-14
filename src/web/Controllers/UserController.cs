@@ -35,6 +35,10 @@ namespace VehicleTracker.Controllers
             {
                 try
                 {
+                    if (email.Equals(String.Empty))
+                    {
+                        return BadRequest(Lang.LANG_EMAIL_NOT_FOUND);
+                    }
                     return View(await UserVM.GetUserByEmailAsync(client, email));
                 }
                 catch(Exception)
@@ -88,6 +92,35 @@ namespace VehicleTracker.Controllers
             }
         }
 
+        public async Task<IActionResult> Delete(string email)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    if(email.Equals(String.Empty))
+                    {
+                        return BadRequest(Lang.LANG_EMAIL_NOT_FOUND);
+                    }
+                    String result = await UserVM.DeleteUserAsync(client, email);
+                    if (result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_DELETE_PROBLEM);
+                    }
+                }
+                catch(Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
+        }
+
+
+        // Just Test
         public async Task<IActionResult> Test(String email)
         {
             using (var client = new HttpClient())

@@ -94,5 +94,14 @@ namespace VehicleTracker.ViewModel
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;
         }
+
+        public static async Task<String> DeleteUserAsync(HttpClient client, string email)
+        {
+            client.BaseAddress = new Uri(Constants.API_BASE_URL);
+            var res = await client.DeleteAsync($"api/user?email={email}");
+            res.EnsureSuccessStatusCode();
+            var strResult = await res.Content.ReadAsStringAsync();
+            return strResult;
+        }
     }
 }

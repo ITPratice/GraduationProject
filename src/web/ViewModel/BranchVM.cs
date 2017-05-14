@@ -57,5 +57,14 @@ namespace VehicleTracker.ViewModel
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;
         }
+
+        public static async Task<String> DeleteBranchAsync(HttpClient client, String id, String name)
+        {
+            client.BaseAddress = new Uri(Constants.API_BASE_URL);
+            var res = await client.DeleteAsync($"api/branch?id={id}&name={name}");
+            res.EnsureSuccessStatusCode();
+            var strResult = await res.Content.ReadAsStringAsync();
+            return strResult;
+        }
     }
 }

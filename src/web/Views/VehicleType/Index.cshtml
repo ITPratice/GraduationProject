@@ -37,8 +37,8 @@
                                     <td>@vehicleType.Name</td>
                                     <td>
                                         <center>
-                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "VehicleType", new { Id = vehicleType.Id })" role="button">Edit</a>
-                                            <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
+                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "VehicleType", new { Id = vehicleType.Id })" role="button">Sửa</a>
+                                            <a class="btn btn-xs btn-danger" href="@Url.Action("Delete", "VehicleType", new { Id = vehicleType.Id, Name = vehicleType.Name })" role="button" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
                                         </center>
                                     </td>
                                 </tr>

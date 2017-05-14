@@ -80,9 +80,8 @@
                                         }
                                     </td>
                                     <td>
-                                        <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "User", new { email = user.Email })" role="button">Edit</a>
-                                        <a class="btn btn-xs btn-primary" href="@Url.Action()" role="button">View</a>
-                                        <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
+                                        <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "User", new { email = user.Email })" role="button">Sửa</a>
+                                        <a class="btn btn-xs btn-danger" href="@Url.Action("Delete", "User", new { email = user.Email })" role="button" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
                                     </td>
                                 </tr>
                             }

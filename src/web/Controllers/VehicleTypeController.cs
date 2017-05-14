@@ -96,5 +96,28 @@ namespace VehicleTracker.Controllers
                 }
             }
         }
+
+        public async Task<IActionResult> Delete(String Id, String Name)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    String _result = await VehicleTypeVM.DeleteVehicleTypeAsync(client, Id, Name);
+                    if (_result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_DELETE_PROBLEM);
+                    }
+                }
+                catch (Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
+        }
     }
 }
