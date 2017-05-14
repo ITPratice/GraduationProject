@@ -39,7 +39,7 @@ namespace VehicleTracker.Controllers
                 try
                 {
                     var result = await UserVM.LoginAdminAsync(client, _email, _pass);
-                    if (result.Equals("\"SUCCESS\""))
+                    if (result.Equals(ResultCode.DONE))
                     {
                         HttpContext.Session.SetString("Admin", _email);
                         return RedirectToAction("Index");

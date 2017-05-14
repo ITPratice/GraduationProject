@@ -553,7 +553,7 @@ ResponseCode DataManager::DeleteVehicle(Vehicle &vehicle) {
 
 ResponseCode DataManager::BanVehicle(std::string nPlate) {
     std::stringstream strm;
-    strm << "UPDATE USER SET IS_DELETED = 1 "
+    strm << "UPDATE VEHICLE SET IS_DELETED = 1 "
          << "WHERE NUMBER_PLATE = '" << nPlate << "';";
          
     std::string temp = strm.str();

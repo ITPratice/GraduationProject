@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label>Họ và tên</label>
                             <p>Bao gồm chữ, tối đa 100 kí tự</p>
-                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @placeholder = "Enter Full Name Here..", @type = "password" })
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @placeholder = "Enter Full Name Here..", @type = "text" })
                             @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                         </div>
 

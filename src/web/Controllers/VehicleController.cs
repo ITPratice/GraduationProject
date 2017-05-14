@@ -71,5 +71,28 @@ namespace VehicleTracker.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> Delete(string numberPlate)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    String _result = await VehicleVM.DeleteVehicleAsync(client, numberPlate);
+                    if (_result.Equals(ResultCode.DONE))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                    }
+                }
+                catch (Exception)
+                {
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                }
+            }
+        }
     }
 }

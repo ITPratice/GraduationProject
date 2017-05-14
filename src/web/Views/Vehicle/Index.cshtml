@@ -95,8 +95,8 @@
                                     </td>
                                     <td>
                                         <center>
-                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "Vehicle", new { numberPlate = vehicle.NumberPlate })" role="button">Edit</a>
-                                            <a class="btn btn-xs btn-danger" href="@Url.Action()" role="button">Delete</a>
+                                            <a class="btn btn-xs btn-warning" href="@Url.Action("Edit", "Vehicle", new { numberPlate = vehicle.NumberPlate })" role="button">Sửa</a>
+                                            <a class="btn btn-xs btn-danger" href="@Url.Action("Delete", "Vehicle", new { numberPlate = vehicle.NumberPlate })" role="button" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
                                         </center>
                                     </td>
                                 </tr>
