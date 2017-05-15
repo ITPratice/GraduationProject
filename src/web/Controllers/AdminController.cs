@@ -49,9 +49,9 @@ namespace VehicleTracker.Controllers
                         return RedirectToAction("Error", "Home");
                     }
                 }
-                catch (HttpRequestException ex)
+                catch (Exception)
                 {
-                    return (BadRequest($"Error getting: {ex.Message.ToString()}"));
+                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
         }

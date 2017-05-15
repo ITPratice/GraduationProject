@@ -1,7 +1,6 @@
 ﻿@using VehicleTracker.Models
 @model List<User>
 @{
-    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="dashboard-con">
@@ -15,7 +14,6 @@
                 <table class="table table-bordered" style="font-size: 15px;">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Email</th>
                             <th>Tên tài khoản</th>
                             <th>Quyền</th>
@@ -32,9 +30,6 @@
                             foreach (var user in Model)
                             {
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" name="name" value="" />
-                                    </td>
                                     <td>@user.Email</td>
                                     <td>@user.UserName</td>
                                     <td>

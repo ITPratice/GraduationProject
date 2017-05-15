@@ -202,6 +202,7 @@ ResponseCode DataManager::Login(std::string email, std::string password) {
     char *str = &s[0];
     sqlite3_stmt *statement;
     char *query = str;
+    std::cout << "Login query: " << query << std::endl;
     if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
         // int ctotal = sqlite3_column_count(statement);
         int res;
@@ -229,6 +230,8 @@ ResponseCode DataManager::LoginAdmin(std::string email, std::string password) {
     char *str = &s[0];
     sqlite3_stmt *statement;
     char *query = str;
+    std::cout << "LoginAdmin query: " << query << std::endl;
+
     if(sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
         // int ctotal = sqlite3_column_count(statement);
         int res;
@@ -762,11 +765,11 @@ ResponseCode DataManager::DeleteLocation(Location &location) {
 ResponseCode DataManager::GetUserByEmail(std::string email, User &outUser) {
     std::stringstream strm;
     strm << "SELECT * FROM USER WHERE EMAIL = '" << email << "';";
-
     std::string s = strm.str();
 	char *str = &s[0];
 	sqlite3_stmt *statement;
 	char *query = str;
+    std::cout << "GetUserByEmail query: " << query << std::endl;
 
     if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
 		int res = 0;
@@ -793,6 +796,7 @@ ResponseCode DataManager::GetUserByEmail(std::string email, User &outUser) {
 ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
     sqlite3_stmt *stmt;
     const char* query = (char *)"SELECT * FROM USER;";
+    std::cout << "GetAllUser query: " << query << std::endl;
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
         while (true) {
@@ -825,6 +829,9 @@ ResponseCode DataManager::GetAllUser(std::vector<User>& lstUser) {
 ResponseCode DataManager::GetAllUserWaiting(std::vector<User>& lstUser) {
     sqlite3_stmt *stmt;
     const char* query = (char *)"SELECT * FROM USER WHERE ROLE = 2;";
+
+    std::cout << "GetAllUserWaiting query: " << query << std::endl;
+
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
         while (true) {
@@ -863,6 +870,8 @@ ResponseCode DataManager::GetBranchById(std::string id, Branch &outBranch) {
 	sqlite3_stmt *statement;
 	char *query = str;
 
+    std::cout << "GetBranchById query: " << query << std::endl;
+
     if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
 		int res = 0;
 		res = sqlite3_step(statement);
@@ -887,6 +896,8 @@ ResponseCode DataManager::GetVehicleByNumberPlate(std::string nPlate, Vehicle &o
 	char *str = &s[0];
 	sqlite3_stmt *statement;
 	char *query = str;
+
+    std::cout << "GetVehicleByNumberPlate query: " << query << std::endl;
 
     if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
 		int res = 0;
@@ -919,6 +930,8 @@ ResponseCode DataManager::GetVehicleTypeById(std::string id, VehicleType &outVeh
 	sqlite3_stmt *statement;
 	char *query = str;
 
+    std::cout << "GetVehicleTypeById query: " << query << std::endl;
+
     if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
 		int res = 0;
 		res = sqlite3_step(statement);
@@ -946,6 +959,8 @@ ResponseCode DataManager::GetLocationByDate(std::string plate, std::string date,
 	char *str = &s[0];
 	sqlite3_stmt *stmt;
 	char *query = str;
+
+    std::cout << "GetLocationByDate query: " << query << std::endl;
     
     if (sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
@@ -983,6 +998,8 @@ ResponseCode DataManager::GetCurrentLocation(std::string nPlate, Location &outLo
 	char *str = &s[0];
 	sqlite3_stmt *stmt;
 	char *query = str;
+
+    std::cout << "GetCurrentLocation query: " << query << std::endl;
     
     if (sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
@@ -1015,6 +1032,8 @@ ResponseCode DataManager::GetVehicleNumberByUser(std::string email, std::vector<
 	sqlite3_stmt *statement;
 	char *query = str;
 
+    std::cout << "GetVehicleNumberByUser query: " << query << std::endl;
+
     if (sqlite3_prepare(db, query, -1, &statement, 0) == SQLITE_OK) {
         while (true) {
             int res = 0;
@@ -1038,6 +1057,7 @@ ResponseCode DataManager::GetVehicleNumberByUser(std::string email, std::vector<
 ResponseCode DataManager::GetAllVehicleType(std::vector<VehicleType> &lstVehicleType) {
     sqlite3_stmt *stmt;
     const char* query = (char *)"SELECT * FROM VEHICLE_TYPE;";
+    std::cout << "GetAllVehicleType query: " << query << std::endl;
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
         while (true) {
@@ -1064,6 +1084,7 @@ ResponseCode DataManager::GetAllVehicleType(std::vector<VehicleType> &lstVehicle
 ResponseCode DataManager::GetAllVehicle(std::vector<Vehicle> &lstVehicle) {
     sqlite3_stmt *stmt;
     const char* query = (char *)"SELECT * FROM VEHICLE;";
+    std::cout << "GetAllVehicle query: " << query << std::endl;
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
         while (true) {
@@ -1096,6 +1117,7 @@ ResponseCode DataManager::GetAllVehicle(std::vector<Vehicle> &lstVehicle) {
 ResponseCode DataManager::GetAllBranch(std::vector<Branch> &lstBranch) {
     sqlite3_stmt *stmt;
     const char* query = (char *)"SELECT * FROM BRANCH;";
+    std::cout << "GetAllBranch query: " << query << std::endl;
     if(sqlite3_prepare(db, query, -1, &stmt, 0) == SQLITE_OK) {
         int res = 0;
         while (true) {

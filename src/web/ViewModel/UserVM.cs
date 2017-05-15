@@ -90,7 +90,7 @@ namespace VehicleTracker.ViewModel
         {
             client.BaseAddress = new Uri(Constants.API_BASE_URL);
             var res = await client.GetAsync($"api/admin/login?email={_email}&pass={_pass}");
-            //res.EnsureSuccessStatusCode();
+            res.EnsureSuccessStatusCode();
             var strResult = await res.Content.ReadAsStringAsync();
             return strResult;
         }

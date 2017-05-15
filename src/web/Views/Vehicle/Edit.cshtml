@@ -81,41 +81,39 @@
                     </div>
 
                     <div class="edit-row">
-                        <div class="edit-row">
-                            <h3>Loại xe</h3>
-                            <p>Lựa chọn loại xe</p>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        @{
-                                            List<SelectListItem> lstItemsType = new List<SelectListItem>();
-                                            using (var client = new HttpClient())
+                        <h3>Loại xe</h3>
+                        <p>Lựa chọn loại xe</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @{
+                                        List<SelectListItem> lstItemsType = new List<SelectListItem>();
+                                        using (var client = new HttpClient())
+                                        {
+                                            IList<VehicleType> _types = await VehicleTypeVM.GetAllVehicleTypeAsync(client);
+                                            foreach (var type in _types)
                                             {
-                                                IList<VehicleType> _types = await VehicleTypeVM.GetAllVehicleTypeAsync(client);
-                                                foreach(var type in _types)
+                                                if (Model.TypeId == type.Id)
                                                 {
-                                                    if(Model.TypeId == type.Id)
+                                                    lstItemsType.Add(new SelectListItem
                                                     {
-                                                        lstItemsType.Add(new SelectListItem
-                                                        {
-                                                            Text = type.Name,
-                                                            Value = type.Id,
-                                                            Selected = true
-                                                        });
-                                                    }
-                                                    else
+                                                        Text = type.Name,
+                                                        Value = type.Id,
+                                                        Selected = true
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    lstItemsType.Add(new SelectListItem
                                                     {
-                                                        lstItemsType.Add(new SelectListItem
-                                                        {
-                                                            Text = type.Name,
-                                                            Value = type.Id
-                                                        });
-                                                    }
+                                                        Text = type.Name,
+                                                        Value = type.Id
+                                                    });
                                                 }
                                             }
-                                            @Html.DropDownListFor(model => model.TypeId, lstItemsType, new { @class = "form-control" })
                                         }
-                                    </div>
+                                        @Html.DropDownListFor(model => model.TypeId, lstItemsType, new { @class = "form-control" })
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -128,6 +126,7 @@
                             <input type="text" id="UserEmail" name="UserEmail" class="form-control" title="" placeholder="Id" value="@Model.UserEmail">
                         </div>
                     </div>
+
                     <div class="edit-row">
                         <h3>Xóa?</h3>
                         <p>Chọn 1 nếu muốn xóa</p>
@@ -135,10 +134,8 @@
                             <input type="number" id="Deleted" name="Deleted" class="form-control small-input" value="@Model.Deleted" min="0" max="1" step="1" required="required">
                         </div>
                     </div>
-                    <div class="edit-row">
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Lưu thông tin" />
-                        </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Lưu thông tin" />
                     </div>
                 }
             </div>
