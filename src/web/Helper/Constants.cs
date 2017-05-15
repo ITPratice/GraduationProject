@@ -29,13 +29,13 @@ namespace VehicleTracker.Helper
 
     public class Lang
     {
-        public static String LANG_CONNECTION_PROBLEM = "Connection has problem";
-        public static String LANG_INSERT_PROBLEM = "Insert Object Fail";
-        public static String LANG_UPDATE_PROBLEM = "Update Object Fail";
-        public static String LANG_DELETE_PROBLEM = "Delete Object Fail";
-        public static String LANG_SELECT_PROBLEM = "Select Object Fail";
+        public static String LANG_CONNECTION_PROBLEM    = "Connection has problem";
+        public static String LANG_INSERT_PROBLEM        = "Insert Object Fail";
+        public static String LANG_UPDATE_PROBLEM        = "Update Object Fail";
+        public static String LANG_DELETE_PROBLEM        = "Delete Object Fail";
+        public static String LANG_SELECT_PROBLEM        = "Select Object Fail";
 
         // 
-        public static String LANG_EMAIL_NOT_FOUND = "Email not found";
+        public static String LANG_EMAIL_NOT_FOUND   = "Email not found";
     }
 }

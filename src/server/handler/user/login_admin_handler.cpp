@@ -29,7 +29,7 @@ void LoginAdminHandler::handle_get(http_request request) {
     auto _email = uri::decode(get_vars.find("email")->second);
     auto _pass = uri::decode(get_vars.find("pass")->second);
     if(data->LoginAdmin(_email, _pass) == DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, ResultCode::DONE);
+        request.reply(status_codes::OK, ResultCode::DONE);
     } else {
         request.reply(status_codes::BadRequest, ResultCode::ERROR);
     }
