@@ -1,7 +1,6 @@
 package self.yue.vehicletracker.data.server;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -97,8 +96,12 @@ public class ApiProvider {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                if (!CommonUtil.isNetworkAvailable(mContext) && listener != null) {
-                    listener.onFail(new Throwable(mContext.getString(R.string.network_error)));
+                if (listener != null) {
+                    if (!CommonUtil.isNetworkAvailable(mContext) && listener != null) {
+                        listener.onFail(new Throwable(mContext.getString(R.string.network_error)));
+                    } else {
+                        listener.onFail(new Throwable(mContext.getString(R.string.unknown_issue)));
+                    }
                 }
             }
         });

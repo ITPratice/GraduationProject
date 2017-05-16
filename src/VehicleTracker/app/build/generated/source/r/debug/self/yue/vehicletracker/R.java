@@ -5262,11 +5262,12 @@ containing a value of this type.
         public static final int tagmanager_preview_dialog_message=0x7f080097;
         public static final int tagmanager_preview_dialog_title=0x7f080098;
         public static final int unknown=0x7f080099;
-        public static final int unknown_location=0x7f08009a;
-        public static final int update=0x7f08009b;
-        public static final int update_successfully=0x7f08009c;
+        public static final int unknown_issue=0x7f08009a;
+        public static final int unknown_location=0x7f08009b;
+        public static final int update=0x7f08009c;
+        public static final int update_successfully=0x7f08009d;
         public static final int wallet_buy_button_place_holder=0x7f080069;
-        public static final int wrong_old_pass=0x7f08009d;
+        public static final int wrong_old_pass=0x7f08009e;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f0a00a3;

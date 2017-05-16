@@ -33,6 +33,7 @@
     <string name="update_successfully">Update successfully!!!</string>
     <string name="network_error">Unavailable internet!!!</string>
     <string name="unknown">Unknown</string>
+    <string name="unknown_issue">Unknown issue</string>
 
     <string name="update">Update</string>
     <string name="unknown_location">Unknown location</string>

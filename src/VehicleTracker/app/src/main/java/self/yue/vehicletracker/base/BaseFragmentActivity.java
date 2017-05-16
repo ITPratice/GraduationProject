@@ -18,14 +18,16 @@ public abstract class BaseFragmentActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Setup toolbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        if (savedInstanceState == null) {
+            // Setup toolbar
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            mToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
 
-        // Add fragment
-        getFragmentManager().beginTransaction().add(R.id.fragment_container, getFirstFragment()).commit();
+            // Add fragment
+            getFragmentManager().beginTransaction().add(R.id.fragment_container, getFirstFragment()).commit();
+        }
     }
 
     @Override

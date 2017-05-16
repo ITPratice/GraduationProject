@@ -1007,7 +1007,7 @@
     <integer name="cancel_button_image_alpha">127</integer>
     <integer name="cast_libraries_material_featurehighlight_pulse_base_alpha">138</integer>
     <integer name="design_snackbar_text_max_lines">2</integer>
-    <integer name="google_play_services_version">10298000</integer>
+    <integer name="google_play_services_version">10240000</integer>
     <integer name="hide_password_duration">320</integer>
     <integer name="mr_controller_volume_group_list_animation_duration_ms">400</integer>
     <integer name="mr_controller_volume_group_list_fade_in_duration_ms">400</integer>
@@ -1167,6 +1167,7 @@
     <string name="tagmanager_preview_dialog_message">Preview mode updated.</string>
     <string name="tagmanager_preview_dialog_title">Preview</string>
     <string name="unknown">Unknown</string>
+    <string name="unknown_issue">Unknown issue</string>
     <string name="unknown_location">Unknown location</string>
     <string name="update">Update</string>
     <string name="update_successfully">Update successfully!!!</string>

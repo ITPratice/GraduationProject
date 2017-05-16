@@ -3,21 +3,516 @@
 
     <item
         is-multidex="true"
-        jar="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\dongc\.android\build-cache\6de16b4668b54edba60d08b31761f35251536b3f\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.2"
-        sha1="3183850534f4b76bb4eba381baf8528b88dc8c54">
-        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_de1a6f620a8793eb84053094ac14d4db2fdfe77a\classes.dex" />
+        revision="25.0.3"
+        sha1="d2d27edb6fbc12fdf28008cdff920e66f08cf159">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_747a1f4da3a186c4f3a76983581cd791834b1cc9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_287a40da47515b774583826b1b615ebcc6fe2c1e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\d133cac9fcfd5e31f00a45594971475bb02bf73b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="610ae6a6872d9718fc05e2c726758206bd367595">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_453496dfbacc6c1b73d0e77edc1299efae1ae968\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\7cff8f78375c4cb5dac09fb3e876fedb76b2e7a2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="54933c89f90a872aa342004e82b23e776fe12736">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8702a3c8864af9ddef85a856b1674263e67d3144\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\0af7834940e028f1a0dba8a94d5eb43d8f01fc87\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="29d9916bd9ad8406a53edbafbbce5e18943aa882">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ab494f0829659afd3865a9bd8f1b79e0473185cc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\cd5cf4787efbe05b90ff8ebd0c6642c1d632da7c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6c8a4af7cf76d958c76ed7682f39e4b386b69305">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a9edb38c64ca656e4daf79a976064569ec1e8ce8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\ea62a430c4cdfc61d84386a83278aa18b58da045\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5803db663655ef5cb38c6bcb17ba326fdb9edfbd">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1f07e99f5276bcda780e2e50d8d75b69c05521a8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\87b6013e6fbb6ffc65bf66b42c57d173d60d0001\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2188ba20a948ec6e7fa671b818c69d876d8bf32d">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bb0f0acdcd28791437ca84915cab6fab70f5933f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\292a0bd11809b75364944406c3a40c929b6bb925\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b50fe5288bba9d1635ba619bd3c308319205543e">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9ff6fb72c3577cbf3ca927bc6f719040be744785\classes.dex" />
     </item>
     <item
         is-multidex="true"
         jar="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        revision="25.0.3"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
         <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_0345c8667c2b63a6a1a185d9fd9663994247b6b7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\74fd76925b2449915d0b7747209fcc2655a78454\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="143e5647b772c08c9f0d807b24bbc0b05ff6c7d2">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e5fd933c67fddbf082819f05012a3c281dc4a1c0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\219913de4871b73af580180d4c59b1350824b593\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4eeba61bbc47e49a5fbdfd9aa21af5d10bf4df7c">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a178ac03f555c6fc6ffcc7a495d3a9de570e446d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\098dedadb1210c3d1b3eea255ef1f0afc4db164a\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b2b4d3ecd541814f08200f8171def113095d5f39">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_453f2d924b4a86748eaedbd6687f54ab242facca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\49ba2e1814fc1a71812ec613942fcc5f46419aeb\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d66b8668122393a15c90471c5c974c25439d193a">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_303694df2643d5f13eaff2ec1f49babf268482a8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\431b87eee92ec8b00476e5402ecffaeb47efe51f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a75030f7a3f5f96a15acdab44829bed93154d09f">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_71c97082b950bb39a0a13fa6853b7ac7e0405d19\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\0de178a3824e62dcd04ac75efb4d21850db7a83b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="93094dbb2af50e23339620bebd7b4b6161410edb">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9ce1e25720baf1dda8b16c5c3f8f0d4991683c9e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\d1e89d9598ef712eb2b925f76f0d647c59233a4c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="688809418e4c2b5014a028c02708d6aeaba466ff">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5731dd4174c2bce992f48d518363c0b855130f11\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\1250d82c60e8520d534bbb2add45d8c6c67b99ea\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="29e4e634375ab2ed25f8db5387b564c78980422a">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_05af2da6f0870c4e8bfd7d0a8dee0c79d7bdba28\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\3fdfc3e8640890f7d788aabe8f4c92e98192c954\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="19f281a785ca0eb5f6799fc7bf7ca199a9ca1e8b">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bd3f90e59cbade21a5128c8f8b71b3703ad6bd34\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_e184b134339364c80da2140b4d11dab453a98353\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\23732f4476fa7226e3dbcfc6c07dd070b46a074f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="02e70fe04e0767ccfa16745b3398816d1171f0ad">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_33d2cd56fa3d9de1fae3d54d0d941920010b73cd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\3f5e46c876db44fffe5f78281a41129027b8432a\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="fe159787dd4c4bc9ed6a9d4f7430e9af1f3516c8">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f8db15e8210d60467a191bf0001a3b0b536ddd69\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\39f4f19274f6b4ea9f21ae003a391c8cd9536618\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c76804333008c855433cad5cfd1256e86045e97b">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c9c3c17103cc80dc4063973b3ea5caf29feaecd2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\3bfed81a4f95d01b29dd1fa2bae525e51954c477\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6b8ad09b76c4ffaedf443ca54bc2418760870689">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f0bd0b6b8d9bd74d9c219087ecb22ecb8a561407\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\854805ea683f08c1b5420871c37fcad7342bfe88\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="597d0d34e15e713c486e8f4ccf739f0c7d05bde4">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d6042335a9217133f87661b39c26de43c6fe0d69\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\e2f7ac4a79c7bd0e6744f8afc60af11f38f5fea6\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2ed7ba48801a0a361727833ade3b6cf096968cc0">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8d334d815d798871b2a4adbdfcc8f52289a57ab4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\0a159b6b0d07faf83e95f2ea3738fff6d067a2c9\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="657abe17c5ba58f5d24803ba303c6005b180897a">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_afd4c4b86263c486631e50fc4983d7362478099b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\791ac209aeb601639d89062ee567370ef6936f53\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="dd1d0d84da2cff18f741c63a9c3af7d9aa89fdd6">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3394a9560d1bc120313b461ed3f256d904714e98\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\affc056f88c99f1b129f079987c22fbb1ac478c4\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="98ac18f891a8279ae57c4771cbf4a2a65f95b04c">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d045a23a7b816af1f5929da797fb97f88305ce65\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\5e86c81791507dd4429030f47705370eeff74d9c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5cba8868595f6aaff54cf7d1798591108cf5611c">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b44f3d5b5df392a02b9c65e43fa2602cea682e73\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\76d35f9dd69090d0b2af1b572c4e781eecdecb83\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d72eb1ceff1b0bac4916088eb44bb93f86b1265c">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f8cac8ab39325776d38c1910dda6118ced1cfa99\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\3a930c3f0486a088fbb1930b9de32f57774d91b5\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9ed08fab37c3a572da1d9ed2bf2e36c8d3e2bc48">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ef216d6f79b86afa13263eab67c8d0423ff637fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\705f502dfe23ef995837b1a7ae1e4493d19e4484\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0e23941db151e67886844de6586e180bb2b860ad">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a088ba0792dc5d4315c9caf78abced7e0388f787\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\50155283150117d394b55a428b7c60115fd8db0d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="80ecaefc1035fde747999e4c20e18d207363efa2">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_028ed5d64495203ea5af919c0fe097545952985e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\66ce7af7632449b7e1da8b7adb4e08594f4d77fc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6d0d5e86f5b7203834df01ed78ebfdd5cbf74d48">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_39ffe82a3c91c413b557f379649293af737976f6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\output\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_98a7c43767952e6569349e6675efe716ac9dfca1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\ec31d61bb2bcb3d533c301b1d2b011420ee731a9\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="90236fba9ac4dfb1f4196e231aab964522143ef6">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c0baf5e32279ae27ba646b989abc32c122058eb4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\f720277f22562fc66d176a8be4f680f2c32bebed\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7e0f082141b7aa90aab5d3a47ab09b0edc958f6b">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e1a8adcbc81d738e24d9eb804f906bd6847bb7a9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\6eea6e7359e2cfcdedef674e96a3fc19886a5471\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="43df709c95f6b0501b3adbc7da992b6a69a03214">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0675c9caef8130703912e0e8585a48a9b8fb883b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\9321b996fb8f6cb2a96dec3428143ce5a1364403\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c01990d0a9bbc67f4c2b9610c1170046c2e37b3e">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0ca6a7359570e2a42c0114b40f478e0f1804c354\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife-annotations\8.5.1\bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc\butterknife-annotations-8.5.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-annotations-8.5.1_b267d77064cd844dee32ee970cc092e62cb1f4c2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\588f0ff83fe8def7f10f941fc05f8bc1ba49b16e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_30d9a072836c71313e6d4fdc9b98f5f35f41d980\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\d57868d425aeb56671429a1b1bc3785daf571c75\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="88ae4c6ceaeab7beca5e396e0698c6958e26a2d2">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_cc9d5efffa2041b8571dfb9553d797b4733dab87\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\c9c8d7c5d249080eaf2b3a34941c823491194188\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="dde643ce80b967f869e9b111255815ba4d391653">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e5cced864142db3595ed7579ec1d6a5e602bcc29\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\7c71106873a87ece8a3b2ea0095ebbce70041b90\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="acc7a846f0bc56ecccda535fc919fd338b2b3e2c">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_53c418d9d6de6c8339ee256da5485190d5961cd6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\192e647806fc46c3d4ff8dbfaa081907f2d250d5\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8fdf15d202000492aefe43092b21af5332df0178">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f128630cb37a410ca153ef5683f93513632c08ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\ce487147008c4b395b1ce1a992b77a8e740689f8\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8748e15968514ff1708deb3bb7f0c17623e50bbb">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6ac833cafa9948442ea087d7ae93c7982b6e3861\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\a70cea1fb795960b7edb6d099c04c702fe062a0b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_296e03842b2f6f0c738a449bb951035cafaed2b1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\c6f384301a3ed557a7f13ba27d1017e1047f8adb\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="aa6a6e385297077a344e0bb95ab6c22f22119261">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_82535d666676fa43850fe00719d9496d6eedbc53\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\d999b655bf9599574410f5a7f2adb4d77baa563d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="287051610dd01cc6eeaed7fc689712c31ad1ff70">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a13546daa8d5d827c0c9b7830646423fe7ca60e8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="88c657e423ad9d432a777c35488594231d41a476">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_de1a6f620a8793eb84053094ac14d4db2fdfe77a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\4395a2a6a6c1f9109117738d45803a5421bbf9b7\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a9c8affe1f564ec0d063be68469d26e972455217">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_154ce64f034f8b83a6ed57248c187c4b71652389\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\85aff41ae0c25f3389afa6aa47923f6e4af6629d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6b8d1a53648f7ecfe9e7bf0baf9ca657c5a1ff91">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_dd301a46aa0622f79a109735ab37aaa49de4c18e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\8ce21666f0dce729ea08092497ed22a56fdb49ff\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="1b95f2bf44857a158b097e9f80d5d18d69f32584">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ab25f8154656d26a0beb5135e8cf9bde5ae4b70d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\caed5d293ce0e85094e0b8667e6b1d5fc1e61782\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="183e4fb7cf95f4fa54963cfcdaf0f4d7e2397bad">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_349bde9811d14bc9cbb0f500d733c8156c6f4dac\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\e0eda3da9a15e6acd022bb765b835f257f4dbb20\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="701c58abf53f488bc5bb0162f1305a38a32fb5f1">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f42244ba63e7dba505b78165eefb15bad764e88d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dongc\.android\build-cache\37f18371e628ab4304735f02e8bf189a5d0ad314\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="32aa1b2a2f68f455403d10d41d8ded37c9812f11">
+        <dex dex="F:\git\GraduationProject\src\VehicleTracker\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5193d3e4f5a303de04b8913773d1a06c0b2e0d1b\classes.dex" />
     </item>
 
 </items>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
 import self.yue.vehicletracker.data.local.User;
@@ -18,6 +20,8 @@ public class CacheHelper {
     private static final String PREF_EMAIL = "email";
     private static final String PREF_PASSWORD = "password";
     private static final String PREF_TOKEN = "token";
+    private static final String PREF_LATITUDE = "latitude";
+    private static final String PREF_LONGITUDE = "longitude";
     private static CacheHelper sInstance;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mPrefEditor;
@@ -57,6 +61,19 @@ public class CacheHelper {
         mPrefEditor = mSharedPreferences.edit();
         mPrefEditor.putString(PREF_USER, mGson.toJson(user));
         mPrefEditor.apply();
+    }
+
+    public void saveCameraPosition(CameraPosition cameraPosition) {
+        mPrefEditor = mSharedPreferences.edit();
+        mPrefEditor.putString(PREF_LATITUDE, "" + cameraPosition.target.latitude);
+        mPrefEditor.putString(PREF_LONGITUDE, "" + cameraPosition.target.longitude);
+        mPrefEditor.apply();
+    }
+
+    public LatLng getLastPosition() {
+        double latitude = Double.parseDouble(mSharedPreferences.getString(PREF_LATITUDE, "0"));
+        double longitude = Double.parseDouble(mSharedPreferences.getString(PREF_LONGITUDE, "0"));
+        return (latitude == 0 && longitude == 0) ? null : new LatLng(latitude, longitude);
     }
 
     public void saveAccount(String email, String password) {

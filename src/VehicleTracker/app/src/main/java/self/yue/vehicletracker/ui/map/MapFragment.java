@@ -25,7 +25,6 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -38,6 +37,7 @@ import java.util.List;
 import self.yue.vehicletracker.R;
 import self.yue.vehicletracker.data.local.google.Step;
 import self.yue.vehicletracker.util.BitmapHelper;
+import self.yue.vehicletracker.util.CacheHelper;
 import self.yue.vehicletracker.util.CommonConstants;
 import self.yue.vehicletracker.util.PermissionChecker;
 
@@ -59,7 +59,6 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastKnownLocation;
-    private CameraPosition mCameraPosition;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest.Builder mLocationSettingBuilder;
     private LatLng mDefaultLocation;
@@ -100,6 +99,8 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
     @Override
     public void onStop() {
         super.onStop();
+        CacheHelper.getInstance().saveCameraPosition(mMap.getCameraPosition());
+        Log.e("Map Fragment", "Ahuhu");
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
@@ -186,6 +187,8 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
             if (resultCode == Activity.RESULT_OK) {
                 updateLocationUI();
                 getDeviceLocation();
+            } else {
+                getDeviceLocation();
             }
         }
     }
@@ -270,15 +273,18 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
             mLastKnownLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         }
 
-        if (mCameraPosition != null) {
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
-        } else if (mLastKnownLocation != null) {
+        if (mLastKnownLocation != null) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()),
                     DEFAULT_ZOOM
             ));
         } else {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+            LatLng latLng = CacheHelper.getInstance().getLastPosition();
+            if (latLng == null) {
+                mMap.animateCamera(CameraUpdateFactory.zoomBy(5));
+            } else {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
+            }
         }
     }
 

@@ -5,11 +5,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 
 import self.yue.vehicletracker.R;
@@ -20,6 +26,8 @@ import self.yue.vehicletracker.services.VehicleLocationUpdateService;
 import self.yue.vehicletracker.ui.map.MapFragment;
 import self.yue.vehicletracker.util.CommonConstants;
 import self.yue.vehicletracker.util.interfaces.OnServerResponseListener;
+
+import static self.yue.vehicletracker.ui.map.MapFragment.REQUEST_CODE_GPS;
 
 /**
  * Created by dongc on 3/25/2017.
@@ -131,20 +139,38 @@ public class HomeFragment extends BasePage {
         rootView.findViewById(R.id.fab_show_road).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String origin = mMapFragment.getCurrentLocation().latitude + "," + mMapFragment.getCurrentLocation().longitude;
-                String destination = mCurrentVehicleLocation.latitude + "," + mCurrentVehicleLocation.longitude;
-                GoogleApiProvider.getInstance().getDirection(origin, destination,
-                        getString(R.string.server_api_key), new OnServerResponseListener<Route>() {
-                            @Override
-                            public void onSuccess(Route data) {
-                                mMapFragment.drawPaths(data.legs.get(0).steps);
-                            }
+                mMapFragment.askForGps(new ResultCallback<LocationSettingsResult>() {
+                    @Override
+                    public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
+                        final Status status = locationSettingsResult.getStatus();
+                        switch (status.getStatusCode()) {
+                            case LocationSettingsStatusCodes.SUCCESS:
+                                String origin = mMapFragment.getCurrentLocation().latitude + "," + mMapFragment.getCurrentLocation().longitude;
+                                String destination = mCurrentVehicleLocation.latitude + "," + mCurrentVehicleLocation.longitude;
+                                GoogleApiProvider.getInstance().getDirection(origin, destination,
+                                        getString(R.string.server_api_key), new OnServerResponseListener<Route>() {
+                                            @Override
+                                            public void onSuccess(Route data) {
+                                                mMapFragment.drawPaths(data.legs.get(0).steps);
+                                            }
 
-                            @Override
-                            public void onFail(Throwable t) {
-                                showToast(t.getMessage());
-                            }
-                        });
+                                            @Override
+                                            public void onFail(Throwable t) {
+                                                showToast(t.getMessage());
+                                            }
+                                        });
+                                break;
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                try {
+                                    status.startResolutionForResult(
+                                            getActivity(), REQUEST_CODE_GPS);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                        }
+                    }
+                });
             }
         });
     }

@@ -35,25 +35,7 @@ public class VehicleLocationUpdateService extends Service {
         mTimer = new CountDownTimer(Long.MAX_VALUE, UPDATE_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if (!TextUtils.isEmpty(mLicensePlate)) {
-                    ApiProvider.getInstance().getCurrentLocation(mLicensePlate,
-                            new OnServerResponseListener<Location>() {
-                                @Override
-                                public void onSuccess(Location data) {
-                                    mCurrentLocation = data;
-
-                                    Intent intent = new Intent(CommonConstants.ACTION_RECEIVE_VEHICLE_LOCATION);
-                                    intent.putExtra(CommonConstants.EXTRA_LATITUDE, data.latitude);
-                                    intent.putExtra(CommonConstants.EXTRA_LONGITUDE, data.longitude);
-                                    sendBroadcast(intent);
-                                }
-
-                                @Override
-                                public void onFail(Throwable t) {
-
-                                }
-                            });
-                }
+                updateVehicleLocation();
             }
 
             @Override
@@ -74,6 +56,7 @@ public class VehicleLocationUpdateService extends Service {
         if (intent != null) {
             switch (intent.getAction()) {
                 case CommonConstants.ACTION_UPDATE_VEHICLE_LOCATION:
+                    updateVehicleLocation();
                     if (!mIsTimerRunning) {
                         mTimer.start();
                         mIsTimerRunning = true;
@@ -81,6 +64,7 @@ public class VehicleLocationUpdateService extends Service {
                     break;
                 case CommonConstants.ACTION_UPDATE_LICENSE_PLATE:
                     mLicensePlate = intent.getStringExtra(CommonConstants.EXTRA_LICENSE_PLATE);
+                    updateVehicleLocation();
                     if (!mIsTimerRunning) {
                         mTimer.start();
                         mIsTimerRunning = true;
@@ -97,5 +81,27 @@ public class VehicleLocationUpdateService extends Service {
             }
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void updateVehicleLocation() {
+        if (!TextUtils.isEmpty(mLicensePlate)) {
+            ApiProvider.getInstance().getCurrentLocation(mLicensePlate,
+                    new OnServerResponseListener<Location>() {
+                        @Override
+                        public void onSuccess(Location data) {
+                            mCurrentLocation = data;
+
+                            Intent intent = new Intent(CommonConstants.ACTION_RECEIVE_VEHICLE_LOCATION);
+                            intent.putExtra(CommonConstants.EXTRA_LATITUDE, data.latitude);
+                            intent.putExtra(CommonConstants.EXTRA_LONGITUDE, data.longitude);
+                            sendBroadcast(intent);
+                        }
+
+                        @Override
+                        public void onFail(Throwable t) {
+
+                        }
+                    });
+        }
     }
 }
