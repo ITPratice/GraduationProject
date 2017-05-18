@@ -16,6 +16,17 @@
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/registration.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/jquery/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#re-input").on("click", function () {
+                $("#NumberPlate").val("");
+                $("#HardwareId").val("");
+                $("#Description").val("");
+                $("#UserEmail").val("");
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -121,7 +132,7 @@
                             @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "text-danger" })
                         </div>
 
-                        <input type="button" class="btn btn-lg btn-info col-lg-offset-6 col-lg-2" value="Nhập lại" style="margin-right: 5px;" />
+                        <input type="button" class="btn btn-lg btn-info col-lg-offset-6 col-lg-2" value="Nhập lại" id="re-input" style="margin-right: 5px;" />
                         <input type="submit" class="btn btn-lg btn-info col-lg-2" value="Đăng kí" id="Submit" />
                     </div>
                 }

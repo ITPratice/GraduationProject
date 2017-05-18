@@ -74,7 +74,7 @@ void VehicleHandler::handle_put(http_request request) {
     if (data->UpdateVehicle(_vehicle) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 
@@ -102,7 +102,7 @@ void VehicleHandler::handle_post(http_request request) {
     if (data->InsertVehicle(_vehicle) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 
@@ -121,6 +121,6 @@ void VehicleHandler::handle_delete(http_request request) {
     if (data->BanVehicle(_plate) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }

@@ -31,7 +31,7 @@ void VehicleTypeHandler::handle_get(http_request request) {
     // Get vehicle type by id
     auto _id = uri::decode(get_vars.find("id")->second);
     if (data->GetVehicleTypeById(_id, _outVehicleType) != DATA_SUCCESS) {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
         return;
     }
 
@@ -62,7 +62,7 @@ void VehicleTypeHandler::handle_put(http_request request) {
     if (data->UpdateVehicleType(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 
@@ -85,7 +85,7 @@ void VehicleTypeHandler::handle_post(http_request request) {
     if (data->InsertVehicleType(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 
@@ -108,6 +108,6 @@ void VehicleTypeHandler::handle_delete(http_request request) {
     if (data->DeleteVehicleType(_vType) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }

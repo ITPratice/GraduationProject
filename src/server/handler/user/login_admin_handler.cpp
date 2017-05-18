@@ -31,7 +31,7 @@ void LoginAdminHandler::handle_get(http_request request) {
     if(data->LoginAdmin(_email, _pass) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 
 }

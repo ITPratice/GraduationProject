@@ -91,7 +91,7 @@ void LocationHandler::handle_post(http_request request) {
     if (data->InsertLocation(_location) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 

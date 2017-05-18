@@ -46,7 +46,7 @@ namespace VehicleTracker.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Error", "Home");
+                        return Content("<script>alert('Error');</script>");
                     }
                 }
                 catch (Exception)

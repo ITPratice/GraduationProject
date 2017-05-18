@@ -74,7 +74,7 @@ void UserHandler::handle_put(http_request request) {
     if (data->UpdateUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 
@@ -101,7 +101,7 @@ void UserHandler::handle_post(http_request request) {
     if (data->InsertUser(_user) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
 
@@ -121,6 +121,6 @@ void UserHandler::handle_delete(http_request request) {
     if (data->DeActiveUser(_email) == DATA_SUCCESS) {
         request.reply(status_codes::OK, ResultCode::DONE);
     } else {
-        request.reply(status_codes::BadRequest, ResultCode::ERROR);
+        request.reply(status_codes::OK, ResultCode::ERROR);
     }
 }
