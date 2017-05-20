@@ -154,7 +154,6 @@ public class HistoryDetailActivity extends BaseActivity {
 
     private void getLocationAddress(double latitude, double longitude, final boolean isStartLocation) {
         new AsyncTask<LatLng, Void, Address>() {
-
             @Override
             protected Address doInBackground(LatLng... params) {
                 try {

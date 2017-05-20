@@ -20,12 +20,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\4fcca6186bedc4554f871683e7599b008a79553d\\output\\res\\drawable\\abc_item_background_holo_light.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_dialog_material_background_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_dialog_material_background_dark.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_mono_dark.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_mono_dark.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_dialog_material_background_dark.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_dialog_material_background_dark.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_cast_light.xml",
@@ -68,12 +68,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_play_light.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\4fcca6186bedc4554f871683e7599b008a79553d\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\4fcca6186bedc4554f871683e7599b008a79553d\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\4fcca6186bedc4554f871683e7599b008a79553d\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light.xml",

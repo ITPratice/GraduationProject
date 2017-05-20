@@ -1,4 +1,4 @@
-#Mon May 15 22:08:44 PDT 2017
+#Sat May 20 08:27:21 ICT 2017
 base.0=F\:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_de1a6f620a8793eb84053094ac14d4db2fdfe77a
 renamed.1=classes.dex
 renamed.0=classes2.dex

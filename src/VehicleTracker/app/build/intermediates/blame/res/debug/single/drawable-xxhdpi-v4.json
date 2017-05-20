@@ -36,12 +36,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\144eee5c8b7f06d152334594d0e696993552740a\\output\\res\\drawable-xxhdpi-v4\\design_ic_visibility_off.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_audiotrack_light.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_audiotrack_light.png"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_on_07_dark.png",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_on_07_dark.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_audiotrack_light.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_audiotrack_light.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_pause_grey600_48.png",
@@ -52,12 +52,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_on_22_dark.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_play_circle_filled_grey600_36.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_play_circle_filled_grey600_36.png"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\cast_ic_notification_2.png",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\d999b655bf9599574410f5a7f2adb4d77baa563d\\output\\res\\drawable-xxhdpi-v4\\cast_ic_notification_2.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_play_circle_filled_grey600_36.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_play_circle_filled_grey600_36.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_on_22_light.png",
@@ -164,12 +164,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_on_13_dark.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\cast_abc_scrubber_control_to_pressed_mtrl_000.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\cast_abc_scrubber_control_to_pressed_mtrl_000.png"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_connecting_08_dark.png",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_connecting_08_dark.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\cast_abc_scrubber_control_to_pressed_mtrl_000.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\cast_abc_scrubber_control_to_pressed_mtrl_000.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_on_21_light.png",
@@ -192,16 +192,16 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_connecting_04_dark.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_replay_30_grey600_36.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_replay_30_grey600_36.png"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_pause_circle_filled_grey600_36.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_pause_circle_filled_grey600_36.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_closed_caption_white_36.png",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_closed_caption_white_36.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_pause_circle_filled_grey600_36.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_pause_circle_filled_grey600_36.png"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_replay_30_grey600_36.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\76d35f9dd69090d0b2af1b572c4e781eecdecb83\\output\\res\\drawable-xxhdpi-v4\\quantum_ic_replay_30_grey600_36.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_on_05_dark.png",
@@ -264,12 +264,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\e0eda3da9a15e6acd022bb765b835f257f4dbb20\\output\\res\\drawable-xxhdpi-v4\\ic_plusone_standard_off_client.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_connecting_22_dark.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_connecting_22_dark.png"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_connecting_03_light.png",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_connecting_03_light.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_connecting_22_dark.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_connecting_22_dark.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
@@ -288,12 +288,12 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_media_route_connecting_04_light.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_tv_dark.png",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_tv_dark.png"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_half_black_16dp.png",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\4fcca6186bedc4554f871683e7599b008a79553d\\output\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_tv_dark.png",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable-xxhdpi-v4\\ic_tv_dark.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\quantum_ic_skip_previous_white_36.png",
