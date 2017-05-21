@@ -23,11 +23,8 @@ import butterknife.ButterKnife;
 import self.yue.vehicletracker.R;
 import self.yue.vehicletracker.base.BaseActivity;
 import self.yue.vehicletracker.data.local.History;
-import self.yue.vehicletracker.data.local.google.Route;
-import self.yue.vehicletracker.data.server.GoogleApiProvider;
 import self.yue.vehicletracker.ui.map.MapFragment;
 import self.yue.vehicletracker.util.CommonConstants;
-import self.yue.vehicletracker.util.interfaces.OnServerResponseListener;
 
 /**
  * Created by dongc on 5/6/2017.
@@ -55,6 +52,9 @@ public class HistoryDetailActivity extends BaseActivity {
     private String mDate;
     private String mLicensePlate;
 
+    private LatLng mStartPosition;
+    private LatLng mEndPosition;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_history_detail;
@@ -70,11 +70,9 @@ public class HistoryDetailActivity extends BaseActivity {
         setupMap();
         setupToolbar();
 
-        showPath();
-
         mGeocoder = new Geocoder(this, Locale.getDefault());
-        getLocationAddress(21.087058, 105.804273, true);
-        getLocationAddress(21.048165, 105.786281, false);
+        getLocationAddress(mStartPosition.latitude, mStartPosition.longitude, true);
+        getLocationAddress(mEndPosition.latitude, mEndPosition.longitude, false);
     }
 
     @Override
@@ -95,6 +93,11 @@ public class HistoryDetailActivity extends BaseActivity {
                 mLicensePlate = data.getString(CommonConstants.BUNDLE_LICENSE_PLATE);
             }
         }
+
+        mStartPosition = new LatLng(Double.parseDouble(mHistory.locations.get(0).latitude),
+                Double.parseDouble(mHistory.locations.get(0).longitude));
+        mEndPosition = new LatLng(Double.parseDouble(mHistory.locations.get(mHistory.locations.size() - 1).latitude),
+                Double.parseDouble(mHistory.locations.get(mHistory.locations.size() - 1).longitude));
     }
 
     private void initViews() {
@@ -121,6 +124,13 @@ public class HistoryDetailActivity extends BaseActivity {
         data.putBoolean(CommonConstants.BUNDLE_MY_LOCATION, false);
         mMapFragment.setArguments(data);
         getFragmentManager().beginTransaction().add(R.id.map_container, mMapFragment).commit();
+
+        mMapFragment.setOnMapReadyListener(new MapFragment.OnMapReadyListener() {
+            @Override
+            public void onMapReady() {
+                showPath();
+            }
+        });
     }
 
     private void setupToolbar() {
@@ -133,23 +143,10 @@ public class HistoryDetailActivity extends BaseActivity {
     }
 
     private void showPath() {
-        String origin = "21.087058,105.804273";
-        String destination = "21.048165,105.786281";
-
-        GoogleApiProvider.getInstance().getDirection(origin, destination,
-                getString(R.string.server_api_key), new OnServerResponseListener<Route>() {
-                    @Override
-                    public void onSuccess(Route data) {
-                        mMapFragment.moveCameraTo(new LatLng(21.087058, 105.804273), 13);
-                        mMapFragment.addStartMarker(new LatLng(21.087058, 105.804273));
-                        mMapFragment.addEndMarker(new LatLng(21.048165, 105.786281));
-                        mMapFragment.drawPaths(data.legs.get(0).steps);
-                    }
-
-                    @Override
-                    public void onFail(Throwable t) {
-                    }
-                });
+        mMapFragment.moveCameraTo(mStartPosition, 13);
+        mMapFragment.addStartMarker(mStartPosition);
+        mMapFragment.addEndMarker(mEndPosition);
+        mMapFragment.drawPath(mHistory.locations);
     }
 
     private void getLocationAddress(double latitude, double longitude, final boolean isStartLocation) {

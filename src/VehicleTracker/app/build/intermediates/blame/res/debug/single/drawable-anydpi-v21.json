@@ -16,12 +16,12 @@
         "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_close.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_shuffle.xml",
-        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_shuffle.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_license_plate.xml",
         "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_license_plate.xml"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_shuffle.xml",
+        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_shuffle.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_password.xml",

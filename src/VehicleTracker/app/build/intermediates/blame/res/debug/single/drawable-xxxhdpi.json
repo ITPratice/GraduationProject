@@ -4,12 +4,12 @@
         "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_user.png"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_logout.png",
-        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_logout.png"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_more.png",
         "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_more.png"
+    },
+    {
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_logout.png",
+        "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_logout.png"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_edit.png",

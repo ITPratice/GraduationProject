@@ -26,4 +26,6 @@
     <color name="text_state_color">#606060</color>
 
     <color name="switch_activated_color">#01be33</color>
+
+    <color name="map_path_color">#03c64e</color>
 </resources>

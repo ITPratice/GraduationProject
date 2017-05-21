@@ -3,11 +3,11 @@ package self.yue.vehicletracker.ui.map;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -66,11 +66,16 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
     private Marker mStartMarker;
     private Marker mEndMarker;
     private List<Polyline> mPolylines;
+    private OnMapReadyListener mListener;
 
     private boolean mEnableMyLocation;
 
     public MapFragment() {
         mDefaultLocation = new LatLng(21.048647, 105.784634); // Military technical academy
+    }
+
+    public void setOnMapReadyListener(OnMapReadyListener listener) {
+        mListener = listener;
     }
 
     @Override
@@ -100,7 +105,6 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
     public void onStop() {
         super.onStop();
         CacheHelper.getInstance().saveCameraPosition(mMap.getCameraPosition());
-        Log.e("Map Fragment", "Ahuhu");
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
@@ -120,6 +124,10 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         mGoogleApiClient.connect();
+
+        if (mListener != null) {
+            mListener.onMapReady();
+        }
     }
 
     @Override
@@ -227,8 +235,8 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
                 List<LatLng> points = decodePoints(step.polyline.points);
                 PolylineOptions polylineOptions = new PolylineOptions();
                 polylineOptions.addAll(points);
-                polylineOptions.width(3);
-                polylineOptions.color(Color.BLUE);
+                polylineOptions.width(8);
+                polylineOptions.color(ContextCompat.getColor(getActivity(), R.color.map_path_color));
 
                 Polyline polyline = mMap.addPolyline(polylineOptions);
                 mPolylines.add(polyline);
@@ -254,6 +262,22 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
         }
         mEndMarker = mMap.addMarker(new MarkerOptions().position(position).title("End position")
                 .icon(BitmapHelper.getBitmapDescriptor(getActivity(), R.drawable.ic_wheel)));
+    }
+
+    public void drawPath(List<self.yue.vehicletracker.data.local.Location> locations) {
+        List<LatLng> points = new ArrayList<>();
+        for (self.yue.vehicletracker.data.local.Location location : locations) {
+            points.add(new LatLng(Double.parseDouble(location.latitude),
+                    Double.parseDouble(location.longitude)));
+        }
+
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.addAll(points);
+        polylineOptions.width(8);
+        polylineOptions.color(ContextCompat.getColor(getActivity(), R.color.map_path_color));
+
+        Polyline polyline = mMap.addPolyline(polylineOptions);
+        mPolylines.add(polyline);
     }
 
     private void updateLocationUI() {
@@ -333,5 +357,9 @@ public class MapFragment extends com.google.android.gms.maps.MapFragment impleme
         }
 
         return poly;
+    }
+
+    public interface OnMapReadyListener {
+        void onMapReady();
     }
 }
