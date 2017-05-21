@@ -33,27 +33,30 @@ namespace VehicleTracker.Controllers
         {
             String _email = form["Email"].ToString();
             String _pass = form["PassWord"].ToString();
-
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    var result = await UserVM.LoginAdminAsync(client, _email, _pass);
-                    if (result.Equals(ResultCode.DONE))
+                    try
                     {
-                        HttpContext.Session.SetString("Admin", _email);
-                        return RedirectToAction("Index");
+                        var result = await UserVM.LoginAdminAsync(client, _email, _pass);
+                        if (result.Equals(ResultCode.DONE))
+                        {
+                            HttpContext.Session.SetString("Admin", _email);
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", Lang.LANG_LOGIN_FAIL);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return Content("<script>alert('Error');</script>");
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch (Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
         }
     }
 }

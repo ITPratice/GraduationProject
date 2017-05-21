@@ -81,7 +81,7 @@
                                 </td>
                                 <td>
                                     <center>
-                                        <a class="btn btn-xs btn-success" role="button" href="@Url.Action("Test", "User", new { email = user.Email })" id="Active">Active</a>
+                                        <a class="btn btn-xs btn-success" role="button" href="@Url.Action("Actived", "User", new { email = user.Email })" onclick="return confirm('Bạn chắc chắn muốn kích hoạt thành viên này?')" id="Active">Active</a>
                                     </center>
                                 </td>
                             </tr>

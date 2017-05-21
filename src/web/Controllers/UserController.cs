@@ -8,6 +8,7 @@ using VehicleTracker.Helper;
 using Newtonsoft.Json.Linq;
 using VehicleTracker.Models;
 using VehicleTracker.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleTracker.Controllers
 {
@@ -15,13 +16,18 @@ namespace VehicleTracker.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
                 {
                     return View(await UserVM.GetAllUserAsync(client));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -31,6 +37,11 @@ namespace VehicleTracker.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string email)
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
@@ -41,7 +52,7 @@ namespace VehicleTracker.Controllers
                     }
                     return View(await UserVM.GetUserByEmailAsync(client, email));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -52,7 +63,7 @@ namespace VehicleTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())
                 {
@@ -79,13 +90,18 @@ namespace VehicleTracker.Controllers
 
         public async Task<IActionResult> Active()
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
                 {
                     return View(await UserVM.GetAllUserActiveAsync(client));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -98,7 +114,7 @@ namespace VehicleTracker.Controllers
             {
                 try
                 {
-                    if(email.Equals(String.Empty))
+                    if (email.Equals(String.Empty))
                     {
                         return BadRequest(Lang.LANG_EMAIL_NOT_FOUND);
                     }
@@ -112,7 +128,7 @@ namespace VehicleTracker.Controllers
                         return BadRequest(Lang.LANG_DELETE_PROBLEM);
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -121,7 +137,7 @@ namespace VehicleTracker.Controllers
 
 
         // Just Test
-        public async Task<IActionResult> Test(String email)
+        public async Task<IActionResult> Actived(String email)
         {
             using (var client = new HttpClient())
             {
@@ -137,12 +153,12 @@ namespace VehicleTracker.Controllers
                         return BadRequest(Lang.LANG_UPDATE_PROBLEM);
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
-                
+
         }
     }
 }

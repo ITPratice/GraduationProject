@@ -81,7 +81,7 @@ namespace VehicleTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegVehicle(Vehicle vehicle)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())
                 {

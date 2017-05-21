@@ -15,18 +15,24 @@
             <div class="col-md-8">
                 @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
+                    <span class="help-block">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </span>
                     <div class="edit-row">
-                        <h3>ID</h3>
+                        <h3>Mã loại xe</h3>
                         <p>Là chữ và số, tối đa 10 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" disabled value="@Model.Id">
+                            @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @placeholder = "Enter Type Id Here..", @value = "@Model.Id", @disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Tên loại xe</h3>
                         <p>Là chữ và số, tối đa 50 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" value="@Model.Name">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Enter Type Name Here..", @value = "@Model.Name" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">

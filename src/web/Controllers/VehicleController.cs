@@ -7,6 +7,7 @@ using System.Net.Http;
 using VehicleTracker.ViewModel;
 using VehicleTracker.Helper;
 using VehicleTracker.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleTracker.Controllers
 {
@@ -14,6 +15,11 @@ namespace VehicleTracker.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
@@ -30,6 +36,11 @@ namespace VehicleTracker.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(String numberPlate)
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try

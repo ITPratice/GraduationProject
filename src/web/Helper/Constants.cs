@@ -37,5 +37,6 @@ namespace VehicleTracker.Helper
 
         // 
         public static String LANG_EMAIL_NOT_FOUND   = "Email not found";
+        public static String LANG_LOGIN_FAIL        = "Email hoặc mật khẩu không chính xác";
     }
 }
