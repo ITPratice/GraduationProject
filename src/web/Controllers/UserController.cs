@@ -16,7 +16,7 @@ namespace VehicleTracker.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("Admin") == null)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -37,7 +37,7 @@ namespace VehicleTracker.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string email)
         {
-            if (HttpContext.Session.GetString("Admin") == null)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -90,7 +90,7 @@ namespace VehicleTracker.Controllers
 
         public async Task<IActionResult> Active()
         {
-            if (HttpContext.Session.GetString("Admin") == null)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }

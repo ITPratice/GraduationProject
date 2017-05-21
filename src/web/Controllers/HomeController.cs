@@ -19,7 +19,7 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Admin") == null)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }

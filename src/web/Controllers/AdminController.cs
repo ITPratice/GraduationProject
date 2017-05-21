@@ -12,7 +12,7 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Admin") == String.Empty)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -31,6 +31,10 @@ namespace VehicleTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(IFormCollection form)
         {
+            //if (HttpContext.Session.GetString("Admin") != String.Empty)
+            //{
+            //    return RedirectToAction("Index", "Vehicle");
+            //}
             String _email = form["Email"].ToString();
             String _pass = form["PassWord"].ToString();
             if (ModelState.IsValid)
@@ -57,6 +61,15 @@ namespace VehicleTracker.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            if (HttpContext.Session.GetString("Admin") != null || HttpContext.Session.GetString("Admin") != String.Empty)
+            {
+                HttpContext.Session.SetString("Admin", String.Empty);
+            }
+            return RedirectToAction("Login", "Admin");
         }
     }
 }
