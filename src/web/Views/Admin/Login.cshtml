@@ -19,6 +19,9 @@
             <h1>Admin Panel</h1>
             <input type="text" value="" placeholder="Username" id="username" name="Email" />
             <input type="password" value="" placeholder="Password" id="password" name="PassWord" />
+            <span class="help-block">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </span>
             <input type="submit" value="Đăng nhập" id="submit" />
         </div>
     }

@@ -7,7 +7,7 @@
 <div id="content">
     <header class="clearfix">
         <h2 class="page-title">
-            Sửa thông tin thành viên
+            Sửa thông tin hãng xe
         </h2>
     </header>
     <div class="content-inner">
@@ -15,18 +15,24 @@
             <div class="col-md-8">
                 @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
+                    <span class="help-block">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </span>
                     <div class="edit-row">
-                        <h3>Email</h3>
-                        <p>Là chữ và số</p>
+                        <h3>Mã hãng xe</h3>
+                        <p>Là chữ và số, tối đa 100 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Id" name="Id" class="form-control" title="" disabled placeholder="Id" value="@Model.Id">
+                            @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @placeholder = "Enter Brand Id Here..", @value = "@Model.Id", @disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Họ tên</h3>
-                        <p>La chu</p>
+                        <p>Là chữ và số, tối đa 100 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" value="@Model.Name">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Enter Brand Name Here..", @value = "@Model.Name" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">

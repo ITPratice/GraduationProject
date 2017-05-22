@@ -1,4 +1,5 @@
-﻿
+﻿@using VehicleTracker.Models
+@model Branch
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -14,24 +15,28 @@
             <div class="col-md-8">
                 @using (Html.BeginForm())
                 {
+                    @Html.AntiForgeryToken()
+                    <span class="help-block">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </span>
                     <div class="edit-row">
                         <h3>ID</h3>
                         <p>Là chữ và số, tối đa 10 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Id" name="Id" class="form-control" title="" placeholder="Id" />
+                            @Html.TextBoxFor(model => model.Id, new { @class = "form-control", @placeholder = "Enter Brand Id Here.." })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="edit-row">
                         <h3>Tên hãng xe</h3>
                         <p>Là chữ và số, tối đa 50 ký tự</p>
                         <div class="form-group">
-                            <input type="text" id="Name" name="Name" class="form-control" title="" placeholder="Name" />
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Enter Brand Name Here.." })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="edit-row">
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Thêm" />
-                        </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Thêm" />
                     </div>
                 }
             </div>

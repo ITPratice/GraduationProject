@@ -56,12 +56,12 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    <div>
-                        <label>
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        </label>
-                    </div>
                     <div class="col-sm-12">
+                        <div class="form-group">
+                            <span class="help-block">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </span>
+                        </div>
                         <div class="form-group">
                             <label>Email</label>
                             <p>Bao gồm chữ và số, tối đa 80 kí tự</p>

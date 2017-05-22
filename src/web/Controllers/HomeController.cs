@@ -19,7 +19,7 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Admin") == null)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -81,7 +81,7 @@ namespace VehicleTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegVehicle(Vehicle vehicle)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())
                 {
