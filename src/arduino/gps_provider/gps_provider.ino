@@ -78,6 +78,8 @@ void loop() {
     }
 
     sendData();
+
+    delay(2000);
   } else {
     if (sendATCommandWithResponse("AT+CGNSINF", &response, "OK", "OK", 5000) != SUCCESS) {
       delay(10000);
@@ -139,14 +141,14 @@ void openGprs() {
   while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"", "OK", "ERROR", 1000) != SUCCESS) {
     delay(1000);
   }
-  delay(3000);
+  delay(1000);
 
   // Set APN
   while (sendATCommandWithoutResponse("AT+SAPBR=3,1,\"APN\",\"v-internet\"", "OK", "ERROR", 10000) != SUCCESS);
-  delay(4000);
+  delay(2000);
 
   while (sendATCommandWithoutResponse("AT+SAPBR=1,1", "OK", "ERROR", 30000) != SUCCESS);
-  delay(2000);
+  delay(1000);
 }
 
 bool isGprsAvailable() {
@@ -156,7 +158,7 @@ bool isGprsAvailable() {
 
 void sendData() {
   getCurrentDateTime(&dateTime);
-  delay(10000);
+  delay(2000);
 
   while (!isGprsAvailable()) {
     openGprs();
@@ -188,18 +190,17 @@ void sendData() {
 
   sendATCommandWithoutResponse(command, "OK", "ERROR", 10000);
 
-  delay(1000);
   // Set http action. Type: 0=GET, 1=POST, 2=HEAD
   sendATCommandWithoutResponse("AT+HTTPACTION=0", "OK", "ERROR", 1000);
 
-  delay(10000);
+  delay(2000);
 
   // Read data
   sendATCommandWithoutResponse("AT+HTTPREAD", "SUCCESS", "ERROR", 2000);
 
   // Terminate http
   sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 1000);
-  while (sendATCommandWithoutResponse("AT+SAPBR=0,1", "OK", "ERROR", 1000) != SUCCESS);
+  //  while (sendATCommandWithoutResponse("AT+SAPBR=0,1", "OK", "ERROR", 1000) != SUCCESS);
 }
 
 void split(String source, String dest[], char seperateCharacter) {
@@ -244,12 +245,10 @@ void getCurrentDateTime(DateTime *dateTime) {
     command = "AT+HTTPPARA=\"URL\",\"" + baseUrl + "time?plate=" + LICENSE_PLATE + "\"";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 5000);
 
-    delay(1000);
-
     command = "AT+HTTPACTION=0";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 1000);
 
-    delay(10000);
+    delay(3000);
 
     sendATCommandWithResponse("AT+HTTPREAD", &response, "OK", "OK", 10000);
 
@@ -281,8 +280,6 @@ void getCurrentDateTime(DateTime *dateTime) {
       dateTime->currentTime = info[1];
       isMoving = info[2] == "1";
     }
-
-    delay(1000);
 
     sendATCommandWithoutResponse("AT+HTTPTERM", "OK", "ERROR", 5000);
   }
@@ -346,7 +343,7 @@ int8_t sendATCommandWithResponse(String atCommand, String *response, String succ
       }
     }
   } while ((answer == NO_RESPONSE) && ((millis() - previousTime) < timeout));
-  
+
   if (DEBUG)
     Serial.println(*response);
   return answer;

@@ -28,14 +28,6 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\671821010995ed89ab76c171263201985e92782e\\output\\res\\drawable\\mr_dialog_material_background_dark.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_mono_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_mono_dark.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_cast_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_cast_light.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_dialog_close_dark.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\671821010995ed89ab76c171263201985e92782e\\output\\res\\drawable\\mr_dialog_close_dark.xml"
     },
@@ -50,10 +42,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_pause.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_notification_pause.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_connecting_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_connecting_light.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
@@ -78,10 +66,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_history_item.xml",
         "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\drawable\\bg_history_item.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_play_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_play_light.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
@@ -128,14 +112,6 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_expanded_controller_pause.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_on_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_on_dark.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_expand.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\ic_expand.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_expanded_controller_skip_next.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_expanded_controller_skip_next.xml"
     },
@@ -178,10 +154,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_group_collapse.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\671821010995ed89ab76c171263201985e92782e\\output\\res\\drawable\\mr_group_collapse.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_close_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_close_dark.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edit_text_id.xml",
@@ -244,20 +216,16 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_mini_controller_mute.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light_focused.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\d283598d1a8a6df5eb28b901e7a3621deab1dc61\\output\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_media_pause_light.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\671821010995ed89ab76c171263201985e92782e\\output\\res\\drawable\\mr_media_pause_light.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_expanded_controller_bg_gradient_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_expanded_controller_bg_gradient_light.xml"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light_focused.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\d283598d1a8a6df5eb28b901e7a3621deab1dc61\\output\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_close_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_close_light.xml"
+        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_expanded_controller_bg_gradient_light.xml",
+        "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_expanded_controller_bg_gradient_light.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_skip_next.xml",
@@ -292,10 +260,6 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_notification_stop_live_stream.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_pause_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_pause_dark.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_pause.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_mini_controller_pause.xml"
     },
@@ -310,14 +274,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_media_play_dark.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\671821010995ed89ab76c171263201985e92782e\\output\\res\\drawable\\mr_media_play_dark.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_mono_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_mono_light.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_pause_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_pause_light.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
@@ -356,16 +312,8 @@
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_notification_forward.xml"
     },
     {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_collapse.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\ic_collapse.xml"
-    },
-    {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bottom_bar_item_color_state.xml",
         "source": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\src\\main\\res\\drawable\\bottom_bar_item_color_state.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_on_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_on_light.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_button_dark.xml",
@@ -386,10 +334,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_mini_controller_progress_drawable.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_mini_controller_progress_drawable.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_audiotrack_light.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_audiotrack_light.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_button_connected_light.xml",
@@ -422,10 +366,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_connecting.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\1d32d8fdc485ae38d527010f3843b1d9f1bee40d\\output\\res\\drawable\\cast_ic_notification_connecting.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_play_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_play_dark.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_mini_controller_forward30.xml",
@@ -478,14 +418,6 @@
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cast_ic_notification_forward30.xml",
         "source": "C:\\Users\\dongc\\.android\\build-cache\\ec43154c7395fee9786a9a7614736fb88b99ae30\\output\\res\\drawable\\cast_ic_notification_forward30.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_cast_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_cast_dark.xml"
-    },
-    {
-        "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_connecting_dark.xml",
-        "source": "C:\\Users\\dongc\\.android\\build-cache\\61e9b290e919285c6b0c8f2042d4fffa16f55bbd\\output\\res\\drawable\\mr_ic_media_route_connecting_dark.xml"
     },
     {
         "merged": "F:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_button_login.xml",

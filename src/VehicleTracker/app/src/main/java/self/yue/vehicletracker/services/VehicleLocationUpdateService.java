@@ -17,7 +17,7 @@ import self.yue.vehicletracker.util.interfaces.OnServerResponseListener;
  */
 
 public class VehicleLocationUpdateService extends Service {
-    private static final int UPDATE_INTERVAL = 60000;
+    private static final int UPDATE_INTERVAL = 10000;
 
     private CountDownTimer mTimer;
 
