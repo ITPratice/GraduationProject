@@ -248,7 +248,7 @@ void getCurrentDateTime(DateTime *dateTime) {
     command = "AT+HTTPACTION=0";
     sendATCommandWithoutResponse(command, "OK", "ERROR", 1000);
 
-    delay(3000);
+    delay(5000);
 
     sendATCommandWithResponse("AT+HTTPREAD", &response, "OK", "OK", 10000);
 
