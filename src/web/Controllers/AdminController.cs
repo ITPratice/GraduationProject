@@ -12,7 +12,7 @@ namespace VehicleTracker.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Admin") == String.Empty)
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
             {
                 return RedirectToAction("Login", "Admin");
             }
@@ -31,29 +31,45 @@ namespace VehicleTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(IFormCollection form)
         {
+            //if (HttpContext.Session.GetString("Admin") != String.Empty)
+            //{
+            //    return RedirectToAction("Index", "Vehicle");
+            //}
             String _email = form["Email"].ToString();
             String _pass = form["PassWord"].ToString();
-
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    var result = await UserVM.LoginAdminAsync(client, _email, _pass);
-                    if (result.Equals(ResultCode.DONE))
+                    try
                     {
-                        HttpContext.Session.SetString("Admin", _email);
-                        return RedirectToAction("Index");
+                        var result = await UserVM.LoginAdminAsync(client, _email, _pass);
+                        if (result.Equals(ResultCode.DONE))
+                        {
+                            HttpContext.Session.SetString("Admin", _email);
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", Lang.LANG_LOGIN_FAIL);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return Content("<script>alert('Error');</script>");
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch (Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            if (HttpContext.Session.GetString("Admin") != null || HttpContext.Session.GetString("Admin") != String.Empty)
+            {
+                HttpContext.Session.SetString("Admin", String.Empty);
+            }
+            return RedirectToAction("Login", "Admin");
         }
     }
 }

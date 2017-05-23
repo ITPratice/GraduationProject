@@ -7,6 +7,7 @@ using System.Net.Http;
 using VehicleTracker.Models;
 using VehicleTracker.ViewModel;
 using VehicleTracker.Helper;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleTracker.Controllers
 {
@@ -14,13 +15,18 @@ namespace VehicleTracker.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
                 {
                     return View(await BranchVM.GetAllBranchAsync(client));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -30,36 +36,57 @@ namespace VehicleTracker.Controllers
         [HttpGet]
         public IActionResult Insert()
         {
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Insert(Branch branch)
         {
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    String _result = await BranchVM.InsertBranchAsync(client, branch);
-                    return _result.Equals(ResultCode.DONE) ? RedirectToAction("Index", "Branch") : RedirectToAction("Home", "Error");
-                }
-                catch
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                    try
+                    {
+                        String _result = await BranchVM.InsertBranchAsync(client, branch);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("Index", "Branch");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", Lang.LANG_INSERT_PROBLEM);
+                        }
+                    }
+                    catch
+                    {
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
+                    }
                 }
             }
+            return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(String Id)
         {
+            if (HttpContext.Session.GetString("Admin") == null || HttpContext.Session.GetString("Admin") == String.Empty)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
                 {
                     return View(await BranchVM.GetBranchByIdAsync(client, Id));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
@@ -67,27 +94,32 @@ namespace VehicleTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Branch branch)
         {
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    String _result = await BranchVM.UpdateBranchAsyn(client, branch);
-                    if (_result.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("Index", "Branch");
+                        String _result = await BranchVM.UpdateBranchAsyn(client, branch);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("Index", "Branch");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", Lang.LANG_UPDATE_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch(Exception)
-                {
-                    return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }
             }
+            return View();
         }
 
         public async Task<IActionResult> Delete(String Id, String Name)
@@ -97,7 +129,7 @@ namespace VehicleTracker.Controllers
                 try
                 {
                     String _result = await BranchVM.DeleteBranchAsync(client, Id, Name);
-                    if(_result.Equals(ResultCode.DONE))
+                    if (_result.Equals(ResultCode.DONE))
                     {
                         return RedirectToAction("Index");
                     }
@@ -106,7 +138,7 @@ namespace VehicleTracker.Controllers
                         return BadRequest(Lang.LANG_DELETE_PROBLEM);
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                 }

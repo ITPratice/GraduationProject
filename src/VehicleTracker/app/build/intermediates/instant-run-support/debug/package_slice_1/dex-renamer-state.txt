@@ -1,4 +1,4 @@
-#Sun May 21 10:36:46 ICT 2017
+#Sun May 21 22:31:21 ICT 2017
 base.0=F\:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_1
 renamed.0=classes.dex
 file.0=F\:\\git\\GraduationProject\\src\\VehicleTracker\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_1\\classes.dex

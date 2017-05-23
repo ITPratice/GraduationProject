@@ -32,7 +32,7 @@ namespace VehicleTracker
             services.AddDistributedMemoryCache();
             services.AddSession(options=>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.IdleTimeout = TimeSpan.FromSeconds(300);
                 options.CookieHttpOnly = true;
             });
         }

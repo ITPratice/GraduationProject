@@ -7,6 +7,7 @@ using VehicleTracker.ViewModel;
 using System.Net.Http;
 using VehicleTracker.Models;
 using VehicleTracker.Helper;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleTracker.Controllers
 {
@@ -14,15 +15,20 @@ namespace VehicleTracker.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
                 {
                     return View(await VehicleTypeVM.GetAllVehicleTypeAsync(client));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
-                    return BadRequest("Get All Vehicle Type Fail");
+                    return BadRequest(Lang.LANG_SELECT_PROBLEM);
                 }
             }
         }
@@ -30,71 +36,90 @@ namespace VehicleTracker.Controllers
         [HttpGet]
         public IActionResult Insert()
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Insert(VehicleType vehicleType)
         {
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    String _result = await VehicleTypeVM.InsertVehicleTypeAsync(client, vehicleType);
-                    if(_result.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("Index");
+                        String _result = await VehicleTypeVM.InsertVehicleTypeAsync(client, vehicleType);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return BadRequest(Lang.LANG_INSERT_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest("Fail");
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch(Exception)
-                {
-                    return BadRequest("Connection Broken");
                 }
             }
+            return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(String Id)
         {
+            if (HttpContext.Session.GetString("Admin") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             using (var client = new HttpClient())
             {
                 try
                 {
                     return View(await VehicleTypeVM.GetVehicleTypeByIdAsync(client, Id));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
-                    return BadRequest("Get Vehicle Type Fail");
+                    return BadRequest(Lang.LANG_SELECT_PROBLEM);
                 }
             }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(VehicleType vehicleType)
         {
-            using(var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                try
+                using (var client = new HttpClient())
                 {
-                    String _result = await VehicleTypeVM.UpdateVehicleTypeAsync(client, vehicleType);
-                    if (_result.Equals(ResultCode.DONE))
+                    try
                     {
-                        return RedirectToAction("Index", "VehicleType");
+                        String _result = await VehicleTypeVM.UpdateVehicleTypeAsync(client, vehicleType);
+                        if (_result.Equals(ResultCode.DONE))
+                        {
+                            return RedirectToAction("Index", "VehicleType");
+                        }
+                        else
+                        {
+                            return BadRequest(Lang.LANG_UPDATE_PROBLEM);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return BadRequest("Fail");
+                        return BadRequest(Lang.LANG_CONNECTION_PROBLEM);
                     }
-                }
-                catch (Exception)
-                {
-                    return BadRequest("Connection Has Broken");
                 }
             }
+            return View();
         }
 
         public async Task<IActionResult> Delete(String Id, String Name)
